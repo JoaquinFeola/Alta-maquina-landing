@@ -18,7 +18,7 @@ const {
   title, 
   description = defaultDescription, 
   keywords = defaultKeywords,
-  ogImage = `${siteURL}/og-image.png`,
+  ogImage = `${siteURL}/favicon.jpg`,
   canonicalURL = Astro.url.href || siteURL
 } = Astro.props;
 ---
@@ -29,7 +29,7 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="/favicon.jpg" />
     <link rel="canonical" href={canonicalURL} />
     
     <!-- Meta tags básicos -->

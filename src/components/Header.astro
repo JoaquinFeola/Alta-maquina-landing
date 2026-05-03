@@ -1,0 +1,165 @@
+---
+import Container from './Container.astro';
+import { Sun, Moon } from 'lucide-react';
+---
+
+<script>
+  const menuButton = document.getElementById('menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+
+  function toggleMenu() {
+    mobileMenu?.classList.toggle('hidden');
+    mobileMenu?.classList.toggle('flex');
+  }
+
+  menuButton?.addEventListener('click', toggleMenu);
+
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+      mobileMenu?.classList.remove('flex');
+    });
+  });
+
+  // Theme toggle logic - inline script to avoid conflicts
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+  const themeIcon = document.getElementById('theme-icon');
+  const themeIconMobile = document.getElementById('theme-icon-mobile');
+  
+  function updateThemeIcon() {
+    const isDark = document.documentElement.classList.contains('dark');
+    // Create SVG elements for sun and moon icons
+    if (isDark) {
+      // Moon icon (dark mode)
+      if (themeIcon) {
+        themeIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+        themeIcon.setAttribute('aria-label', 'Cambiar a modo claro');
+      }
+      if (themeIconMobile) {
+        themeIconMobile.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+        themeIconMobile.setAttribute('aria-label', 'Cambiar a modo claro');
+      }
+    } else {
+      // Sun icon (light mode)
+      if (themeIcon) {
+        themeIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+        themeIcon.setAttribute('aria-label', 'Cambiar a modo oscuro');
+      }
+      if (themeIconMobile) {
+        themeIconMobile.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+        themeIconMobile.setAttribute('aria-label', 'Cambiar a modo oscuro');
+      }
+    }
+  }
+  
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.classList.contains('dark');
+    
+    if (isDark) {
+      html.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    } else {
+      html.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    }
+    
+    updateThemeIcon();
+  }
+  
+  // Initialize icon on page load
+  updateThemeIcon();
+  
+  themeToggle?.addEventListener('click', toggleTheme);
+  themeToggleMobile?.addEventListener('click', toggleTheme);
+</script>
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-dark-bg/90 backdrop-blur-md border-b border-gray-200 dark:border-dark-border">
+  <Container>
+    <nav class="flex items-center justify-between h-16">
+      <a href="/" class="flex items-center hover:opacity-80 transition-opacity">
+        <img src="/favicon.jpg" alt="Alta Maquina" class="w-10 h-10 rounded-full object-cover" />
+        <span class="ml-3 text-lg font-bold text-gray-900 dark:text-dark-text">Alta Maquina</span>
+      </a>
+      
+      <!-- Desktop Navigation -->
+      <ul class="hidden md:flex items-center gap-8">
+        <li>
+          <a href="#servicios" class="text-sm text-gray-500 dark:text-dark-text-secondary hover:text-primary dark:hover:text-accent transition-colors">
+            Servicios
+          </a>
+        </li>
+        <li>
+          <a href="#por-que-elegirnos" class="text-sm text-gray-500 dark:text-dark-text-secondary hover:text-primary dark:hover:text-accent transition-colors">
+            Nosotros
+          </a>
+        </li>
+        <li>
+          <a href="#contacto" class="text-sm text-gray-500 dark:text-dark-text-secondary hover:text-primary dark:hover:text-accent transition-colors">
+            Contacto
+          </a>
+        </li>
+        <li>
+          <!-- Theme Toggle Button -->
+          <button
+            id="theme-toggle"
+            type="button"
+            class="p-2 text-gray-500 dark:text-dark-text-secondary hover:text-gray-900 dark:hover:text-dark-text bg-gray-100 dark:bg-dark-bg-secondary hover:bg-gray-200 dark:hover:bg-slate-700 rounded-lg transition-colors focus:outline-none"
+            aria-label="Cambiar tema"
+          >
+            <span id="theme-icon"></span>
+          </button>
+        </li>
+      </ul>
+
+      <!-- Mobile Menu Button -->
+      <button 
+        id="menu-toggle" 
+        type="button" 
+        class="md:hidden p-2 text-gray-500 dark:text-dark-text-secondary hover:text-gray-900 dark:hover:text-dark-text focus:outline-none"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </nav>
+  </Container>
+
+  <!-- Mobile Menu Dropdown -->
+  <div id="mobile-menu" class="hidden md:hidden bg-white/95 dark:bg-dark-bg/95 backdrop-blur-md border-b border-gray-200 dark:border-dark-border">
+    <Container>
+      <ul class="py-4 space-y-4">
+        <li>
+          <a href="#servicios" class="mobile-link block text-base text-gray-500 dark:text-dark-text-secondary hover:text-primary dark:hover:text-accent transition-colors">
+            Servicios
+          </a>
+        </li>
+        <li>
+          <a href="#por-que-elegirnos" class="mobile-link block text-base text-gray-500 dark:text-dark-text-secondary hover:text-primary dark:hover:text-accent transition-colors">
+            Nosotros
+          </a>
+        </li>
+        <li>
+          <a href="#contacto" class="mobile-link block text-base text-gray-500 dark:text-dark-text-secondary hover:text-primary dark:hover:text-accent transition-colors">
+            Contacto
+          </a>
+        </li>
+        <li>
+          <!-- Theme Toggle Button (Mobile) -->
+          <button
+            id="theme-toggle-mobile"
+            type="button"
+            class="p-2 text-gray-500 dark:text-dark-text-secondary hover:text-gray-900 dark:hover:text-dark-text bg-gray-100 dark:bg-dark-bg-secondary hover:bg-gray-200 dark:hover:bg-slate-700 rounded-lg transition-colors focus:outline-none"
+            aria-label="Cambiar tema"
+          >
+            <span id="theme-icon-mobile"></span>
+          </button>
+        </li>
+      </ul>
+    </Container>
+  </div>
+</header>

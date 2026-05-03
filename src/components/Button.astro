@@ -1,0 +1,36 @@
+---
+interface Props {
+  variant?: 'primary' | 'secondary';
+  href?: string;
+  class?: string;
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
+}
+
+const { 
+  variant = 'primary', 
+  href, 
+  class: className = "", 
+  type = 'button',
+  disabled = false 
+} = Astro.props;
+
+const baseClasses = "inline-flex items-center justify-center px-6 py-3 text-base font-medium transition-all duration-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary dark:focus:ring-offset-dark-bg disabled:opacity-50 disabled:cursor-not-allowed";
+
+const variantClasses = {
+  primary: "bg-primary text-white hover:bg-primary-hover focus:ring-primary dark:bg-accent dark:text-white dark:hover:bg-accent-hover dark:focus:ring-accent",
+  secondary: "bg-transparent border-2 border-gray-200 dark:border-dark-border text-gray-900 dark:text-dark-text hover:border-primary dark:hover:border-accent focus:ring-primary dark:focus:ring-accent"
+};
+
+const componentClass = `${baseClasses} ${variantClasses[variant]} ${className}`;
+---
+
+{href ? (
+  <a href={href} class:list={[componentClass, { 'pointer-events-none': disabled }]}>
+    <slot />
+  </a>
+) : (
+  <button type={type} class={componentClass} disabled={disabled}>
+    <slot />
+  </button>
+)}

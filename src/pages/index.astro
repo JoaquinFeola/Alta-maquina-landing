@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/Hero.astro';
+import Servicios from '../components/Servicios.astro';
+import PorQueElegirnos from '../components/PorQueElegirnos.astro';
+import Contacto from '../components/Contacto.astro';
+---
+
+<Layout title="Alta Maquina">
+  <Header />
+  
+  <main class="flex-1 pt-16">
+    <Hero />
+    <Servicios />
+    <PorQueElegirnos />
+    <Contacto />
+  </main>
+  
+  <Footer />
+</Layout>

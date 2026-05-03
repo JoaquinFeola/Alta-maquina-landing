@@ -1,0 +1,55 @@
+---
+import Container from './Container.astro';
+import Button from './Button.astro';
+---
+
+<section class="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
+  <!-- Background gradient -->
+  <div class="absolute inset-0 bg-gray-50 dark:bg-dark-bg">
+    <!-- Subtle radial gradient for depth -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(37,99,235,0.08)_0%,_transparent_50%)]"></div>
+    <!-- Grid pattern -->
+    <div class="absolute inset-0 bg-[linear-gradient(rgba(37,99,235,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,0.03)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
+  </div>
+
+  <Container class="relative z-10 py-20">
+    <div class="max-w-3xl mx-auto text-center">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-primary/10 border border-primary/20 dark:bg-accent/10 dark:border-accent/20">
+        <span class="w-2 h-2 rounded-full bg-primary dark:bg-accent animate-pulse"></span>
+        <span class="text-sm text-gray-600 dark:text-dark-text-secondary font-medium">Servicios profesionales</span>
+      </div>
+
+      <!-- Main title -->
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-dark-text mb-6 leading-tight">
+        Tu PC como nuevo,<br class="hidden sm:block" />
+        <span class="text-primary dark:text-accent">tu web lista</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="text-lg sm:text-xl text-gray-500 dark:text-dark-text-secondary mb-10 max-w-2xl mx-auto leading-relaxed">
+        Servicios de limpieza, armado y desarrollo web. Rápido, limpio y profesional.
+      </p>
+
+      <!-- CTA buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <Button variant="primary" href="#contacto">
+          Contactanos
+        </Button>
+        <Button variant="secondary" href="#servicios">
+          Ver servicios
+        </Button>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="mt-16 flex justify-center">
+        <div class="flex flex-col items-center gap-2 text-gray-300 dark:text-dark-text-secondary/30">
+          <span class="text-xs uppercase tracking-widest">Scroll</span>
+          <div class="w-6 h-10 rounded-full border border-gray-200 dark:border-dark-border flex justify-center pt-2">
+            <div class="w-1.5 h-3 rounded-full bg-gray-300 dark:bg-dark-text-secondary/30 animate-bounce"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>

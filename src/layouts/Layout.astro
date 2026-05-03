@@ -4,22 +4,65 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  keywords?: string;
+  ogImage?: string;
+  canonicalURL?: string;
 }
 
-const { title, description = "Alta Maquina - Limpieza, armado y mantenimiento de computadoras" } = Astro.props;
+// Meta tags por defecto
+const defaultDescription = "Alta Maquina - Servicios profesionales de limpieza, armado y mantenimiento de computadoras. Desarrollo web de calidad. Rápido, limpio y profesional.";
+const defaultKeywords = "limpieza de pcs, armado de pc, mantenimiento de computadoras, desarrollo web, páginas web, servicio técnico pc, computadora a medida, reparaciones pc, Argentina";
+const siteURL = "https://altamaquina.joaquinfeola.workers.dev";
+
+const { 
+  title, 
+  description = defaultDescription, 
+  keywords = defaultKeywords,
+  ogImage = `${siteURL}/og-image.png`,
+  canonicalURL = Astro.url.href || siteURL
+} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="es" class="transition-colors duration-300">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Meta tags básicos -->
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="author" content="Alta Maquina" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="Alta Maquina" />
+    <meta property="og:locale" content="es_AR" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    
+    <!-- Preconnect a recursos externos para evitar layout shift -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    
+    <!-- Fonts con display swap para evitar CLS -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <meta name="generator" content={Astro.generator} />
+    
     <title>{title}</title>
     <script is:inline>
       (function() {

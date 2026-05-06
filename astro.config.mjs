@@ -4,6 +4,6 @@ import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://altamaquina.joaquinfeola.workers.dev',
+  site: 'https://altamaquina.com',
   integrations: [tailwind(), react(), sitemap()],
 });

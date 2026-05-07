@@ -1,6 +1,6 @@
 {
     "$schema": "./node_modules/wrangler/config-schema.json",
-    "name": "alta-maquina",
+    "name": "altamaquina",
     "compatibility_date": "2026-05-06",
     "assets": {
         "directory": "./dist"

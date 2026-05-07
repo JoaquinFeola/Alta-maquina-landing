@@ -1,5 +1,5 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
 
 interface Props {
   title: string;
@@ -10,16 +10,18 @@ interface Props {
 }
 
 // Meta tags por defecto
-const defaultDescription = "Alta Maquina - Servicios profesionales de limpieza, armado y mantenimiento de computadoras. Desarrollo web de calidad. Rápido, limpio y profesional.";
-const defaultKeywords = "limpieza de pcs, armado de pc, mantenimiento de computadoras, desarrollo web, páginas web, servicio técnico pc, computadora a medida, reparaciones pc, Argentina";
-const siteURL = "https://altamaquina.joaquinfeola.workers.dev";
+const defaultDescription =
+  "Alta Maquina - Servicios profesionales de limpieza, armado y mantenimiento de computadoras. Desarrollo web de calidad. Rápido, limpio y profesional.";
+const defaultKeywords =
+  "limpieza de pcs, armado de pc, mantenimiento de computadoras, desarrollo web, páginas web, servicio técnico pc, computadora a medida, reparaciones pc, Argentina";
+const siteURL = "https://altamaquina.com";
 
-const { 
-  title, 
-  description = defaultDescription, 
+const {
+  title,
+  description = defaultDescription,
   keywords = defaultKeywords,
   ogImage = `${siteURL}/favicon.jpg`,
-  canonicalURL = Astro.url.href || siteURL
+  canonicalURL = Astro.url.href || siteURL,
 } = Astro.props;
 ---
 
@@ -28,17 +30,23 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.jpg" />
-    <link rel="apple-touch-icon" href="/favicon.jpg" />
+
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="AltaMaquina" />
+    <link rel="manifest" href="/site.webmanifest" />
+
     <link rel="canonical" href={canonicalURL} />
-    
+
     <!-- Meta tags básicos -->
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
     <meta name="generator" content={Astro.generator} />
     <meta name="author" content="Alta Maquina" />
     <meta name="robots" content="index, follow" />
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
@@ -47,33 +55,36 @@ const {
     <meta property="og:image" content={ogImage} />
     <meta property="og:site_name" content="Alta Maquina" />
     <meta property="og:locale" content="es_AR" />
-    
+
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content={canonicalURL} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    
+
     <!-- Preconnect a recursos externos para evitar layout shift -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    
+
     <!-- Fonts con display swap para evitar CLS -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
     <title>{title}</title>
     <script is:inline>
-      (function() {
-        const savedTheme = localStorage.getItem('theme');
+      (function () {
+        const savedTheme = localStorage.getItem("theme");
         // Default to light if no saved preference
-        const theme = savedTheme || 'light';
-        
-        if (theme === 'dark') {
-          document.documentElement.classList.add('dark');
+        const theme = savedTheme || "light";
+
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
         } else {
-          document.documentElement.classList.remove('dark');
+          document.documentElement.classList.remove("dark");
         }
       })();
     </script>
@@ -81,46 +92,50 @@ const {
       html {
         scroll-behavior: smooth;
       }
-      
+
       html.dark {
         background-color: #0f172a;
         color: #f1f5f9;
       }
-      
+
       html:not(.dark) {
         background-color: #ffffff;
         color: #111827;
       }
-      
+
       .fade-in-section {
         opacity: 0;
         transform: translateY(20px);
-        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        transition:
+          opacity 0.6s ease-out,
+          transform 0.6s ease-out;
       }
-      
+
       .fade-in-section.is-visible {
         opacity: 1;
         transform: translateY(0);
       }
     </style>
   </head>
-  <body class="bg-white dark:bg-dark-bg text-gray-900 dark:text-dark-text antialiased min-h-screen flex flex-col transition-colors duration-300">
+  <body
+    class="bg-white dark:bg-dark-bg text-gray-900 dark:text-dark-text antialiased min-h-screen flex flex-col transition-colors duration-300"
+  >
     <slot />
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
+      document.addEventListener("DOMContentLoaded", () => {
         const observer = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
+                entry.target.classList.add("is-visible");
               }
             });
           },
-          { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+          { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
         );
 
-        document.querySelectorAll('section').forEach((section) => {
-          section.classList.add('fade-in-section');
+        document.querySelectorAll("section").forEach((section) => {
+          section.classList.add("fade-in-section");
           observer.observe(section);
         });
       });

@@ -13,11 +13,11 @@
     },
     "routes": [
         {
-            "pattern": "altamaquina.com/*",
+            "pattern": "altamaquina.com",
             "custom_domain": true
         },
         {
-            "pattern": "www.altamaquina.com/*",
+            "pattern": "www.altamaquina.com",
             "custom_domain": true
         }
     ]

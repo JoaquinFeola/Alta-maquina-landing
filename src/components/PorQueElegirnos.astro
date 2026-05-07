@@ -1,6 +1,8 @@
 ---
 import Container from './Container.astro';
-import { Zap, CheckCircle, MapPin } from 'lucide-react';
+import * as Icons from '@tabler/icons-react';
+
+const { IconBolt, IconCircleCheck, IconMapPin } = Icons;
 
 interface Razon {
   id: number;
@@ -14,19 +16,19 @@ const razones: Razon[] = [
     id: 1,
     titulo: 'Servicio rápido',
     descripcion: 'Nos ocupamos rápido, sin vueltas',
-    icono: Zap,
+    icono: IconBolt,
   },
   {
     id: 2,
     titulo: 'Profesional',
     descripcion: 'Todo hecho como corresponde',
-    icono: CheckCircle,
+    icono: IconCircleCheck,
   },
   {
     id: 3,
     titulo: 'Cerca',
     descripcion: 'Estamos para lo que necesites',
-    icono: MapPin,
+    icono: IconMapPin,
   },
 ];
 ---

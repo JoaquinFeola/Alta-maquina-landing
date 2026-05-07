@@ -1,6 +1,8 @@
 ---
 import Container from './Container.astro';
-import { Sparkles, Monitor, Wrench, Globe } from 'lucide-react';
+import * as Icons from '@tabler/icons-react';
+
+const { IconSparkles, IconDeviceDesktop, IconTool, IconWorld } = Icons;
 
 interface Servicio {
   id: number;
@@ -14,25 +16,25 @@ const servicios: Servicio[] = [
     id: 1,
     titulo: 'Limpieza física de equipos',
     descripcion: 'Limpieza física completa de tu equipo',
-    icono: Sparkles,
+    icono: IconSparkles,
   },
   {
     id: 2,
     titulo: 'Armado de PC a medida',
     descripcion: 'Computadoras a medida para lo que necesites',
-    icono: Monitor,
+    icono: IconDeviceDesktop,
   },
   {
     id: 3,
     titulo: 'Mantenimiento',
     descripcion: 'Preventivo y correctivo para que rinda',
-    icono: Wrench,
+    icono: IconTool,
   },
   {
     id: 4,
     titulo: 'Páginas Web',
     descripcion: 'Desarrollo web de todo tipo',
-    icono: Globe,
+    icono: IconWorld,
   },
 ];
 ---

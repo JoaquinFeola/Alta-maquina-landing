@@ -21,12 +21,12 @@ const {
   description = defaultDescription,
   keywords = defaultKeywords,
   ogImage = `${siteURL}/favicon.jpg`,
-  canonicalURL = Astro.url.href || siteURL,
+  canonicalURL =  new URL(Astro.url.pathname, siteURL).toString(),
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="es" class="transition-colors duration-300">
+<html lang="es-AR" class="transition-colors duration-300">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -45,7 +45,7 @@ const {
     <meta name="keywords" content={keywords} />
     <meta name="generator" content={Astro.generator} />
     <meta name="author" content="Alta Maquina" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -75,8 +75,29 @@ const {
     />
     <title>{title}</title>
 
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        name: "Alta Maquina",
+        url: siteURL,
+        image: ogImage,
+        description,
+        telephone: "+54XXXXXXXXXX",
+        address: {
+          "@type": "PostalAddress",
+          addressCountry: "AR",
+        },
+        sameAs: ["https://www.facebook.com/altamaquina.sb/"],
+        serviceType: [
+          "Servicio técnico de computadoras",
+          "Armado de PCs",
+          "Desarrollo web",
+        ],
+      })}
+    />
 
-    
     <script is:inline>
       (function () {
         const savedTheme = localStorage.getItem("theme");

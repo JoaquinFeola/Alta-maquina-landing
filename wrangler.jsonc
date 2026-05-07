@@ -6,11 +6,6 @@
         "directory": "./dist"
     },
     "workers_dev": false,
-    "secrets": {
-        "required": [
-            "altamaquinazone"
-        ]
-    },
     "routes": [
         {
             "pattern": "altamaquina.com",

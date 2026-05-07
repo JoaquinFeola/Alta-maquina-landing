@@ -1,0 +1,24 @@
+{
+    "$schema": "./node_modules/wrangler/config-schema.json",
+    "name": "alta-maquina",
+    "compatibility_date": "2026-05-06",
+    "assets": {
+        "directory": "./dist"
+    },
+    "workers_dev": false,
+    "secrets": {
+        "required": [
+            "altamaquinazone"
+        ]
+    },
+    "routes": [
+        {
+            "pattern": "altamaquina.com/*",
+            "custom_domain": true
+        },
+        {
+            "pattern": "www.altamaquina.com/*",
+            "custom_domain": true
+        }
+    ]
+}

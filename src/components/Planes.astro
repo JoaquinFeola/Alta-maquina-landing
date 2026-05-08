@@ -263,7 +263,7 @@ const extras = [
             {plan.populares && (
               <div class="absolute -top-3 left-1/2 -translate-x-1/2">
                 <span class="inline-flex items-center gap-1 px-4 py-1 rounded-full text-xs font-semibold bg-primary dark:bg-accent text-white">
-                  <Icons.IconStar class="w-3 h-3" />
+                  <Icons.IconStar className="w-3 h-3" />
                   Más popular
                 </span>
               </div>
@@ -272,7 +272,7 @@ const extras = [
             <!-- Icono y nombre -->
             <div class="flex items-center gap-3 mb-4">
               <div class={`p-3 rounded-xl ${plan.populares ? 'bg-primary/10 dark:bg-accent/10 text-primary dark:text-accent' : 'bg-gray-100 dark:bg-dark-bg text-gray-600 dark:text-dark-text-secondary'}`}>
-                <plan.icono class="w-6 h-6" />
+                <plan.icono className="w-6 h-6" />
               </div>
               <h3 class="text-xl font-bold text-gray-900 dark:text-dark-text">
                 {plan.nombre}
@@ -292,13 +292,13 @@ const extras = [
             <!-- Incluye -->
             <div class="mb-4">
 <h4 class="text-sm font-semibold text-gray-900 dark:text-dark-text mb-2 flex items-center gap-2">
-                  <Icons.IconCheck class="w-4 h-4 text-green-500" />
+                  <Icons.IconCheck className="w-4 h-4 text-green-500" />
                   Incluye:
                 </h4>
               <ul class="space-y-1">
                 {plan.incluye.map((item) => (
                   <li class="text-sm text-gray-600 dark:text-dark-text-secondary flex items-start gap-2">
-                    <Icons.IconCheck class="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                    <Icons.IconCheck className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -308,14 +308,14 @@ const extras = [
             <!-- No incluye -->
             {plan.noIncluye && plan.noIncluye.length > 0 && (
               <div class="mb-4">
-                <h4 class="text-sm font-semibold text-gray-900 dark:text-dark-text mb-2 flex items-center gap-2">
-<Icons.IconX class="w-4 h-4 text-red-400" />
+<h4 class="text-sm font-semibold text-gray-900 dark:text-dark-text mb-2 flex items-center gap-2">
+                  <Icons.IconX className="w-4 h-4 text-red-400" />
                   No incluye:
                 </h4>
                 <ul class="space-y-1">
                   {plan.noIncluye.map((item) => (
                     <li class="text-sm text-gray-400 dark:text-gray-500 flex items-start gap-2">
-<Icons.IconX class="w-4 h-4 text-gray-300 dark:text-gray-600 mt-0.5 flex-shrink-0" />
+<Icons.IconX className="w-4 h-4 text-gray-300 dark:text-gray-600 mt-0.5 flex-shrink-0" />
                       {item}
                     </li>
                   ))}
@@ -353,7 +353,7 @@ const extras = [
       <!-- Mantenimiento Básico -->
       <div class="mb-12">
         <h3 class="text-2xl font-bold text-gray-900 dark:text-dark-text mb-2 flex items-center gap-3">
-          <Icons.IconTool class="w-7 h-7 text-primary dark:text-accent" />
+          <Icons.IconTool className="w-7 h-7 text-primary dark:text-accent" />
           Planes de Mantenimiento
         </h3>
         <p class="text-gray-500 dark:text-dark-text-secondary mb-8">
@@ -372,13 +372,13 @@ const extras = [
 
               <div class="mb-4">
                 <h4 class="text-sm font-semibold text-gray-900 dark:text-dark-text mb-2 flex items-center gap-2">
-                  <Icons.IconCheck class="w-4 h-4 text-green-500" />
+                  <Icons.IconCheck className="w-4 h-4 text-green-500" />
                   Incluye:
                 </h4>
                 <ul class="space-y-1">
                   {plan.incluye.map((item) => (
                     <li class="text-sm text-gray-600 dark:text-dark-text-secondary flex items-start gap-2">
-                      <Icons.IconCheck class="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <Icons.IconCheck className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
                       {item}
                     </li>
                   ))}
@@ -388,13 +388,13 @@ const extras = [
               {plan.noIncluye && plan.noIncluye.length > 0 && (
                 <div class="mb-4">
 <h4 class="text-sm font-semibold text-gray-900 dark:text-dark-text mb-2 flex items-center gap-2">
-                  <Icons.IconX class="w-4 h-4 text-red-400" />
+<Icons.IconX className="w-4 h-4 text-red-400" />
                     No incluye:
                   </h4>
                   <ul class="space-y-1">
                     {plan.noIncluye.map((item) => (
 <li class="text-sm text-gray-400 dark:text-gray-500 flex items-start gap-2">
-                        <Icons.IconX class="w-4 h-4 text-gray-300 dark:text-gray-600 mt-0.5 flex-shrink-0" />
+                        <Icons.IconX className="w-4 h-4 text-gray-300 dark:text-gray-600 mt-0.5 flex-shrink-0" />
                         {item}
                       </li>
                     ))}
@@ -409,7 +409,7 @@ const extras = [
       <!-- Mantenimiento Avanzado -->
       <div>
         <h3 class="text-2xl font-bold text-gray-900 dark:text-dark-text mb-2 flex items-center gap-3">
-          <Icons.IconSparkles class="w-7 h-7 text-primary dark:text-accent" />
+          <Icons.IconSparkles className="w-7 h-7 text-primary dark:text-accent" />
           Mantenimiento para Sitios Avanzados
         </h3>
         <p class="text-gray-500 dark:text-dark-text-secondary mb-8">
@@ -425,13 +425,13 @@ const extras = [
 
               <div class="mt-4">
                 <h4 class="text-sm font-semibold text-gray-900 dark:text-dark-text mb-2 flex items-center gap-2">
-                  <Icons.IconCheck class="w-4 h-4 text-green-500" />
+                  <Icons.IconCheck className="w-4 h-4 text-green-500" />
                   Incluye:
                 </h4>
                 <ul class="space-y-1">
                   {plan.incluye.map((item) => (
                     <li class="text-sm text-gray-600 dark:text-dark-text-secondary flex items-start gap-2">
-                      <Icons.IconCheck class="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                      <Icons.IconCheck className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
                       {item}
                     </li>
                   ))}

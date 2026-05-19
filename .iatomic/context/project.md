@@ -2,47 +2,95 @@
 
 ## Información General
 - **nombre**: Alta Maquina
-- **tipo**: Landing page corporativa
-- **stack**: Astro + Tailwind CSS
-- **estado**: Inicial (sin código, sin contenido definido)
+- **tipo**: Landing page corporativa (2 páginas)
+- **stack**: Astro 5 + Tailwind CSS + @tabler/icons-react
+- **estado**: Revamp completado - FASE 0-5 terminadas
 - **cliente**: Joaquín Feola
-- **telefono**: +5491134477270
+- **telefono**: NO MOSTRAR (eliminado del sitio por decisión del cliente)
+- **hosting**: Cloudflare (wrangler)
+- **dominio**: altamaquina.com (live)
 
-## Descripción del Negocio
-Servicio de limpieza, armado y mantenimiento de computadoras. El nombre "Alta Maquina" игра con lo técnico y lo colloquial (como decir "qué alta máquina"cuando algo está padrísimo).
+## Estructura del Sitio (2 páginas)
 
-## Público Objetivo
-- Usuarios que necesitan limpieza física de sus equipos
-- Personas que quieren armado de PC a medida
-- Empresas que buscan mantenimiento de computadoras
-- Usuarios en general que valoran un servicio profesional y ágil
+### Página 1: / (index.astro) — Desarrollo Web
+- Hero: "Potenciá tu negocio. Conquistá internet."
+- ServiciosWeb: 6 servicios web en grid
+- PlanesWeb: 3 tabs (Desarrollo, Mantenimiento, Extras)
+- Proceso: 4 pasos (Contacto → Diseño → Desarrollo → Entrega)
+- CTA: Contacto con redes sociales
+- SEO: pageType="web", Schema.org ProfessionalService
 
-## Servicios Ofrecidos
-1. Limpieza física de equipos de computación
-2. Armado de PC a medida
-3. Mantenimiento preventivo y correctivo
-4. Desarrollo de páginas web (todo tipo)
+### Página 2: /servicio-tecnico — Servicio Técnico PC
+- HeroPC: "Tu PC como nueva"
+- ServiciosPC: Limpieza ($14.000), Diagnóstico ($5.000), Armado (cotización)
+- PreciosPC: Tabla de precios + ubicación Partido de la Costa
+- CTAPC: Contacto con redes sociales
+- SEO: pageType="pc", Schema.org LocalBusiness
 
-## Tech Stack
-- **Framework**: Astro
-- **Estilos**: Tailwind CSS
-- **hosting**: Por definir
+## Estructura de Archivos (actualizada)
+```
+src/
+  components/
+    ui/          → SectionTitle, SocialLinks, ThemeToggle
+    web/         → Hero, ServiciosWeb, PlanesWeb, Proceso, CTA
+    pc/          → HeroPC, ServiciosPC, PreciosPC, CTAPC
+    Header.astro → Compartido, prop page="web"|"pc"
+    Footer.astro → Compartido
+    Button.astro → Reutilizable
+    Container.astro → Reutilizable
+  data/
+    nav.ts           → Links de navegación por página
+    planes.ts        → Planes web, mantenimiento, extras
+    servicios-web.ts → 6 servicios web
+    servicios-pc.ts  → 3 servicios PC + ubicación
+    social.ts        → Links sociales + nombre contacto
+  fonts/
+    Inter-Latin.woff2
+    Inter-LatinExt.woff2
+  layouts/
+    Layout.astro → SEO por página (pageType web|pc)
+  pages/
+    index.astro
+    servicio-tecnico.astro
+  styles/
+    global.css
+    fonts.css
+```
 
-## Elementos Visuales (por definir)
-- Logo: No definido aún
-- Colores: Por definir
-- Tipografía: Por definir
-- Imágenes: Por definir
-- Estilo general: Moderno, limpio, minimalista
+## Servicios Web (Página principal)
+1. Landing Page Básica — $80.000
+2. Web Institucional — Desde $250.000 ⭐
+3. Plan Turnos Online — Desde $450.000 ⭐
+4. Plan Catálogo Online — Desde $350.000
+5. Plan Tienda Online — Desde $700.000 ⭐
+6. Web Personalizada — Cotización
++ Mantenimiento Básico: $6.000/mes
++ Mantenimiento Profesional: $20.000/mes
++ Extras: Nueva sección, página adicional, Google Maps, cambios fuera de plan
 
-## Contenido (por definir)
-- Textos: Por definir
-- Secciones: Por definir
-- Features/Servicios: Ver servicios ofrecidos
+## Servicios PC (Página secundaria)
+1. Limpieza física completa — $14.000
+2. Diagnóstico y revisión — $5.000 (se descuenta si tomás el servicio)
+3. Armado de PC — Cotización personalizada (solo si tenés los componentes)
 
-## Notas
-- Es un proyecto nuevo desde cero
-- El cliente quiere algo "moderno y sencillo pero lindo"
-- Enfoque: Profesional pero cercano, moderno pero no overwhelming
-- Cliente revisará imágenes propuestas
-- Cliente aprobara estructura antes de implementación
+## Redes Sociales
+- Facebook: https://www.facebook.com/altamaquina.sb/
+- Instagram: https://www.instagram.com/altamaquinasb/
+- Gmail: altamaquinassb@gmail.com
+
+## SEO Implementado
+- ✅ Fuentes self-hosted (Inter variable font, latin + latin-ext)
+- ✅ Zero Google Fonts CDN calls
+- ✅ Meta tags completos (description, keywords, OG, Twitter)
+- ✅ Schema.org JSON-LD por página (ProfessionalService / LocalBusiness)
+- ✅ Canonical URLs
+- ✅ lang="es-AR"
+- ✅ Semantic HTML
+- ✅ Sitemap automático (@astrojs/sitemap)
+- ✅ robots.txt configurado
+
+## Próximos Pasos (post-revamp)
+- [ ] Formulario de selección de plan (nombre + mail + plan → email a Joaquín)
+- [ ] Botón flotante de WhatsApp
+- [ ] Deploy a Cloudflare
+- [ ] Lighthouse audit completo

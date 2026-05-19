@@ -1,0 +1,57 @@
+---
+import * as Icons from '@tabler/icons-react';
+
+interface Props {
+  showName?: boolean;
+  size?: 'sm' | 'md' | 'lg';
+  layout?: 'grid' | 'row';
+}
+
+const { showName = true, size = 'md', layout = 'grid' } = Astro.props;
+
+const links = [
+  {
+    nombre: 'Facebook',
+    url: 'https://www.facebook.com/altamaquina.sb/',
+    icono: Icons.IconBrandFacebook,
+    color: 'bg-blue-600 hover:bg-blue-700',
+    shadow: 'hover:shadow-blue-600/20',
+  },
+  {
+    nombre: 'Instagram',
+    url: 'https://www.instagram.com/altamaquinasb/',
+    icono: Icons.IconBrandInstagram,
+    color: 'bg-gradient-to-br from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600',
+    shadow: 'hover:shadow-purple-600/20',
+  },
+  {
+    nombre: 'Gmail',
+    url: 'mailto:altamaquinassb@gmail.com?subject=Consulta desde la web&body=Hola! Me interesa saber más sobre los servicios de Alta Maquina',
+    icono: Icons.IconMail,
+    color: 'bg-red-500 hover:bg-red-600',
+    shadow: 'hover:shadow-red-500/20',
+  },
+];
+
+const sizeClasses = {
+  sm: { container: 'p-3', icon: 'w-5 h-5', text: 'text-xs' },
+  md: { container: 'p-4', icon: 'w-7 h-7', text: 'text-sm' },
+  lg: { container: 'p-5', icon: 'w-8 h-8', text: 'text-base' },
+};
+---
+
+<div class:list={[
+  layout === 'grid' ? 'grid grid-cols-1 sm:grid-cols-3 gap-4' : 'flex flex-wrap gap-4 justify-center',
+]}>
+  {links.map((link) => (
+    <a
+      href={link.url}
+      target={link.url.startsWith('mailto') ? undefined : '_blank'}
+      rel={link.url.startsWith('mailto') ? undefined : 'noopener noreferrer'}
+      class={`flex items-center justify-center gap-3 ${link.color} text-white font-medium rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg ${link.shadow} ${sizeClasses[size].container}`}
+    >
+      <link.icono className={sizeClasses[size].icon} />
+      {showName && <span class={sizeClasses[size].text}>{link.nombre}</span>}
+    </a>
+  ))}
+</div>

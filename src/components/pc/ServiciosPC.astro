@@ -1,0 +1,59 @@
+---
+import Container from '../Container.astro';
+import SectionTitle from '../ui/SectionTitle.astro';
+import * as Icons from '@tabler/icons-react';
+import { serviciosPC } from '../../data/servicios-pc';
+
+const iconMap: Record<string, any> = {
+  'IconSparkles': Icons.IconSparkles,
+  'IconSearch': Icons.IconSearch,
+  'IconTool': Icons.IconTool,
+};
+---
+
+<section id="servicios" class="relative py-20 lg:py-32 bg-gray-50 dark:bg-dark-bg">
+  <Container>
+    <SectionTitle
+      title="Nuestros servicios"
+      highlight="servicios"
+      subtitle="Servicio técnico profesional para tu computadora"
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
+      {serviciosPC.map((servicio) => {
+        const IconComponent = iconMap[servicio.icono];
+        return (
+          <div class="group relative bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-dark-border rounded-2xl p-6 sm:p-8 transition-all duration-300 hover:border-emerald-500/40 dark:hover:border-emerald-400/40 hover:-translate-y-1 hover:shadow-lg">
+            {/* Icon */}
+            <div class="flex items-center justify-center w-14 h-14 rounded-xl bg-emerald-500/10 text-emerald-600 dark:bg-emerald-400/15 dark:text-emerald-400 mb-5 transition-transform duration-300 group-hover:scale-110">
+              {IconComponent && <IconComponent className="w-7 h-7" />}
+            </div>
+
+            {/* Title */}
+            <h3 class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-dark-text mb-3">
+              {servicio.titulo}
+            </h3>
+
+            {/* Description */}
+            <p class="text-sm text-gray-500 dark:text-dark-text-secondary leading-relaxed mb-4">
+              {servicio.descripcion}
+            </p>
+
+            {/* Price */}
+            {servicio.precio && (
+              <div class="pt-4 border-t border-gray-100 dark:border-dark-border">
+                <span class="text-lg font-bold text-emerald-600 dark:text-emerald-400">{servicio.precio}</span>
+                {servicio.nota && (
+                  <p class="text-xs text-gray-400 dark:text-gray-500 mt-1 italic">{servicio.nota}</p>
+                )}
+              </div>
+            )}
+
+            {/* Bottom accent */}
+            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-blue-500 transition-all duration-300 group-hover:w-3/4 rounded-full"></div>
+          </div>
+        );
+      })}
+    </div>
+  </Container>
+</section>

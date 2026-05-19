@@ -1,63 +1,81 @@
 ---
 import Container from './Container.astro';
+import * as Icons from '@tabler/icons-react';
 
 const currentYear = new Date().getFullYear();
+
+const redes = [
+  { nombre: 'Facebook', url: 'https://www.facebook.com/altamaquina.sb/', Icon: Icons.IconBrandFacebook },
+  { nombre: 'Instagram', url: 'https://www.instagram.com/altamaquinasb/', Icon: Icons.IconBrandInstagram },
+  { nombre: 'Gmail', url: 'mailto:altamaquinassb@gmail.com?subject=Consulta desde la web', Icon: Icons.IconMail },
+];
+
+const links = [
+  { nombre: 'Desarrollo Web', href: '/' },
+  { nombre: 'Servicio Técnico PC', href: '/servicio-tecnico' },
+];
 ---
 
-<footer class="bg-gray-100 dark:bg-dark-bg border-t border-gray-200 dark:border-dark-border py-12">
+<footer class="bg-gray-50 dark:bg-dark-bg-secondary border-t border-gray-200 dark:border-dark-border py-12">
   <Container>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Brand -->
       <div>
-        <a href="/" class="flex items-center hover:opacity-80 transition-opacity">
-          <img src="/favicon.svg" alt="Alta Maquina" class="w-8 h-8 rounded-full object-cover mb-4" />
+        <a href="/" class="flex items-center hover:opacity-80 transition-opacity mb-4">
+          <img src="/favicon.svg" alt="Alta Maquina" class="w-8 h-8 rounded-full" />
+          <span class="ml-2 text-lg font-bold text-gray-900 dark:text-dark-text">Alta Maquina</span>
         </a>
-        <p class="text-sm text-gray-600 dark:text-dark-text-secondary">
-          Limpieza, armado y mantenimiento de computadoras.
+        <p class="text-sm text-gray-600 dark:text-dark-text-secondary leading-relaxed">
+          Desarrollo web y servicio técnico de PC en Partido de la Costa.
         </p>
-        <p class="text-xs text-gray-500 dark:text-dark-text-secondary mt-4">
+        <p class="text-xs text-gray-400 dark:text-gray-500 mt-4">
           Joaquín Feola
         </p>
       </div>
-      
+
+      <!-- Navegación -->
       <div>
-        <h3 class="text-sm font-semibold text-gray-900 dark:text-dark-text mb-4">Contacto</h3>
-        <ul class="space-y-2 text-sm text-gray-600 dark:text-dark-text-secondary">
-          <li>
-            <a href="tel:+5491134477270" class="hover:text-primary dark:hover:text-accent transition-colors">
-              +54 9 11 3447-7270
-            </a>
-          </li>
-          <li>
-            <span>San Bernardo del Tuyú, La Costa</span>
-          </li>
-          <li>
-            <span>Buenos Aires, Argentina</span>
-          </li>
+        <h3 class="text-sm font-semibold text-gray-900 dark:text-dark-text mb-4 uppercase tracking-wider">
+          Navegación
+        </h3>
+        <ul class="space-y-3">
+          {links.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-sm text-gray-600 dark:text-dark-text-secondary hover:text-primary dark:hover:text-accent transition-colors duration-200"
+              >
+                {link.nombre}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
-      
+
+      <!-- Redes Sociales -->
       <div>
-        <h3 class="text-sm font-semibold text-gray-900 dark:text-dark-text mb-4">Servicios</h3>
-        <ul class="space-y-2 text-sm text-gray-600 dark:text-dark-text-secondary">
-          <li>
-            <span>Limpieza de equipos</span>
-          </li>
-          <li>
-            <span>Armado de PC a medida</span>
-          </li>
-          <li>
-            <span>Mantenimiento</span>
-          </li>
-          <li>
-            <span>Desarrollo web</span>
-          </li>
-        </ul>
+        <h3 class="text-sm font-semibold text-gray-900 dark:text-dark-text mb-4 uppercase tracking-wider">
+          Redes Sociales
+        </h3>
+        <div class="flex gap-3">
+          {redes.map((red) => (
+            <a
+              href={red.url}
+              target={red.url.startsWith('mailto') ? undefined : '_blank'}
+              rel={red.url.startsWith('mailto') ? undefined : 'noopener noreferrer'}
+              class="flex items-center justify-center w-10 h-10 rounded-lg bg-gray-100 dark:bg-dark-bg text-gray-600 dark:text-dark-text-secondary hover:bg-primary/10 dark:hover:bg-accent/10 hover:text-primary dark:hover:text-accent transition-all duration-200"
+              aria-label={red.nombre}
+            >
+              <red.Icon className="w-5 h-5" />
+            </a>
+          ))}
+        </div>
       </div>
     </div>
-    
+
     <div class="mt-12 pt-8 border-t border-gray-200 dark:border-dark-border text-center">
-      <p class="text-xs text-gray-500 dark:text-dark-text-secondary">
-        © {currentYear} Alta Maquina. Todos los derechos reservados.
+      <p class="text-xs text-gray-400 dark:text-gray-500">
+        &copy; {currentYear} Alta Maquina. Todos los derechos reservados.
       </p>
     </div>
   </Container>

@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import HeroPC from '../components/pc/HeroPC.astro';
+import ServiciosPC from '../components/pc/ServiciosPC.astro';
+import PreciosPC from '../components/pc/PreciosPC.astro';
+import CTAPC from '../components/pc/CTAPC.astro';
+---
+
+<Layout title="Alta Maquina | Servicio Técnico PC - Partido de la Costa" pageType="pc">
+  <Header page="pc" />
+  
+  <main class="flex-1 pt-16">
+    <HeroPC />
+    <ServiciosPC />
+    <PreciosPC />
+    <CTAPC />
+  </main>
+  
+  <Footer />
+</Layout>

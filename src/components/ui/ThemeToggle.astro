@@ -1,0 +1,36 @@
+---
+import * as Icons from '@tabler/icons-react';
+
+const { IconSun, IconMoon } = Icons;
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<button
+  type="button"
+  class={`theme-toggle p-2 rounded-lg transition-all duration-200 focus:outline-none bg-white/50 dark:bg-white/10 hover:bg-white/80 dark:hover:bg-white/20 backdrop-blur-sm text-gray-700 dark:text-white/90 hover:text-gray-900 dark:hover:text-white ${className}`}
+  aria-label="Cambiar tema"
+>
+  <IconMoon className="w-5 h-5 block dark:hidden" />
+  <IconSun className="w-5 h-5 hidden dark:block" />
+</button>
+
+<script>
+  document.querySelectorAll('.theme-toggle').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const html = document.documentElement;
+      const isDark = html.classList.contains('dark');
+      if (isDark) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+  });
+</script>

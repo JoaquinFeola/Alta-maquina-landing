@@ -7,22 +7,73 @@ interface Props {
   keywords?: string;
   ogImage?: string;
   canonicalURL?: string;
+  pageType?: "web" | "pc";
 }
 
-// Meta tags por defecto
-const defaultDescription =
-  "Alta Maquina - Servicios profesionales de limpieza, armado y mantenimiento de computadoras. Desarrollo web de calidad. Rápido, limpio y profesional.";
-const defaultKeywords =
-  "limpieza de pcs, armado de pc, mantenimiento de computadoras, desarrollo web, páginas web, servicio técnico pc, computadora a medida, reparaciones pc, Argentina";
 const siteURL = "https://altamaquina.com";
+
+// Default SEO content by page type
+const defaultsByType = {
+  web: {
+    description:
+      "Alta Maquina — Desarrollo web profesional. Landing pages, tiendas online, sistemas de turnos y páginas a medida. Potenciá tu negocio en internet.",
+    keywords:
+      "desarrollo web, páginas web, landing page, tienda online, e-commerce, sistemas de turnos, web a medida, Argentina, alta maquina",
+  },
+  pc: {
+    description:
+      "Alta Maquina — Servicio técnico de PC en Partido de la Costa. Limpieza física, diagnóstico y armado de computadoras.",
+    keywords:
+      "servicio técnico PC, limpieza de PC, diagnóstico computadora, armado PC, Partido de la Costa, San Bernardo, mantenimiento computadoras",
+  },
+};
 
 const {
   title,
-  description = defaultDescription,
-  keywords = defaultKeywords,
+  pageType = "web",
+  description = defaultsByType[pageType].description,
+  keywords = defaultsByType[pageType].keywords,
   ogImage = `${siteURL}/favicon.svg`,
-  canonicalURL =  new URL(Astro.url.pathname, siteURL).toString(),
+  canonicalURL = new URL(Astro.url.pathname, siteURL).toString(),
 } = Astro.props;
+
+// Schema.org JSON-LD by page type
+const schemaByType = {
+  web: {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: "Alta Maquina",
+    url: siteURL,
+    image: ogImage,
+    description,
+    telephone: "+54XXXXXXXXXX",
+    sameAs: ["https://www.facebook.com/altamaquina.sb/"],
+    serviceType: [
+      "Desarrollo web",
+      "Diseño web",
+      "Tiendas online",
+      "Sistemas a medida",
+    ],
+  },
+  pc: {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "Alta Maquina",
+    url: siteURL,
+    image: ogImage,
+    description,
+    telephone: "+54XXXXXXXXXX",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "San Bernardo del Tuyú",
+      addressRegion: "Buenos Aires",
+      addressCountry: "AR",
+    },
+    sameAs: ["https://www.facebook.com/altamaquina.sb/"],
+    serviceType: ["Limpieza de PC", "Diagnóstico", "Armado de PC"],
+    areaServed: "Partido de la Costa",
+  },
+};
 ---
 
 <!doctype html>
@@ -63,39 +114,11 @@ const {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <!-- Preconnect a recursos externos para evitar layout shift -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-
-    <!-- Fonts con display swap para evitar CLS -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
     <title>{title}</title>
 
     <script
       type="application/ld+json"
-      set:html={JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        name: "Alta Maquina",
-        url: siteURL,
-        image: ogImage,
-        description,
-        telephone: "+54XXXXXXXXXX",
-        address: {
-          "@type": "PostalAddress",
-          addressCountry: "AR",
-        },
-        sameAs: ["https://www.facebook.com/altamaquina.sb/"],
-        serviceType: [
-          "Servicio técnico de computadoras",
-          "Armado de PCs",
-          "Desarrollo web",
-        ],
-      })}
+      set:html={JSON.stringify(schemaByType[pageType])}
     />
 
     <script is:inline>

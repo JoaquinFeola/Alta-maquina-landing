@@ -2,22 +2,22 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import Hero from '../components/Hero.astro';
-import Servicios from '../components/Servicios.astro';
-import Planes from '../components/Planes.astro';
-import PorQueElegirnos from '../components/PorQueElegirnos.astro';
-import Contacto from '../components/Contacto.astro';
+import Hero from '../components/web/Hero.astro';
+import ServiciosWeb from '../components/web/ServiciosWeb.astro';
+import PlanesWeb from '../components/web/PlanesWeb.astro';
+import Proceso from '../components/web/Proceso.astro';
+import CTA from '../components/web/CTA.astro';
 ---
 
-<Layout title="Alta Maquina | Servicio Técnico y Desarrollo Web">
-  <Header />
+<Layout title="Alta Maquina | Desarrollo Web Profesional" pageType="web">
+  <Header page="web" />
   
   <main class="flex-1 pt-16">
     <Hero />
-    <Servicios />
-    <Planes />
-    <PorQueElegirnos />
-    <Contacto />
+    <ServiciosWeb />
+    <PlanesWeb />
+    <Proceso />
+    <CTA />
   </main>
   
   <Footer />

@@ -1,0 +1,74 @@
+---
+import Container from '../Container.astro';
+import SectionTitle from '../ui/SectionTitle.astro';
+import * as Icons from '@tabler/icons-react';
+import { ubicacion } from '../../data/servicios-pc';
+---
+
+<section id="precios" class="relative py-20 lg:py-32 bg-white dark:bg-dark-bg">
+  <Container>
+    <SectionTitle
+      title="Precios y ubicación"
+      highlight="ubicación"
+      subtitle="Servicio técnico en Partido de la Costa, Buenos Aires"
+    />
+
+    <div class="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
+      {/* Pricing table */}
+      <div class="bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-dark-border rounded-2xl p-6 sm:p-8">
+        <h3 class="text-xl font-bold text-gray-900 dark:text-dark-text mb-6 flex items-center gap-3">
+          <Icons.IconReceipt className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+          Lista de precios
+        </h3>
+        <div class="space-y-4">
+          <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-dark-bg rounded-xl">
+            <div>
+              <span class="text-gray-900 dark:text-dark-text font-medium text-sm">Limpieza física completa</span>
+              <p class="text-xs text-gray-400 dark:text-gray-500 mt-0.5">Limpieza profunda de tu equipo</p>
+            </div>
+            <span class="text-emerald-600 dark:text-emerald-400 font-bold">$14.000</span>
+          </div>
+          <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-dark-bg rounded-xl">
+            <div>
+              <span class="text-gray-900 dark:text-dark-text font-medium text-sm">Diagnóstico y revisión</span>
+              <p class="text-xs text-gray-400 dark:text-gray-500 mt-0.5">Se descuenta si tomás el servicio</p>
+            </div>
+            <span class="text-emerald-600 dark:text-emerald-400 font-bold">$5.000</span>
+          </div>
+          <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-dark-bg rounded-xl">
+            <div>
+              <span class="text-gray-900 dark:text-dark-text font-medium text-sm">Armado de PC</span>
+              <p class="text-xs text-gray-400 dark:text-gray-500 mt-0.5">Solo si tenés los componentes</p>
+            </div>
+            <span class="text-emerald-600 dark:text-emerald-400 font-bold text-sm">Cotización</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Location */}
+      <div class="bg-gradient-to-br from-emerald-50 to-blue-50 dark:from-emerald-900/10 dark:to-blue-900/10 border border-emerald-200/50 dark:border-emerald-500/20 rounded-2xl p-6 sm:p-8">
+        <h3 class="text-xl font-bold text-gray-900 dark:text-dark-text mb-6 flex items-center gap-3">
+          <Icons.IconMapPin className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+          ¿Dónde estamos?
+        </h3>
+        <div class="space-y-4">
+          <div class="flex items-start gap-3">
+            <Icons.IconMapPin className="w-5 h-5 text-emerald-600 dark:text-emerald-400 mt-0.5 flex-shrink-0" />
+            <div>
+              <p class="text-gray-900 dark:text-dark-text font-medium">{ubicacion.zona}</p>
+              <p class="text-sm text-gray-500 dark:text-dark-text-secondary">{ubicacion.localidad}, {ubicacion.provincia}</p>
+              <p class="text-sm text-gray-400 dark:text-gray-500">{ubicacion.pais}</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <Icons.IconClock className="w-5 h-5 text-emerald-600 dark:text-emerald-400 mt-0.5 flex-shrink-0" />
+            <div>
+              <p class="text-gray-900 dark:text-dark-text font-medium">Atención coordinada</p>
+              <p class="text-sm text-gray-500 dark:text-dark-text-secondary">Contactanos para coordinar el servicio</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>

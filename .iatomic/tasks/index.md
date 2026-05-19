@@ -1,81 +1,95 @@
 # INDEX DE TAREAS - Alta Maquina
 
 ## Estado General
-- **proyecto**: Alta Maquina Landing Page
-- **stack**: Astro + Tailwind CSS
-- **estado**: Tareas creadas y pendientes de implementación
-- **ultima_actualizacion**: 2026-05-02
-- **total_tareas**: 23
+- **proyecto**: Alta Maquina Landing Pages (2 páginas)
+- **stack**: Astro 5 + Tailwind CSS + @tabler/icons-react
+- **estado**: Revamp completado — FASE 0-5 finalizadas
+- **ultima_actualizacion**: 2026-05-19
+- **total_tareas**: 28
+- **completadas**: 25
+- **pendientes**: 3 (testing + review final)
 
-## Tareas Pendientes
+## FASE 0: Configuración y SEO — ✅ COMPLETADA
+- [x] task-001 → Descargar fuentes Inter self-hosted (latin + latin-ext variable) [frontend] {feature}
+- [x] task-002 → Configurar @font-face en fonts.css + global.css [frontend] {feature}
+- [x] task-003 → Refactor Layout con SEO por página (pageType web|pc) + eliminar Google Fonts CDN [frontend] {feature}
 
-### Fase 1: Estructura y Configuración
-- [x] task-001 → Configurar proyecto Astro con Tailwind [coder] {feature}
-- [ ] task-014 → Review task-001 [code-reviewer] {review}
-- [x] task-002 → Definir estructura de carpetas y componentes [coder] {feature}
-- [x] task-003 → Configurar tipos y utilidades globales [coder] {feature}
+## FASE 1: Data Layer — ✅ COMPLETADA
+- [x] task-004 → Crear src/data/nav.ts (navLinksWeb, navLinksPC, pcPageLink, webPageLink) [frontend] {feature}
+- [x] task-005 → Crear src/data/planes.ts (planesWeb, planesMantenimiento, extras) [frontend] {feature}
+- [x] task-006 → Crear src/data/servicios-web.ts (6 servicios) [frontend] {feature}
+- [x] task-007 → Crear src/data/servicios-pc.ts (3 servicios + ubicación) [frontend] {feature}
+- [x] task-008 → Crear src/data/social.ts (Facebook, Instagram, Gmail) [frontend] {feature}
 
-### Fase 2: Diseño y Estilos
-- [ ] task-004 → Definir paleta de colores y tipografía [coder] {feature}
-- [ ] task-015 → Review task-004 [code-reviewer] {review}
-- [ ] task-021 → Nueva paleta de colores [coder] {feature}
-- [ ] task-022 → Theme toggle implementation [coder] {feature}
-- [ ] task-005 → Crear layout base y componentes UI [coder] {feature}
-- [ ] task-016 → Review task-005 [code-reviewer] {review}
-- [ ] task-006 → Implementar diseño responsive [coder] {feature}
+## FASE 2: UI Components Base — ✅ COMPLETADA
+- [x] task-009 → Crear SectionTitle.astro (título con highlight + subtítulo) [frontend] {feature}
+- [x] task-010 → Crear SocialLinks.astro (grid/row, sm/md/lg, con/sin nombre) [frontend] {feature}
+- [x] task-011 → Crear ThemeToggle.astro (dark/light toggle) [frontend] {feature}
 
-### Fase 3: Contenido y Secciones
-- [ ] task-007 → Sección Hero [coder] {feature}
-- [ ] task-017 → Review task-007 [code-reviewer] {review}
-- [ ] task-008 → Sección Servicios [coder] {feature}
-- [ ] task-018 → Review task-008 [code-reviewer] {review}
-- [ ] task-009 → Sección ¿Por qué elegirnos? [coder] {feature}
-- [ ] task-019 → Review task-009 [code-reviewer] {review}
-- [ ] task-010 → Sección Contacto/Footer [coder] {feature}
-- [ ] task-020 → Review task-010 [code-reviewer] {review}
+## FASE 3: Layout Components — ✅ COMPLETADA
+- [x] task-012 → Rebuild Header.astro (page prop, cross-page badge, gradient line, mobile menu) [frontend] {feature}
+- [x] task-013 → Rebuild Footer.astro (sin teléfono, 3 columnas, redes sociales) [frontend] {feature}
 
-### Fase 4: Polish, Testing y Entrega
-- [ ] task-011 → Optimizaciones finales [coder] {feature}
-- [ ] task-012 → Revisión general y testing [tester] {test-e2e}
-- [ ] task-023 → Testing theme toggle [tester] {test-e2e}
-- [ ] task-013 → Entrega al cliente [coder] {doc}
+## FASE 4: Página Principal — ✅ COMPLETADA
+- [x] task-014 → Crear web/Hero.astro ("Potenciá tu negocio. Conquistá internet.") [frontend] {feature}
+- [x] task-015 → Crear web/ServiciosWeb.astro (6 servicios en grid) [frontend] {feature}
+- [x] task-016 → Crear web/PlanesWeb.astro (3 tabs: desarrollo, mantenimiento, extras) [frontend] {feature}
+- [x] task-017 → Crear web/Proceso.astro (4 pasos con connector lines) [frontend] {feature}
+- [x] task-018 → Crear web/CTA.astro (contacto con redes) [frontend] {feature}
+- [x] task-019 → Rebuild index.astro con componentes nuevos [frontend] {feature}
+- [x] task-020 → Eliminar componentes viejos (Hero, Servicios, Planes, PorQueElegirnos, Contacto) [frontend] {feature}
 
-## Tareas en Progreso
-Ninguna tarea en progreso actualmente.
+## FASE 5: Página Servicio Técnico — ✅ COMPLETADA
+- [x] task-021 → Crear pc/HeroPC.astro ("Tu PC como nueva") [frontend] {feature}
+- [x] task-022 → Crear pc/ServiciosPC.astro (3 servicios con precios) [frontend] {feature}
+- [x] task-023 → Crear pc/PreciosPC.astro (tabla de precios + ubicación) [frontend] {feature}
+- [x] task-024 → Crear pc/CTAPC.astro (contacto PC) [frontend] {feature}
+- [x] task-025 → Crear servicio-tecnico.astro (página completa) [frontend] {feature}
 
-## Tareas Completadas
-- task-001 → Configurar proyecto Astro con Tailwind
-- task-002 → Definir estructura de carpetas y componentes
-- task-003 → Configurar tipos y utilidades globales
+## FASE 6: Testing y Polish — ⏳ PENDIENTE
+- [ ] task-026 → Code review general (calidad, consistencia, SEO) [code-reviewer] {review}
+- [ ] task-027 → Testing E2E: build, responsive, dark mode, navegación entre páginas [tester] {test-e2e}
+- [ ] task-028 → Deploy a Cloudflare + Lighthouse audit [coder] {deploy}
 
-## Dependencias
-- task-002 depende de: task-001
-- task-003 depende de: task-002
-- task-004 depende de: task-001, task-002, task-003
-- task-005 depende de: task-004
-- task-006 depende de: task-005
-- task-007 depende de: task-005, task-006
-- task-008 depende de: task-005, task-006
-- task-009 depende de: task-005, task-006
-- task-010 depende de: task-005, task-006
-- task-011 depende de: task-007, task-008, task-009, task-010
-- task-012 depende de: task-011
-- task-013 depende de: task-012
-- task-014 depende de: task-001
-- task-015 depende de: task-004
-- task-016 depende de: task-005
-- task-017 depende de: task-007
-- task-018 depende de: task-008
-- task-019 depende de: task-009
-- task-020 depende de: task-010
-- task-021 depende de: task-003, task-004
-- task-022 depende de: task-021
-- task-023 depende de: task-022
+## Archivos Creados/Modificados
+### Nuevos (20 archivos)
+- src/fonts/Inter-Latin.woff2
+- src/fonts/Inter-LatinExt.woff2
+- src/styles/fonts.css
+- src/data/nav.ts
+- src/data/planes.ts
+- src/data/servicios-web.ts
+- src/data/servicios-pc.ts
+- src/data/social.ts
+- src/components/ui/SectionTitle.astro
+- src/components/ui/SocialLinks.astro
+- src/components/ui/ThemeToggle.astro
+- src/components/web/Hero.astro
+- src/components/web/ServiciosWeb.astro
+- src/components/web/PlanesWeb.astro
+- src/components/web/Proceso.astro
+- src/components/web/CTA.astro
+- src/components/pc/HeroPC.astro
+- src/components/pc/ServiciosPC.astro
+- src/components/pc/PreciosPC.astro
+- src/components/pc/CTAPC.astro
+- src/pages/servicio-tecnico.astro
 
-## Resumen de Agentes
-- **coder**: task-001, task-002, task-003, task-004, task-005, task-006, task-007, task-008, task-009, task-010, task-011, task-013, task-021, task-022 (14 tareas)
-- **tester**: task-012, task-023 (2 tareas)
-- **code-reviewer**: task-014, task-015, task-016, task-017, task-018, task-019, task-020 (7 tareas)
+### Modificados (4 archivos)
+- src/styles/global.css (import fonts.css)
+- src/layouts/Layout.astro (SEO por página, sin Google Fonts)
+- src/components/Header.astro (rebuild completo)
+- src/components/Footer.astro (rebuild completo)
+- src/pages/index.astro (rebuild con nuevos componentes)
 
-## Siguiente Paso
-Ejecutar task-001: Configurar proyecto Astro con Tailwind
+### Eliminados (5 archivos)
+- src/components/Hero.astro
+- src/components/Servicios.astro
+- src/components/Planes.astro
+- src/components/PorQueElegirnos.astro
+- src/components/Contacto.astro
+
+## Próximos Pasos (post-revamp)
+- Formulario de selección de plan (nombre + mail + plan → email)
+- Botón flotante de WhatsApp
+- Deploy a Cloudflare Pages

@@ -1,184 +1,176 @@
 ---
 import Container from './Container.astro';
+import ThemeToggle from './ui/ThemeToggle.astro';
 import * as Icons from '@tabler/icons-react';
+import { navLinksWeb, navLinksPC, pcPageLink, webPageLink } from '../data/nav';
 
-const { IconSun, IconMoon, IconMenu2 } = Icons;
+interface Props {
+  page?: 'web' | 'pc';
+}
+
+const { page = 'web' } = Astro.props;
+
+const { IconMenu2, IconX } = Icons;
+
+const navLinks = page === 'web' ? navLinksWeb : navLinksPC;
+const crossPageLink = page === 'web' ? pcPageLink : webPageLink;
+const CrossPageIcon = page === 'web' ? Icons.IconDeviceDesktop : Icons.IconWorld;
 ---
 
-<script>
-  // Menu toggle
-  const menuButton = document.getElementById('menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const mobileLinks = document.querySelectorAll('.mobile-link');
+<header
+  id="main-header"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 header-at-top"
+>
+  <Container>
+    <nav class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href="/" class="flex items-center hover:opacity-80 transition-opacity shrink-0">
+        <img src="/favicon.svg" alt="Alta Maquina" class="w-10 h-10 rounded-full" />
+        <span class="ml-3 text-lg font-bold logo-text">Alta Maquina</span>
+      </a>
 
-  function toggleMenu() {
-    mobileMenu?.classList.toggle('hidden');
-    mobileMenu?.classList.toggle('flex');
+      <!-- Desktop Navigation -->
+      <ul class="hidden lg:flex items-center gap-6">
+        {navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="nav-link text-sm transition-colors duration-200"
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+
+        <!-- Cross-page badge -->
+        <li>
+          <a
+            href={crossPageLink.href}
+            class="cross-page-badge inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-blue-500/10 to-purple-500/10 dark:from-blue-400/15 dark:to-purple-400/15 border border-blue-500/20 dark:border-blue-400/25 text-blue-600 dark:text-blue-300 hover:from-blue-500/20 hover:to-purple-500/20 dark:hover:from-blue-400/25 dark:hover:to-purple-400/25 transition-all duration-300 hover:scale-105"
+          >
+            <CrossPageIcon className="w-4 h-4" />
+            {crossPageLink.label}
+          </a>
+        </li>
+
+        <!-- Theme Toggle -->
+        <li>
+          <ThemeToggle />
+        </li>
+      </ul>
+
+      <!-- Mobile controls -->
+      <div class="flex items-center gap-3 lg:hidden">
+        <ThemeToggle />
+        <button
+          id="mobile-menu-toggle"
+          type="button"
+          class="mobile-menu-btn p-2 rounded-lg transition-colors"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+        >
+          <IconMenu2 className="w-6 h-6 menu-icon-open" />
+          <IconX className="w-6 h-6 menu-icon-close hidden" />
+        </button>
+      </div>
+    </nav>
+  </Container>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden lg:hidden mobile-menu-bg">
+    <Container>
+      <nav class="py-4 space-y-3 border-t border-gray-200/50 dark:border-white/10">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            class="mobile-link block text-base transition-colors duration-200 py-1"
+          >
+            {link.label}
+          </a>
+        ))}
+        <div class="pt-2">
+          <a
+            href={crossPageLink.href}
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium bg-gradient-to-r from-blue-500/10 to-purple-500/10 dark:from-blue-400/15 dark:to-purple-400/15 border border-blue-500/20 dark:border-blue-400/25 text-blue-600 dark:text-blue-300 hover:from-blue-500/20 hover:to-purple-500/20 dark:hover:from-blue-400/25 dark:hover:to-purple-400/25 transition-all duration-300"
+          >
+            <CrossPageIcon className="w-4 h-4" />
+            {crossPageLink.label}
+          </a>
+        </div>
+      </nav>
+    </Container>
+  </div>
+
+  <!-- Scroll gradient line -->
+  <div id="header-gradient-line" class="h-[2px] w-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-0 transition-opacity duration-300"></div>
+</header>
+
+<script>
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('mobile-menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconOpen = menuToggle?.querySelector('.menu-icon-open');
+  const iconClose = menuToggle?.querySelector('.menu-icon-close');
+
+  function closeMobileMenu() {
+    mobileMenu?.classList.add('hidden');
+    iconOpen?.classList.remove('hidden');
+    iconClose?.classList.add('hidden');
+    menuToggle?.setAttribute('aria-expanded', 'false');
   }
 
-  menuButton?.addEventListener('click', toggleMenu);
+  function openMobileMenu() {
+    mobileMenu?.classList.remove('hidden');
+    iconOpen?.classList.add('hidden');
+    iconClose?.classList.remove('hidden');
+    menuToggle?.setAttribute('aria-expanded', 'true');
+  }
 
-  mobileLinks.forEach(link => {
+  menuToggle?.addEventListener('click', () => {
+    const isOpen = !mobileMenu?.classList.contains('hidden');
+    if (isOpen) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  });
+
+  // Close mobile menu on link click
+  mobileMenu?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
-      mobileMenu?.classList.add('hidden');
-      mobileMenu?.classList.remove('flex');
+      closeMobileMenu();
     });
   });
 
-  // Theme toggle
-  const themeToggle = document.getElementById('theme-toggle');
-  const themeToggleMobile = document.getElementById('theme-toggle-mobile');
-
-  function toggleTheme() {
-    const html = document.documentElement;
-    const isDark = html.classList.contains('dark');
-
-    if (isDark) {
-      html.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    } else {
-      html.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    }
-  }
-
-  themeToggle?.addEventListener('click', toggleTheme);
-  themeToggleMobile?.addEventListener('click', toggleTheme);
-
-  // Header scroll effect - integrate with Hero when at top
+  // Header scroll effect
   const header = document.getElementById('main-header');
+  const gradientLine = document.getElementById('header-gradient-line');
   const scrollThreshold = 50;
 
   function handleScroll() {
     if (window.scrollY < scrollThreshold) {
-      header?.classList.add('header-at-top');
       header?.classList.remove('header-scrolled');
+      header?.classList.add('header-at-top');
+      if (gradientLine) gradientLine.style.opacity = '0';
     } else {
       header?.classList.remove('header-at-top');
       header?.classList.add('header-scrolled');
+      if (gradientLine) gradientLine.style.opacity = '1';
     }
   }
 
-  // Initial check and listen for scroll
   handleScroll();
   window.addEventListener('scroll', handleScroll, { passive: true });
 </script>
 
-<header
-  id="main-header"
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300
-         header-at-top
-         border-b-0
-         [&_.nav-link]:text-gray-700 dark:[&_.nav-link]:text-white/80
-         [&_.nav-link:hover]:text-blue-600 dark:[&_.nav-link:hover]:text-blue-400
-         [&_.logo-text]:text-gray-800 dark:[&_.logo-text]:text-white
-         [&_button]:text-gray-700 dark:[&_button]:text-white/90
-         [&_button:hover]:text-gray-900 dark:[&_button:hover]:text-white
-         [&_.mobile-menu-bg]:bg-transparent dark:[&_.mobile-menu-bg]:bg-transparent
-         [&_.mobile-link]:text-gray-700 dark:[&_.mobile-link]:text-white/80
-         [&_.mobile-link:hover]:text-blue-600 dark:[&_.mobile-link:hover]:text-blue-400"
->
-  <Container>
-    <nav class="flex items-center justify-between h-16">
-      <a href="/" class="flex items-center hover:opacity-80 transition-opacity">
-        <img src="/favicon.svg" alt="Alta Maquina" class="w-10 h-10 rounded-full object-cover" />
-        <span class="ml-3 text-lg font-bold logo-text">Alta Maquina</span>
-      </a>
-      
-      <!-- Desktop Navigation -->
-      <ul class="hidden md:flex items-center gap-8">
-        <li>
-          <a href="#servicios" class="nav-link text-sm hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-            Servicios
-          </a>
-        </li>
-        <li>
-          <a href="#planes" class="nav-link text-sm hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-            Planes
-          </a>
-        </li>
-        <li>
-          <a href="#por-que-elegirnos" class="nav-link text-sm hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-            Nosotros
-          </a>
-        </li>
-        <li>
-          <a href="#contacto" class="nav-link text-sm hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-            Contacto
-          </a>
-        </li>
-        <li>
-          <!-- Theme Toggle Button -->
-          <button
-            id="theme-toggle"
-            type="button"
-            class="p-2 rounded-lg transition-all duration-200 focus:outline-none bg-white/50 dark:bg-white/10 hover:bg-white/80 dark:hover:bg-white/20 backdrop-blur-sm"
-            aria-label="Cambiar tema"
-          >
-            <IconMoon className="w-5 h-5 theme-icon" />
-            <IconSun className="w-5 h-5 theme-icon hidden dark:block" />
-          </button>
-        </li>
-      </ul>
-
-      <!-- Mobile Menu Button -->
-      <button 
-        id="menu-toggle" 
-        type="button" 
-        class="md:hidden p-2 focus:outline-none text-gray-700 dark:text-white"
-        aria-label="Abrir menú"
-        aria-expanded="false"
-      >
-        <IconMenu2 className="w-6 h-6" />
-      </button>
-    </nav>
-  </Container>
-
-  <!-- Mobile Menu Dropdown -->
-  <div id="mobile-menu" class="hidden md:hidden mobile-menu-bg">
-    <Container>
-      <ul class="py-4 space-y-4">
-        <li>
-          <a href="#servicios" class="mobile-link block text-base hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-            Servicios
-          </a>
-        </li>
-        <li>
-          <a href="#planes" class="mobile-link block text-base hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-            Planes
-          </a>
-        </li>
-        <li>
-          <a href="#por-que-elegirnos" class="mobile-link block text-base hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-            Nosotros
-          </a>
-        </li>
-        <li>
-          <a href="#contacto" class="mobile-link block text-base hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-            Contacto
-          </a>
-        </li>
-        <li>
-          <!-- Theme Toggle Button (Mobile) -->
-          <button
-            id="theme-toggle-mobile"
-            type="button"
-            class="p-2 rounded-lg transition-all duration-200 focus:outline-none bg-white/50 dark:bg-white/10 hover:bg-white/80 dark:hover:bg-white/20 backdrop-blur-sm"
-            aria-label="Cambiar tema"
-          >
-            <IconMoon className="w-5 h-5 theme-icon" />
-            <IconSun className="w-5 h-5 theme-icon hidden dark:block" />
-          </button>
-        </li>
-      </ul>
-    </Container>
-  </div>
-</header>
-
 <style>
-  /* At top state - transparent background with adaptive text colors */
+  /* At-top state — fully transparent */
   .header-at-top {
     @apply bg-transparent border-b-0;
+  }
+
+  .header-at-top .logo-text {
+    @apply text-gray-800 dark:text-white;
   }
 
   .header-at-top .nav-link {
@@ -189,20 +181,12 @@ const { IconSun, IconMoon, IconMenu2 } = Icons;
     @apply text-blue-600 dark:text-blue-400;
   }
 
-  .header-at-top .logo-text {
-    @apply text-gray-800 dark:text-white;
+  .header-at-top .cross-page-badge {
+    @apply text-blue-700 dark:text-blue-300;
   }
 
-  .header-at-top .theme-icon {
+  .header-at-top .mobile-menu-btn {
     @apply text-gray-700 dark:text-white/90;
-  }
-
-  .header-at-top .theme-icon:hover {
-    @apply text-gray-900 dark:text-white;
-  }
-
-  .header-at-top button {
-    @apply text-gray-700 dark:text-white/90 bg-white/50 dark:bg-white/10 hover:bg-white/80 dark:hover:bg-white/20;
   }
 
   .header-at-top .mobile-menu-bg {
@@ -217,9 +201,13 @@ const { IconSun, IconMoon, IconMenu2 } = Icons;
     @apply text-blue-600 dark:text-blue-400;
   }
 
-  /* Scrolled state - white background with blur */
+  /* Scrolled state — glass background */
   .header-scrolled {
-    @apply bg-white/90 dark:bg-dark-bg/90 backdrop-blur-md border-b border-gray-200 dark:border-dark-border;
+    @apply bg-white/90 dark:bg-dark-bg/90 backdrop-blur-md border-b border-gray-200/50 dark:border-white/10;
+  }
+
+  .header-scrolled .logo-text {
+    @apply text-gray-900 dark:text-dark-text;
   }
 
   .header-scrolled .nav-link {
@@ -230,28 +218,20 @@ const { IconSun, IconMoon, IconMenu2 } = Icons;
     @apply text-primary dark:text-accent;
   }
 
-  .header-scrolled .logo-text {
-    @apply text-gray-900 dark:text-dark-text;
+  .header-scrolled .cross-page-badge {
+    @apply text-blue-600 dark:text-blue-300;
   }
 
-  .header-scrolled .theme-icon {
-    @apply text-gray-500 dark:text-dark-text-secondary;
-  }
-
-  .header-scrolled .theme-icon:hover {
-    @apply text-gray-700 dark:text-white;
-  }
-
-  .header-scrolled button {
-    @apply text-gray-600 dark:text-dark-text-secondary bg-gray-100 dark:bg-dark-bg-secondary hover:bg-gray-200 dark:hover:bg-slate-700;
+  .header-scrolled .mobile-menu-btn {
+    @apply text-gray-700 dark:text-white/90;
   }
 
   .header-scrolled .mobile-menu-bg {
-    @apply bg-white/95 dark:bg-dark-bg/95 backdrop-blur-md border-b border-gray-200 dark:border-dark-border;
+    @apply bg-white/95 dark:bg-dark-bg/95 backdrop-blur-md;
   }
 
   .header-scrolled .mobile-link {
-    @apply text-gray-500 dark:text-dark-text-secondary;
+    @apply text-gray-600 dark:text-dark-text-secondary;
   }
 
   .header-scrolled .mobile-link:hover {

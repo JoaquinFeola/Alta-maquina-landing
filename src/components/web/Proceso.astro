@@ -1,0 +1,75 @@
+---
+import Container from '../Container.astro';
+import SectionTitle from '../ui/SectionTitle.astro';
+import * as Icons from '@tabler/icons-react';
+
+const steps = [
+  {
+    numero: '01',
+    titulo: 'Nos contactás',
+    descripcion: 'Contanos qué necesitás. Escuchamos tu idea, tus objetivos y tus dudas para entender bien tu proyecto.',
+    icono: Icons.IconMessageCircle,
+  },
+  {
+    numero: '02',
+    titulo: 'Diseñamos juntos',
+    descripcion: 'Definimos la estructura, el estilo visual y las funcionalidades. Vos participás en cada decisión.',
+    icono: Icons.IconPencil,
+  },
+  {
+    numero: '03',
+    titulo: 'Desarrollamos',
+    descripcion: 'Creamos tu sitio web con las últimas tecnologías. Te mostramos avances para que veas cómo avanza.',
+    icono: Icons.IconCode,
+  },
+  {
+    numero: '04',
+    titulo: 'Entregamos y publicamos',
+    descripcion: 'Testeamos todo, hacemos los ajustes finales y publicamos tu sitio para que el mundo lo vea.',
+    icono: Icons.IconRocket,
+  },
+];
+---
+
+<section id="proceso" class="relative py-20 lg:py-32 bg-gray-50 dark:bg-dark-bg">
+  <Container>
+    <SectionTitle
+      title="¿Cómo trabajamos?"
+      highlight="trabajamos"
+      subtitle="Un proceso simple y transparente, de principio a fin"
+    />
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-6xl mx-auto">
+      {steps.map((step, index) => (
+        <div class="relative group">
+          {/* Connector line (not on last item) */}
+          {index < steps.length - 1 && (
+            <div class="hidden lg:block absolute top-10 left-[60%] w-[80%] h-[2px] bg-gradient-to-r from-primary/30 to-accent/30 dark:from-accent/30 dark:to-primary/30"></div>
+          )}
+
+          <div class="relative bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-dark-border rounded-2xl p-6 sm:p-8 transition-all duration-300 hover:border-primary/40 dark:hover:border-accent/40 hover:-translate-y-1 hover:shadow-lg h-full">
+            {/* Step number */}
+            <span class="text-5xl font-bold text-primary/10 dark:text-accent/10 absolute top-4 right-4 select-none">
+              {step.numero}
+            </span>
+
+            {/* Icon */}
+            <div class="flex items-center justify-center w-14 h-14 rounded-xl bg-primary/10 dark:bg-accent/15 text-primary dark:text-accent mb-5 transition-transform duration-300 group-hover:scale-110">
+              <step.icono className="w-7 h-7" />
+            </div>
+
+            {/* Title */}
+            <h3 class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-dark-text mb-3">
+              {step.titulo}
+            </h3>
+
+            {/* Description */}
+            <p class="text-sm text-gray-500 dark:text-dark-text-secondary leading-relaxed">
+              {step.descripcion}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Container>
+</section>

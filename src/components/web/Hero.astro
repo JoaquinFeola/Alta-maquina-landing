@@ -16,6 +16,18 @@ import Button from '../Button.astro';
     <!-- Floating elements -->
     <div class="absolute top-20 left-10 w-32 h-32 bg-blue-500/10 rounded-2xl rotate-12 blur-xl"></div>
     <div class="absolute bottom-20 right-10 w-28 h-28 bg-purple-500/10 rounded-2xl -rotate-12 blur-xl"></div>
+
+    <!-- Background image (blurred) -->
+    <div class="absolute inset-0 z-0">
+      <img 
+        src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1920&q=80" 
+        alt="Desarrollo web profesional" 
+        class="w-full h-full object-cover opacity-30 dark:opacity-20"
+        loading="eager"
+      />
+      <!-- Blur overlay -->
+      <div class="absolute inset-0 backdrop-blur-[8px]"></div>
+    </div>
   </div>
 
   <!-- Browser mockup (xl only) -->

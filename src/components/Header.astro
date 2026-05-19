@@ -161,6 +161,55 @@ const CrossPageIcon = page === 'web' ? Icons.IconDeviceDesktop : Icons.IconWorld
 
   handleScroll();
   window.addEventListener('scroll', handleScroll, { passive: true });
+
+  // Scroll Spy - Active nav indicator based on scroll position
+  const navLinks = document.querySelectorAll('.nav-link');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+  const allLinks = [...navLinks, ...mobileLinks];
+  const sections = document.querySelectorAll('section[id]');
+
+  function getSectionIds(): string[] {
+    return Array.from(sections).map(s => s.getAttribute('id') || '').filter(Boolean);
+  }
+
+  function setActiveLink(href: string) {
+    allLinks.forEach((link) => {
+      if (link instanceof HTMLAnchorElement && link.getAttribute('href') === href) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+  }
+
+  // Set first link as active on page load (hero section)
+  const sectionIds = getSectionIds();
+  if (sectionIds.length > 0) {
+    setActiveLink(`#${sectionIds[0]}`);
+  }
+
+  // More robust scroll spy using IntersectionObserver
+  // Use a larger rootMargin so we catch sections earlier
+  const observerOptions = {
+    root: null,
+    rootMargin: '-10% 0px -80% 0px',
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        if (id) {
+          setActiveLink(`#${id}`);
+        }
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach((section) => {
+    observer.observe(section);
+  });
 </script>
 
 <style>
@@ -171,14 +220,6 @@ const CrossPageIcon = page === 'web' ? Icons.IconDeviceDesktop : Icons.IconWorld
 
   .header-at-top .logo-text {
     @apply text-gray-800 dark:text-white;
-  }
-
-  .header-at-top .nav-link {
-    @apply text-gray-700 dark:text-white/80;
-  }
-
-  .header-at-top .nav-link:hover {
-    @apply text-blue-600 dark:text-blue-400;
   }
 
   .header-at-top .cross-page-badge {
@@ -193,14 +234,6 @@ const CrossPageIcon = page === 'web' ? Icons.IconDeviceDesktop : Icons.IconWorld
     @apply bg-transparent;
   }
 
-  .header-at-top .mobile-link {
-    @apply text-gray-700 dark:text-white/80;
-  }
-
-  .header-at-top .mobile-link:hover {
-    @apply text-blue-600 dark:text-blue-400;
-  }
-
   /* Scrolled state — glass background */
   .header-scrolled {
     @apply bg-white/90 dark:bg-dark-bg/90 backdrop-blur-md border-b border-gray-200/50 dark:border-white/10;
@@ -208,14 +241,6 @@ const CrossPageIcon = page === 'web' ? Icons.IconDeviceDesktop : Icons.IconWorld
 
   .header-scrolled .logo-text {
     @apply text-gray-900 dark:text-dark-text;
-  }
-
-  .header-scrolled .nav-link {
-    @apply text-gray-600 dark:text-dark-text-secondary;
-  }
-
-  .header-scrolled .nav-link:hover {
-    @apply text-primary dark:text-accent;
   }
 
   .header-scrolled .cross-page-badge {
@@ -230,11 +255,67 @@ const CrossPageIcon = page === 'web' ? Icons.IconDeviceDesktop : Icons.IconWorld
     @apply bg-white/95 dark:bg-dark-bg/95 backdrop-blur-md;
   }
 
-  .header-scrolled .mobile-link {
-    @apply text-gray-600 dark:text-dark-text-secondary;
+  /* Scroll spy active nav indicator — animated transition */
+  .nav-link {
+    @apply text-gray-700 dark:text-white/80 transition-colors duration-200;
+    position: relative;
   }
 
-  .header-scrolled .mobile-link:hover {
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(to right, #2563eb, #3b82f6);
+    border-radius: 1px;
+    opacity: 0;
+    transition: width 0.3s ease, opacity 0.3s ease;
+  }
+
+  .nav-link.active {
     @apply text-primary dark:text-accent;
+  }
+
+  .nav-link.active::after {
+    width: 100%;
+    opacity: 1;
+  }
+
+  .nav-link:hover {
+    @apply text-blue-600 dark:text-blue-400;
+  }
+
+  /* Mobile nav links */
+  .mobile-link {
+    @apply text-gray-700 dark:text-white/80 transition-colors duration-200;
+    position: relative;
+  }
+
+  .mobile-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 4px;
+    height: 0;
+    background: linear-gradient(to bottom, #2563eb, #3b82f6);
+    border-radius: 0 2px 2px 0;
+    opacity: 0;
+    transition: height 0.3s ease, opacity 0.3s ease;
+  }
+
+  .mobile-link.active {
+    @apply text-primary dark:text-accent;
+  }
+
+  .mobile-link.active::after {
+    height: 100%;
+    opacity: 1;
+  }
+
+  .mobile-link:hover {
+    @apply text-blue-600 dark:text-blue-400;
   }
 </style>

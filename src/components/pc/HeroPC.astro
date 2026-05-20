@@ -1,25 +1,47 @@
 ---
-import Container from '../Container.astro';
-import Button from '../Button.astro';
+import Container from "../Container.astro";
+import Button from "../Button.astro";
+import { Image } from "astro:assets";
+import PCHeroImage from "../../assets/images/pc_hero.webp";
 ---
 
-<section id="hero" class="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+<section
+  id="hero"
+  class="relative min-h-[70vh] flex items-center justify-center overflow-hidden"
+>
   <!-- Background -->
-  <div class="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-emerald-50/30 dark:from-slate-900 dark:via-slate-900 dark:to-emerald-950/30">
-    <div class="absolute inset-0 bg-[linear-gradient(rgba(16,185,129,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(16,185,129,0.06)_1px,transparent_1px)] bg-[size:40px_40px] dark:bg-[linear-gradient(rgba(16,185,129,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(16,185,129,0.04)_1px,transparent_1px)]"></div>
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(16,185,129,0.15)_0%,_transparent_50%)] dark:bg-[radial-gradient(ellipse_at_bottom_left,_rgba(16,185,129,0.1)_0%,_transparent_50%)]"></div>
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(59,130,246,0.1)_0%,_transparent_50%)]"></div>
-    <div class="absolute top-20 right-10 w-32 h-32 bg-emerald-500/10 rounded-2xl rotate-12 blur-xl"></div>
-    <div class="absolute bottom-20 left-10 w-28 h-28 bg-blue-500/10 rounded-2xl -rotate-12 blur-xl"></div>
+  <div
+    class="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-emerald-50/30 dark:from-slate-900 dark:via-slate-900 dark:to-emerald-950/30"
+  >
+    <div
+      class="absolute inset-0 bg-[linear-gradient(rgba(16,185,129,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(16,185,129,0.06)_1px,transparent_1px)] bg-[size:40px_40px] dark:bg-[linear-gradient(rgba(16,185,129,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(16,185,129,0.04)_1px,transparent_1px)]"
+    >
+    </div>
+    <div
+      class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(16,185,129,0.15)_0%,_transparent_50%)] dark:bg-[radial-gradient(ellipse_at_bottom_left,_rgba(16,185,129,0.1)_0%,_transparent_50%)]"
+    >
+    </div>
+    <div
+      class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(59,130,246,0.1)_0%,_transparent_50%)]"
+    >
+    </div>
+    <div
+      class="absolute top-20 right-10 w-32 h-32 bg-emerald-500/10 rounded-2xl rotate-12 blur-xl"
+    >
+    </div>
+    <div
+      class="absolute bottom-20 left-10 w-28 h-28 bg-blue-500/10 rounded-2xl -rotate-12 blur-xl"
+    >
+    </div>
 
     <!-- Background image (blurred) -->
     <div class="absolute inset-0 z-0">
-      <img 
-        src="https://images.unsplash.com/photo-1587831990711-23ca6441447b?w=1920&q=80" 
-        alt="Servicio técnico de computadoras" 
-        class="w-full h-full object-cover opacity-30 dark:opacity-20"
-        loading="eager"
+      <Image
+        class:list={["w-full h-full object-cover opacity-30 dark:opacity-20"]}
+        src={PCHeroImage}
+        alt={"Servicio técnico de computadoras"}
       />
+
       <!-- Blur overlay -->
       <div class="absolute inset-0 backdrop-blur-[8px]"></div>
     </div>
@@ -28,32 +50,45 @@ import Button from '../Button.astro';
   <Container class="relative z-10 py-20">
     <div class="max-w-3xl mx-auto text-center">
       <!-- Badge -->
-      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-white/10 backdrop-blur-md border border-gray-200 dark:border-white/20 shadow-sm mb-8">
+      <div
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 dark:bg-white/10 backdrop-blur-md border border-gray-200 dark:border-white/20 shadow-sm mb-8"
+      >
         <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          <span
+            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"
+          ></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"
+          ></span>
         </span>
-        <span class="text-sm text-gray-600 dark:text-white/80 font-medium">Servicio Técnico en Partido de la Costa</span>
+        <span class="text-sm text-gray-600 dark:text-white/80 font-medium"
+          >Servicio Técnico en Partido de la Costa</span
+        >
       </div>
 
       <!-- Title -->
-      <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-        Tu PC como <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600 dark:from-emerald-400 dark:to-blue-400">nueva</span>
+      <h1
+        class="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight"
+      >
+        Tu PC como <span
+          class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-blue-600 dark:from-emerald-400 dark:to-blue-400"
+          >nueva</span
+        >
       </h1>
 
       <!-- Subtitle -->
-      <p class="text-lg sm:text-xl text-gray-600 dark:text-white/70 mb-10 max-w-2xl mx-auto leading-relaxed">
-        Limpieza física, diagnóstico y armado de computadoras en <span class="text-gray-900 dark:text-white font-medium">Partido de la Costa</span>. Servicio profesional y confiable.
+      <p
+        class="text-lg sm:text-xl text-gray-600 dark:text-white/70 mb-10 max-w-2xl mx-auto leading-relaxed"
+      >
+        Limpieza física, diagnóstico y armado de computadoras en <span
+          class="text-gray-900 dark:text-white font-medium"
+          >Partido de la Costa</span
+        >. Servicio profesional y confiable.
       </p>
 
       <!-- CTAs -->
       <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-        <Button variant="primary" href="#servicios">
-          Ver servicios
-        </Button>
-        <Button variant="secondary" href="#contacto">
-          Contactar
-        </Button>
+        <Button variant="primary" href="#servicios"> Ver servicios </Button>
+        <Button variant="secondary" href="#contacto"> Contactar </Button>
       </div>
     </div>
   </Container>

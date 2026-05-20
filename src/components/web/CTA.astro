@@ -1,42 +1,36 @@
 ---
+export const prerender = false;
 import Container from '../Container.astro';
 import SectionTitle from '../ui/SectionTitle.astro';
 import SocialLinks from '../ui/SocialLinks.astro';
+import ContactForm from './ContactForm.astro';
 import * as Icons from '@tabler/icons-react';
 import { nombreContacto } from '../../data/social';
 ---
 
-<section id="contacto" class="relative py-20 lg:py-32 bg-white dark:bg-dark-bg">
+<section id="contacto" class="relative py-20 lg:py-32 bg-gray-50 dark:bg-dark-bg">
   <Container>
     <SectionTitle
       title="¿Listo para potenciar tu negocio?"
       highlight="potenciar"
-      subtitle="Elegí cómo contactarnos y empecemos a crear tu presencia online"
+      subtitle="Elegí cómo contactarnos o completá el formulario"
     />
 
-    <div class="max-w-xl mx-auto">
-      <div class="relative bg-gradient-to-br from-primary/5 via-white to-accent/5 dark:from-accent/5 dark:via-dark-bg-secondary dark:to-primary/5 border border-gray-200 dark:border-dark-border rounded-2xl p-8 sm:p-12">
-        {/* Content */}
-        <div class="flex flex-col items-center text-center">
-          {/* Avatar */}
-          <div class="flex items-center justify-center w-20 h-20 rounded-full bg-primary/10 dark:bg-accent/20 border border-primary/20 dark:border-accent/30 mb-6">
-            <Icons.IconUser className="w-10 h-10 text-primary dark:text-accent" />
-          </div>
-
-          {/* Name */}
-          <h3 class="text-2xl font-bold text-gray-900 dark:text-dark-text mb-2">
-            {nombreContacto}
-          </h3>
-          <p class="text-sm text-gray-500 dark:text-dark-text-secondary mb-8">
-            Desarrollador web
-          </p>
-
-          {/* Social links */}
-          <div class="w-full max-w-md">
-            <SocialLinks showName={true} size="md" layout="grid" />
-          </div>
-        </div>
+    <div class="max-w-2xl mx-auto">
+      {/* Social links - smaller */}
+      <div class="mb-8">
+        <SocialLinks showName={true} size="md" layout="row" />
       </div>
+
+      {/* Or separator */}
+      <div class="flex items-center gap-4 mb-8">
+        <div class="flex-1 h-px bg-gray-200 dark:bg-dark-border"></div>
+        <span class="text-sm text-gray-400 dark:text-gray-500">o</span>
+        <div class="flex-1 h-px bg-gray-200 dark:bg-dark-border"></div>
+      </div>
+
+      {/* Contact Form */}
+      <ContactForm />
     </div>
   </Container>
 </section>

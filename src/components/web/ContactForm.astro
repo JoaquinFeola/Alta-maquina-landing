@@ -1,0 +1,169 @@
+---
+export const prerender = false;
+
+import * as Icons from '@tabler/icons-react';
+---
+
+<div id="contact-form" class="mt-8 bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-dark-border rounded-2xl p-6 sm:p-8">
+  <h3 class="text-xl font-bold text-gray-900 dark:text-dark-text mb-6 text-center">
+    Consultanos sin compromiso
+  </h3>
+
+  <form id="consulta-form" class="space-y-4">
+    <div>
+      <label for="nombre" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nombre *</label>
+      <input
+        type="text"
+        id="nombre"
+        name="nombre"
+        required
+        placeholder="Tu nombre"
+        class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-bg text-gray-900 dark:text-dark-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-accent/50 transition-colors"
+      />
+    </div>
+
+    <div>
+      <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email *</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        placeholder="tu@email.com"
+        class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-bg text-gray-900 dark:text-dark-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-accent/50 transition-colors"
+      />
+    </div>
+
+    <div>
+      <label for="plan" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">¿Qué tipo de web te interesa?</label>
+      <select
+        id="plan"
+        name="plan"
+        class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-bg text-gray-900 dark:text-dark-text focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-accent/50 transition-colors"
+      >
+        <option value="">Seleccionar un plan</option>
+        <option value="Landing Page Básica - $80.000">Landing Page Básica - $80.000</option>
+        <option value="Web Institucional - Desde $250.000">Web Institucional - Desde $250.000</option>
+        <option value="Plan Catálogo Online - Desde $350.000">Plan Catálogo Online - Desde $350.000</option>
+        <option value="Plan Turnos Online - Desde $450.000">Plan Turnos Online - Desde $450.000</option>
+        <option value="Plan Tienda Online - Desde $700.000">Plan Tienda Online - Desde $700.000</option>
+        <option value="Web Personalizada - Cotización">Web Personalizada - Cotización</option>
+        <option value="Otro / Consulta general">Otro / Consulta general</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="mensaje" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Mensaje (opcional)</label>
+      <textarea
+        id="mensaje"
+        name="mensaje"
+        rows="3"
+        placeholder="Contanos más sobre tu proyecto..."
+        class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-bg text-gray-900 dark:text-dark-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-accent/50 transition-colors resize-none"
+      ></textarea>
+    </div>
+
+    <button
+      type="submit"
+      id="submit-btn"
+      class="w-full py-3 px-6 bg-primary dark:bg-accent text-white font-medium rounded-xl hover:bg-primary-hover dark:hover:bg-accent-hover transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      <Icons.IconSend className="w-5 h-5" id="send-icon" />
+      <span id="btn-text">Enviar consulta</span>
+      <span id="loading-spinner" class="hidden">
+        <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+      </span>
+    </button>
+  </form>
+
+  <!-- Success message -->
+  <div id="success-msg" class="hidden text-center py-8">
+    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/20 mx-auto mb-4">
+      <Icons.IconCheck className="w-8 h-8 text-green-600 dark:text-green-400" />
+    </div>
+    <h4 class="text-lg font-semibold text-gray-900 dark:text-dark-text mb-2">¡Consulta enviada!</h4>
+    <p class="text-sm text-gray-500 dark:text-dark-text-secondary">Te contactamos a la brevedad.</p>
+  </div>
+
+  <!-- Error message -->
+  <div id="error-msg" class="hidden text-center py-6">
+    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/20 mx-auto mb-4">
+      <Icons.IconAlertCircle className="w-8 h-8 text-red-600 dark:text-red-400" />
+    </div>
+    <h4 class="text-lg font-semibold text-gray-900 dark:text-dark-text mb-2">Ocurrió un error</h4>
+    <p class="text-sm text-gray-500 dark:text-dark-text-secondary">Revisá los datos e intentá de nuevo.</p>
+    <button id="retry-btn" class="mt-4 text-sm text-primary dark:text-accent hover:underline">
+      Reintentar
+    </button>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('consulta-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const sendIcon = document.getElementById('send-icon');
+  const btnText = document.getElementById('btn-text');
+  const loadingSpinner = document.getElementById('loading-spinner');
+  const successMsg = document.getElementById('success-msg');
+  const errorMsg = document.getElementById('error-msg');
+  const retryBtn = document.getElementById('retry-btn');
+
+  function setLoading(loading: boolean) {
+    submitBtn.disabled = loading;
+    if (loading) {
+      sendIcon?.classList.add('hidden');
+      btnText?.classList.add('hidden');
+      loadingSpinner?.classList.remove('hidden');
+    } else {
+      sendIcon?.classList.remove('hidden');
+      btnText?.classList.remove('hidden');
+      loadingSpinner?.classList.add('hidden');
+    }
+  }
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const formData = new FormData(form);
+    const data = {
+      nombre: formData.get('nombre') as string,
+      email: formData.get('email') as string,
+      plan: formData.get('plan') as string,
+      mensaje: formData.get('mensaje') as string,
+    };
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        form.classList.add('hidden');
+        successMsg?.classList.remove('hidden');
+      } else {
+        const error = await res.json();
+        console.error('Form error:', error);
+        form.classList.add('hidden');
+        errorMsg?.classList.remove('hidden');
+      }
+    } catch (err) {
+      console.error('Form submit error:', err);
+      form.classList.add('hidden');
+      errorMsg?.classList.remove('hidden');
+    }
+
+    setLoading(false);
+  });
+
+  retryBtn?.addEventListener('click', () => {
+    form.classList.remove('hidden');
+    errorMsg?.classList.add('hidden');
+    form.reset();
+  });
+</script>

@@ -1,6 +1,8 @@
 ---
 import Container from '../Container.astro';
 import Button from '../Button.astro';
+import { Image } from 'astro:assets';
+import HeroImage from "../../assets/images/web_hero.webp"
 ---
 
 <section id="hero" class="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
@@ -19,11 +21,10 @@ import Button from '../Button.astro';
 
     <!-- Background image (blurred) -->
     <div class="absolute inset-0 z-0">
-      <img 
-        src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1920&q=80" 
-        alt="Desarrollo web profesional" 
-        class="w-full h-full object-cover opacity-30 dark:opacity-20"
-        loading="eager"
+      <Image
+        class:list={["w-full h-full object-cover opacity-30 dark:opacity-20"]}
+        src={HeroImage}
+        alt={"Desarrollo web profesional"}
       />
       <!-- Blur overlay -->
       <div class="absolute inset-0 backdrop-blur-[8px]"></div>

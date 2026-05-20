@@ -22,7 +22,7 @@ const defaultsByType = {
     description:
       "Alta Maquina — Desarrollo web profesional. Landing pages, tiendas online, sistemas de turnos y páginas a medida. Potenciá tu negocio en internet.",
     keywords:
-      "desarrollo web, páginas web, landing page, tienda online, e-commerce, sistemas de turnos, web a medida, Argentina, alta maquina",
+      "desarrollo web, páginas web, landing page, tienda online, e-commerce, sistemas de turnos, web a medida, Argentina, alta maquina, desarrollo web para negocios, páginas web profesionales argentina, sistemas de gestión a medida, automatización de procesos empresa, desarrollo de apps personalizadas",
   },
   pc: {
     description:
@@ -95,7 +95,6 @@ const schemaByType = {
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="AltaMaquina" />
-    <link rel="manifest" href="/site.webmanifest" />
 
     <link rel="canonical" href={canonicalURL} />
 
@@ -177,6 +176,12 @@ const schemaByType = {
     <slot />
     <script>
       document.addEventListener("DOMContentLoaded", () => {
+        // Defer manifest loading — removes it from the critical rendering path
+        const manifest = document.createElement("link");
+        manifest.rel = "manifest";
+        manifest.href = "/site.webmanifest";
+        document.head.appendChild(manifest);
+
         const observer = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {

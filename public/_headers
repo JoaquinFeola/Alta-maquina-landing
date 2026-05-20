@@ -1,0 +1,20 @@
+# Cache strategy for Cloudflare Pages
+# Static hashed assets (_astro/) — immutable, long cache
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Fonts — long cache
+/src/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Images (favicon, PWA icons) — long cache
+/*.png
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+/*.svg
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+/*.ico
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+# HTML pages — no cache (or very short) to always serve latest
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate

@@ -1,6 +1,10 @@
 ---
 import "../styles/global.css";
 
+// Preload critical font — get the hashed URL from Vite
+import interLatinFontUrl from "../fonts/Inter-Latin.woff2?url";
+import interLatinExtFontUrl from "../fonts/Inter-LatinExt.woff2?url";
+
 interface Props {
   title: string;
   description?: string;
@@ -81,6 +85,10 @@ const schemaByType = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Preload critical fonts — eliminates font discovery delay -->
+    <link rel="preload" href={interLatinFontUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={interLatinExtFontUrl} as="font" type="font/woff2" crossorigin />
 
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

@@ -34,12 +34,19 @@ import PCHeroImage from "../../assets/images/pc_hero.webp";
     >
     </div>
 
-    <!-- Background image (blurred) -->
+    <!-- Background image (blurred, aggressively optimized — 30% opacity + blur) -->
     <div class="absolute inset-0 z-0">
       <Image
         class:list={["w-full h-full object-cover opacity-30 dark:opacity-20"]}
         src={PCHeroImage}
         alt={"Servicio técnico de computadoras"}
+        width={1280}
+        height={720}
+        quality={50}
+        sizes="100vw"
+        loading="eager"
+        decoding="sync"
+        fetchpriority="high"
       />
 
       <!-- Blur overlay -->

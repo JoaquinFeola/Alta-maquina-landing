@@ -1,0 +1,234 @@
+---
+import * as Icons from '@tabler/icons-react';
+
+interface Option {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  id: string;
+  name: string;
+  label?: string;
+  options: Option[];
+  placeholder?: string;
+  class?: string;
+}
+
+const {
+  id,
+  name,
+  label,
+  options,
+  placeholder = "Seleccionar una opción",
+  class: className = ""
+} = Astro.props;
+
+const { IconChevronDown, IconCheck } = Icons;
+---
+
+<div class={`custom-select-wrapper ${className}`}>
+  {label && (
+    <label for={id} class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+      {label}
+    </label>
+  )}
+  
+  <div class="relative">
+    <!-- Hidden native select for form submission -->
+    <select id={id} name={name} class="native-select sr-only" tabindex="-1" aria-hidden="true">
+      <option value=""> {placeholder}</option>
+      {options.map(opt => (
+        <option value={opt.value}>{opt.label}</option>
+      ))}
+    </select>
+
+    <!-- Custom trigger -->
+    <button
+      type="button"
+      id={`${id}-trigger`}
+      class="custom-select-trigger w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-bg text-left text-gray-900 dark:text-dark-text flex items-center justify-between gap-2 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-accent/50"
+    >
+      <span class="selected-text text-gray-400 dark:text-gray-500 truncate">
+        {placeholder}
+      </span>
+      <IconChevronDown className="w-5 h-5 text-gray-400 dark:text-gray-500 transition-transform duration-200 chevron-icon flex-shrink-0" />
+    </button>
+
+    <!-- Custom dropdown -->
+    <div
+      id={`${id}-dropdown`}
+      class="custom-select-dropdown absolute z-50 mt-2 w-full bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-dark-border rounded-xl shadow-lg overflow-hidden hidden"
+    >
+      <div class="max-h-60 overflow-y-auto py-1">
+        {options.map((opt, index) => (
+          <button
+            type="button"
+            data-value={opt.value}
+            data-label={opt.label}
+            class={`custom-select-option w-full px-4 py-3 text-left text-gray-900 dark:text-dark-text hover:bg-gray-50 dark:hover:bg-white/5 transition-colors flex items-center justify-between gap-2 group ${index === 0 ? 'rounded-t-xl' : ''} ${index === options.length - 1 ? 'rounded-b-xl' : ''}`}
+          >
+            <span class="truncate">{opt.label}</span>
+            <IconCheck className="w-4 h-4 text-primary dark:text-accent opacity-0 group-hover:opacity-100 check-icon transition-opacity" />
+          </button>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script is:inline>
+  (function() {
+    // Wait for DOM to be ready
+    function initCustomSelects() {
+      document.querySelectorAll('.custom-select-wrapper').forEach((wrapper) => {
+        const trigger = wrapper.querySelector('.custom-select-trigger');
+        const dropdown = wrapper.querySelector('.custom-select-dropdown');
+        const selectedText = wrapper.querySelector('.selected-text');
+        const chevron = trigger ? (trigger.querySelector('.chevron-icon') || trigger.querySelector('svg')) : null;
+        const nativeSelect = wrapper.querySelector('.native-select');
+
+        if (!trigger || !dropdown) {
+          console.warn('CustomSelect: Missing trigger or dropdown');
+          return;
+        }
+
+        let isOpen = false;
+
+        function openDropdown() {
+          if (!dropdown || !trigger) return;
+          isOpen = true;
+          dropdown.classList.remove('hidden');
+          if (chevron) chevron.style.transform = 'rotate(180deg)';
+          trigger.classList.add('ring-2', 'ring-primary/50', 'dark:ring-accent/50');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeDropdown() {
+          if (!dropdown || !trigger) return;
+          isOpen = false;
+          dropdown.classList.add('hidden');
+          if (chevron) chevron.style.transform = 'rotate(0deg)';
+          trigger.classList.remove('ring-2', 'ring-primary/50', 'dark:ring-accent/50');
+          trigger.setAttribute('aria-expanded', 'false');
+        }
+
+        function selectOption(option, value, label) {
+          if (!selectedText || !nativeSelect || !dropdown || !trigger) return;
+
+          nativeSelect.value = value;
+          selectedText.textContent = label;
+          selectedText.classList.remove('text-gray-400', 'dark:text-gray-500');
+          selectedText.classList.add('text-gray-900', 'dark:text-dark-text');
+
+          dropdown.querySelectorAll('.custom-select-option').forEach(opt => {
+            const check = opt.querySelector('.check-icon') || opt.querySelector('svg');
+            if (opt.getAttribute('data-value') === value) {
+              opt.classList.add('bg-gray-50', 'dark:bg-white/5');
+              if (check) {
+                check.classList.add('opacity-100');
+                check.classList.remove('opacity-0');
+              }
+            } else {
+              opt.classList.remove('bg-gray-50', 'dark:bg-white/5');
+              if (check) {
+                check.classList.remove('opacity-100');
+                check.classList.add('opacity-0');
+              }
+            }
+          });
+
+          closeDropdown();
+        }
+
+        trigger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (isOpen) {
+            closeDropdown();
+          } else {
+            openDropdown();
+          }
+        });
+
+        dropdown.querySelectorAll('.custom-select-option').forEach(option => {
+          option.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const value = option.getAttribute('data-value');
+            const label = option.getAttribute('data-label');
+            if (value && label) {
+              selectOption(option, value, label);
+            }
+          });
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && isOpen) {
+            closeDropdown();
+          }
+        });
+
+        document.addEventListener('click', (e) => {
+          if (isOpen && !trigger.contains(e.target) && !dropdown.contains(e.target)) {
+            closeDropdown();
+          }
+        });
+
+        // Sync initial state
+        if (nativeSelect && nativeSelect.value) {
+          const selectedOption = dropdown.querySelector(`[data-value="${nativeSelect.value}"]`);
+          if (selectedOption) {
+            const label = selectedOption.getAttribute('data-label');
+            if (label && selectedText) {
+              selectedText.textContent = label;
+              selectedText.classList.remove('text-gray-400', 'dark:text-gray-500');
+              selectedText.classList.add('text-gray-900', 'dark:text-dark-text');
+            }
+          }
+        }
+      });
+    }
+
+    // Run on DOMContentLoaded to ensure elements are available
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initCustomSelects);
+    } else {
+      initCustomSelects();
+    }
+  })();
+</script>
+
+<style>
+  .custom-select-dropdown {
+    animation: dropdownFadeIn 150ms ease-out;
+  }
+
+  @keyframes dropdownFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Scrollbar styling for dropdown */
+  .custom-select-dropdown::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-select-dropdown::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-select-dropdown::-webkit-scrollbar-thumb {
+    background-color: #d1d5db;
+    border-radius: 3px;
+  }
+
+  .dark .custom-select-dropdown::-webkit-scrollbar-thumb {
+    background-color: #475569;
+  }
+</style>

@@ -2,6 +2,17 @@
 export const prerender = false;
 
 import * as Icons from '@tabler/icons-react';
+import CustomSelect from '../ui/CustomSelect.astro';
+
+const planOptions = [
+  { value: "Landing Page Básica - $80.000", label: "Landing Page Básica - $80.000" },
+  { value: "Web Institucional - Desde $250.000", label: "Web Institucional - Desde $250.000" },
+  { value: "Plan Catálogo Online - Desde $350.000", label: "Plan Catálogo Online - Desde $350.000" },
+  { value: "Plan Turnos Online - Desde $450.000", label: "Plan Turnos Online - Desde $450.000" },
+  { value: "Plan Tienda Online - Desde $700.000", label: "Plan Tienda Online - Desde $700.000" },
+  { value: "Web Personalizada - Cotización", label: "Web Personalizada - Cotización" },
+  { value: "Otro / Consulta general", label: "Otro / Consulta general" },
+];
 ---
 
 <div id="contact-form" class="mt-8 bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-dark-border rounded-2xl p-6 sm:p-8">
@@ -35,21 +46,13 @@ import * as Icons from '@tabler/icons-react';
     </div>
 
     <div>
-      <label for="plan" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">¿Qué tipo de web te interesa?</label>
-      <select
+      <CustomSelect
         id="plan"
         name="plan"
-        class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-bg text-gray-900 dark:text-dark-text focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-accent/50 transition-colors"
-      >
-        <option value="">Seleccionar un plan</option>
-        <option value="Landing Page Básica - $80.000">Landing Page Básica - $80.000</option>
-        <option value="Web Institucional - Desde $250.000">Web Institucional - Desde $250.000</option>
-        <option value="Plan Catálogo Online - Desde $350.000">Plan Catálogo Online - Desde $350.000</option>
-        <option value="Plan Turnos Online - Desde $450.000">Plan Turnos Online - Desde $450.000</option>
-        <option value="Plan Tienda Online - Desde $700.000">Plan Tienda Online - Desde $700.000</option>
-        <option value="Web Personalizada - Cotización">Web Personalizada - Cotización</option>
-        <option value="Otro / Consulta general">Otro / Consulta general</option>
-      </select>
+        label="¿Qué tipo de web te interesa?"
+        options={planOptions}
+        placeholder="Seleccionar un plan"
+      />
     </div>
 
     <div>

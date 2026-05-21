@@ -7,9 +7,15 @@ import ServiciosWeb from '../components/web/ServiciosWeb.astro';
 import PlanesWeb from '../components/web/PlanesWeb.astro';
 import Proceso from '../components/web/Proceso.astro';
 import CTA from '../components/web/CTA.astro';
+import FAQAccordion from '../components/ui/FAQAccordion.astro';
+import { faqWeb } from '../data/faq-web';
 ---
 
-<Layout title="Alta Maquina | Desarrollo Web Profesional" pageType="web">
+<Layout
+  title="Alta Maquina | Desarrollo Web Profesional en Argentina — Landing Pages, Tiendas Online, Sistemas de Turnos"
+  pageType="web"
+  faqs={faqWeb}
+>
   <Header page="web" />
   
   <main class="flex-1 pt-16">
@@ -17,6 +23,12 @@ import CTA from '../components/web/CTA.astro';
     <ServiciosWeb />
     <PlanesWeb />
     <Proceso />
+    <FAQAccordion
+      title="Preguntas frecuentes"
+      highlight="frecuentes"
+      subtitle="Todo lo que necesitás saber sobre nuestros servicios de desarrollo web"
+      faqs={faqWeb}
+    />
     <CTA />
   </main>
   

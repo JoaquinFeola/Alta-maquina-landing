@@ -1,6 +1,9 @@
 ---
+import "../styles/global.css";
+
 import Container from './Container.astro';
-import ThemeToggle from './ui/ThemeToggle.astro';
+import DesktopNav from './ui/DesktopNav.astro';
+import MobileMenu from './ui/MobileMenu.astro';
 import * as Icons from '@tabler/icons-react';
 import { navLinksWeb, navLinksPC, pcPageLink, webPageLink } from '../data/nav';
 
@@ -9,8 +12,6 @@ interface Props {
 }
 
 const { page = 'web' } = Astro.props;
-
-const { IconMenu2, IconX } = Icons;
 
 const navLinks = page === 'web' ? navLinksWeb : navLinksPC;
 const crossPageLink = page === 'web' ? pcPageLink : webPageLink;
@@ -30,118 +31,18 @@ const CrossPageIcon = page === 'web' ? Icons.IconDeviceDesktop : Icons.IconWorld
       </a>
 
       <!-- Desktop Navigation -->
-      <ul class="hidden lg:flex items-center gap-6">
-        {navLinks.map((link) => (
-          <li>
-            <a
-              href={link.href}
-              class="nav-link text-sm transition-colors duration-200"
-            >
-              {link.label}
-            </a>
-          </li>
-        ))}
+      <DesktopNav navLinks={navLinks} crossPageLink={crossPageLink} CrossPageIcon={CrossPageIcon} />
 
-        <!-- Cross-page badge -->
-        <li>
-          <a
-            href={crossPageLink.href}
-            class="cross-page-badge inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-blue-500/10 to-purple-500/10 dark:from-blue-400/15 dark:to-purple-400/15 border border-blue-500/20 dark:border-blue-400/25 text-blue-600 dark:text-blue-300 hover:from-blue-500/20 hover:to-purple-500/20 dark:hover:from-blue-400/25 dark:hover:to-purple-400/25 transition-all duration-300 hover:scale-105"
-          >
-            <CrossPageIcon className="w-4 h-4" />
-            {crossPageLink.label}
-          </a>
-        </li>
-
-        <!-- Theme Toggle -->
-        <li>
-          <ThemeToggle />
-        </li>
-      </ul>
-
-      <!-- Mobile controls -->
-      <div class="flex items-center gap-3 lg:hidden">
-        <ThemeToggle />
-        <button
-          id="mobile-menu-toggle"
-          type="button"
-          class="mobile-menu-btn p-2 rounded-lg transition-colors"
-          aria-label="Abrir menú"
-          aria-expanded="false"
-        >
-          <IconMenu2 className="w-6 h-6 menu-icon-open" />
-          <IconX className="w-6 h-6 menu-icon-close hidden" />
-        </button>
-      </div>
+      <!-- Mobile Navigation -->
+      <MobileMenu navLinks={navLinks} crossPageLink={crossPageLink} CrossPageIcon={CrossPageIcon} />
     </nav>
   </Container>
 
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden lg:hidden mobile-menu-bg">
-    <Container>
-      <nav class="py-4 space-y-5 border-t border-gray-200/50 dark:border-white/10">
-        {navLinks.map((link) => (
-          <a
-            href={link.href}
-            class="mobile-link block text-lg transition-colors duration-200 py-2 pl-3"
-          >
-            {link.label}
-          </a>
-        ))}
-        <div class="pt-2">
-          <a
-            href={crossPageLink.href}
-            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium bg-gradient-to-r from-blue-500/10 to-purple-500/10 dark:from-blue-400/15 dark:to-purple-400/15 border border-blue-500/20 dark:border-blue-400/25 text-blue-600 dark:text-blue-300 hover:from-blue-500/20 hover:to-purple-500/20 dark:hover:from-blue-400/25 dark:hover:to-purple-400/25 transition-all duration-300"
-          >
-            <CrossPageIcon className="w-4 h-4" />
-            {crossPageLink.label}
-          </a>
-        </div>
-      </nav>
-    </Container>
-  </div>
-
   <!-- Scroll gradient line -->
-  <div id="header-gradient-line" class="h-[2px] w-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-0 transition-opacity duration-300"></div>
+  <div id="header-gradient-line" class="h-0.5 w-full bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 opacity-0 transition-opacity duration-300"></div>
 </header>
 
 <script>
-  // Mobile menu toggle
-  const menuToggle = document.getElementById('mobile-menu-toggle');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const iconOpen = menuToggle?.querySelector('.menu-icon-open');
-  const iconClose = menuToggle?.querySelector('.menu-icon-close');
-
-  function closeMobileMenu() {
-    mobileMenu?.classList.add('hidden');
-    iconOpen?.classList.remove('hidden');
-    iconClose?.classList.add('hidden');
-    menuToggle?.setAttribute('aria-expanded', 'false');
-  }
-
-  function openMobileMenu() {
-    mobileMenu?.classList.remove('hidden');
-    iconOpen?.classList.add('hidden');
-    iconClose?.classList.remove('hidden');
-    menuToggle?.setAttribute('aria-expanded', 'true');
-  }
-
-  menuToggle?.addEventListener('click', () => {
-    const isOpen = !mobileMenu?.classList.contains('hidden');
-    if (isOpen) {
-      closeMobileMenu();
-    } else {
-      openMobileMenu();
-    }
-  });
-
-  // Close mobile menu on link click
-  mobileMenu?.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      closeMobileMenu();
-    });
-  });
-
   // Header scroll effect
   const header = document.getElementById('main-header');
   const gradientLine = document.getElementById('header-gradient-line');
@@ -213,6 +114,8 @@ const CrossPageIcon = page === 'web' ? Icons.IconDeviceDesktop : Icons.IconWorld
 </script>
 
 <style>
+  @reference "../styles/global.css";
+
   /* At-top state — fully transparent */
   .header-at-top {
     @apply bg-transparent border-b-0;
@@ -226,14 +129,6 @@ const CrossPageIcon = page === 'web' ? Icons.IconDeviceDesktop : Icons.IconWorld
     @apply text-blue-700 dark:text-blue-300;
   }
 
-  .header-at-top .mobile-menu-btn {
-    @apply text-gray-700 dark:text-white/90;
-  }
-
-  .header-at-top .mobile-menu-bg {
-    @apply bg-white/95 dark:bg-dark-bg/95 backdrop-blur-md;
-  }
-
   /* Scrolled state — glass background */
   .header-scrolled {
     @apply bg-white/90 dark:bg-dark-bg/90 backdrop-blur-md border-b border-gray-200/50 dark:border-white/10;
@@ -245,14 +140,6 @@ const CrossPageIcon = page === 'web' ? Icons.IconDeviceDesktop : Icons.IconWorld
 
   .header-scrolled .cross-page-badge {
     @apply text-blue-600 dark:text-blue-300;
-  }
-
-  .header-scrolled .mobile-menu-btn {
-    @apply text-gray-700 dark:text-white/90;
-  }
-
-  .header-scrolled .mobile-menu-bg {
-    @apply bg-white/95 dark:bg-dark-bg/95 backdrop-blur-md;
   }
 
   /* Scroll spy active nav indicator — animated transition */
@@ -317,5 +204,15 @@ const CrossPageIcon = page === 'web' ? Icons.IconDeviceDesktop : Icons.IconWorld
 
   .mobile-link:hover {
     @apply text-blue-600 dark:text-blue-400;
+  }
+
+  /* Mobile menu button states */
+  .mobile-menu-btn {
+    @apply text-gray-700 dark:text-white/90;
+  }
+
+  /* Mobile menu background */
+  .mobile-menu-bg {
+    @apply bg-white/95 dark:bg-dark-bg/95 backdrop-blur-md;
   }
 </style>

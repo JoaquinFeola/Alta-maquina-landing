@@ -1,0 +1,42 @@
+---
+import * as Icons from '@tabler/icons-react';
+import ThemeToggle from './ThemeToggle.astro';
+import type { NavLink } from '../../data/nav';
+
+interface Props {
+  navLinks: NavLink[];
+  crossPageLink: NavLink;
+  CrossPageIcon: any;
+}
+
+const { navLinks, crossPageLink, CrossPageIcon } = Astro.props;
+---
+
+<ul class="hidden lg:flex items-center gap-6">
+  {navLinks.map((link) => (
+    <li>
+      <a
+        href={link.href}
+        class="nav-link text-sm transition-colors duration-200"
+      >
+        {link.label}
+      </a>
+    </li>
+  ))}
+
+  <!-- Cross-page badge -->
+  <li>
+    <a
+      href={crossPageLink.href}
+      class="cross-page-badge inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-linear-to-r from-blue-500/10 to-purple-500/10 dark:from-blue-400/15 dark:to-purple-400/15 border border-blue-500/20 dark:border-blue-400/25 text-blue-600 dark:text-blue-300 hover:from-blue-500/20 hover:to-purple-500/20 dark:hover:from-blue-400/25 dark:hover:to-purple-400/25 transition-all duration-300 hover:scale-105"
+    >
+      <CrossPageIcon className="w-4 h-4" />
+      {crossPageLink.label}
+    </a>
+  </li>
+
+  <!-- Theme Toggle -->
+  <li>
+    <ThemeToggle />
+  </li>
+</ul>

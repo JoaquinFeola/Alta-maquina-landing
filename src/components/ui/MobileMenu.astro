@@ -1,0 +1,138 @@
+---
+import * as Icons from '@tabler/icons-react';
+import ThemeToggle from './ThemeToggle.astro';
+import type { NavLink } from '../../data/nav';
+
+interface Props {
+  navLinks: NavLink[];
+  crossPageLink: NavLink;
+  CrossPageIcon: any;
+}
+
+const { navLinks, crossPageLink, CrossPageIcon } = Astro.props;
+
+const { IconMenu2, IconX } = Icons;
+---
+
+<div class="flex items-center gap-3 lg:hidden">
+  <ThemeToggle />
+  <button
+    id="mobile-menu-toggle"
+    type="button"
+    class="mobile-menu-btn p-2 rounded-lg transition-colors"
+    aria-label="Abrir menú"
+    aria-expanded="false"
+  >
+    <IconMenu2 className="w-6 h-6 menu-icon-open" />
+    <IconX className="w-6 h-6 menu-icon-close hidden" />
+  </button>
+</div>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="hidden lg:hidden mobile-menu-bg">
+  <div class="container mx-auto px-4">
+    <nav class="py-4 space-y-5 border-t border-gray-200/50 dark:border-white/10">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="mobile-link block text-lg transition-colors duration-200 py-2 pl-3"
+        >
+          {link.label}
+        </a>
+      ))}
+      <div class="pt-2">
+        <a
+          href={crossPageLink.href}
+          class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium bg-linear-to-r from-blue-500/10 to-purple-500/10 dark:from-blue-400/15 dark:to-purple-400/15 border border-blue-500/20 dark:border-blue-400/25 text-blue-600 dark:text-blue-300 hover:from-blue-500/20 hover:to-purple-500/20 dark:hover:from-blue-400/25 dark:hover:to-purple-400/25 transition-all duration-300"
+        >
+          <CrossPageIcon className="w-4 h-4" />
+          {crossPageLink.label}
+        </a>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<script>
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('mobile-menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconOpen = menuToggle?.querySelector('.menu-icon-open');
+  const iconClose = menuToggle?.querySelector('.menu-icon-close');
+
+  function closeMobileMenu() {
+    mobileMenu?.classList.add('hidden');
+    iconOpen?.classList.remove('hidden');
+    iconClose?.classList.add('hidden');
+    menuToggle?.setAttribute('aria-expanded', 'false');
+  }
+
+  function openMobileMenu() {
+    mobileMenu?.classList.remove('hidden');
+    iconOpen?.classList.add('hidden');
+    iconClose?.classList.remove('hidden');
+    menuToggle?.setAttribute('aria-expanded', 'true');
+  }
+
+  menuToggle?.addEventListener('click', () => {
+    const isOpen = !mobileMenu?.classList.contains('hidden');
+    if (isOpen) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  });
+
+  // Close mobile menu on link click
+  mobileMenu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      closeMobileMenu();
+    });
+  });
+</script>
+
+<style>
+  @reference "../../styles/global.css";
+
+  /* Mobile menu button */
+  .mobile-menu-btn {
+    @apply text-gray-700 dark:text-white/90 p-2 rounded-lg transition-colors;
+  }
+
+  /* Mobile menu background */
+  .mobile-menu-bg {
+    @apply bg-white/95 top-full right-0 w-full h-dvh absolute dark:bg-dark-bg/95 backdrop-blur-md;
+  }
+
+  /* Mobile nav links */
+  .mobile-link {
+    @apply text-gray-700 dark:text-white/80 transition-colors duration-200 block text-lg py-2 pl-3;
+    position: relative;
+  }
+
+  .mobile-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 4px;
+    height: 0;
+    background: linear-gradient(to bottom, #2563eb, #3b82f6);
+    border-radius: 0 2px 2px 0;
+    opacity: 0;
+    transition: height 0.3s ease, opacity 0.3s ease;
+  }
+
+  .mobile-link.active {
+    @apply text-primary dark:text-accent;
+  }
+
+  .mobile-link.active::after {
+    height: 100%;
+    opacity: 1;
+  }
+
+  .mobile-link:hover {
+    @apply text-blue-600 dark:text-blue-400;
+  }
+</style>

@@ -1,7 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import Container from './Container.astro';
 import * as Icons from '@tabler/icons-react';
-
+import AltaMaquinaImagotipo from "../assets/images/favicon-96x96.png"
 const currentYear = new Date().getFullYear();
 
 const redes = [
@@ -22,7 +23,7 @@ const links = [
       <!-- Brand -->
       <div>
         <a href="/" class="flex items-center hover:opacity-80 transition-opacity mb-4">
-          <img src="/favicon.svg" alt="Alta Maquina" class="w-8 h-8 rounded-full" />
+          <Image src={AltaMaquinaImagotipo} alt="Alta Maquina" class="w-8 h-8 rounded-full" />
           <span class="ml-2 text-lg font-bold text-gray-900 dark:text-dark-text">Alta Maquina</span>
         </a>
         <p class="text-sm text-gray-600 dark:text-dark-text-secondary leading-relaxed">

@@ -121,3 +121,50 @@
     transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease;
   }
 }
+
+/* Navigation link styles — scroll spy active indicator */
+.nav-link {
+  @apply text-gray-700 dark:text-white/80 transition-colors duration-200;
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(to right, #2563eb, #3b82f6);
+  border-radius: 1px;
+  opacity: 0;
+  transition: width 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-link.active {
+  @apply text-primary dark:text-accent;
+}
+
+.nav-link.active::after {
+  width: 100%;
+  opacity: 1;
+}
+
+.nav-link:hover {
+  @apply text-blue-600 dark:text-blue-400;
+}
+
+/* Mobile menu animation */
+#mobile-menu {
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+#mobile-menu.closing {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+#mobile-menu.opening {
+  opacity: 1;
+  transform: translateY(0);
+}

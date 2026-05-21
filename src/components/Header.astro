@@ -1,11 +1,13 @@
 ---
 import "../styles/global.css";
+import AltaMaquinaImagotipo from "../assets/images/favicon-96x96.png"
 
 import Container from './Container.astro';
 import DesktopNav from './ui/DesktopNav.astro';
 import MobileMenu from './ui/MobileMenu.astro';
 import * as Icons from '@tabler/icons-react';
 import { navLinksWeb, navLinksPC, pcPageLink, webPageLink } from '../data/nav';
+import { Image } from "astro:assets";
 
 interface Props {
   page?: 'web' | 'pc';
@@ -26,7 +28,8 @@ const CrossPageIcon = page === 'web' ? Icons.IconDeviceDesktop : Icons.IconWorld
     <nav class="flex items-center justify-between h-16">
       <!-- Logo -->
       <a href="/" class="flex items-center hover:opacity-80 transition-opacity shrink-0">
-        <img src="/favicon.svg" alt="Alta Maquina" class="w-10 h-10 rounded-full" />
+          <Image src={AltaMaquinaImagotipo} alt="Alta Maquina" class="w-10 h-10 rounded-full" />
+       
         <span class="ml-3 text-lg font-bold logo-text">Alta Maquina</span>
       </a>
 

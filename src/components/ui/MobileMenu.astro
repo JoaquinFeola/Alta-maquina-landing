@@ -61,17 +61,28 @@ const { IconMenu2, IconX } = Icons;
   const iconClose = menuToggle?.querySelector('.menu-icon-close');
 
   function closeMobileMenu() {
-    mobileMenu?.classList.add('hidden');
+    mobileMenu?.classList.remove('opening');
+    mobileMenu?.classList.add('closing');
     iconOpen?.classList.remove('hidden');
     iconClose?.classList.add('hidden');
     menuToggle?.setAttribute('aria-expanded', 'false');
+    
+    setTimeout(() => {
+      mobileMenu?.classList.add('hidden');
+      mobileMenu?.classList.remove('closing');
+    }, 150);
   }
 
   function openMobileMenu() {
-    mobileMenu?.classList.remove('hidden');
+    mobileMenu?.classList.remove('hidden', 'closing');
+    mobileMenu?.classList.add('opening');
     iconOpen?.classList.add('hidden');
     iconClose?.classList.remove('hidden');
     menuToggle?.setAttribute('aria-expanded', 'true');
+    
+    setTimeout(() => {
+      mobileMenu?.classList.remove('opening');
+    }, 150);
   }
 
   menuToggle?.addEventListener('click', () => {
@@ -101,7 +112,7 @@ const { IconMenu2, IconX } = Icons;
 
   /* Mobile menu background */
   .mobile-menu-bg {
-    @apply bg-white/95 top-full right-0 w-full h-dvh absolute dark:bg-dark-bg/95 backdrop-blur-md;
+    @apply bg-white/95 dark:bg-dark-bg/95 backdrop-blur-md absolute top-full left-0 right-0 w-full;
   }
 
   /* Mobile nav links */

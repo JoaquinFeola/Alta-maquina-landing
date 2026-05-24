@@ -10,12 +10,20 @@ interface Props {
   description?: string;
   keywords?: string;
   ogImage?: string;
+  ogImageAlt?: string;
+  ogImageWidth?: number;
+  ogImageHeight?: number;
   canonicalURL?: string;
   pageType?: "web" | "pc";
   faqs?: Array<{ pregunta: string; respuesta: string }>;
 }
 
 const siteURL = "https://altamaquina.com";
+
+// OG image defaults — MUST be PNG/JPG (SVG is NOT supported by social media crawlers)
+const defaultOGImage = `${siteURL}/og-image.png`;
+const defaultOGImageWidth = 1200;
+const defaultOGImageHeight = 630;
 
 // Default SEO content by page type
 const defaultsByType = {
@@ -24,12 +32,14 @@ const defaultsByType = {
       "Alta Maquina — Desarrollo web profesional en Argentina. Landing pages, tiendas online, sistemas de turnos y páginas a medida. Presupuestos desde $80.000.",
     keywords:
       "desarrollo web Argentina, creación de páginas web, landing page profesional, tienda online Argentina, e-commerce, sistema de turnos online, web a medida, diseño web profesional, alta maquina, desarrollo web para negocios, páginas web responsive, posicionamiento web",
+    ogImageAlt: "Alta Maquina — Desarrollo Web Profesional en Argentina",
   },
   pc: {
     description:
       "Alta Maquina — Servicio técnico de PC en Partido de la Costa. Limpieza física desde $14.000, diagnóstico $5.000 y armado de computadoras. Atención en San Bernardo, Santa Teresita y zona.",
     keywords:
       "servicio técnico PC Partido de la Costa, limpieza de PC San Bernardo, diagnóstico computadora, armado de PC, mantenimiento computadoras, limpieza gabinete, cambio pasta térmica, servicio técnico Santa Teresita, Mar del Tuyú, alta maquina",
+    ogImageAlt: "Alta Maquina — Servicio Técnico PC en Partido de la Costa",
   },
 };
 
@@ -38,7 +48,10 @@ const {
   pageType = "web",
   description = defaultsByType[pageType].description,
   keywords = defaultsByType[pageType].keywords,
-  ogImage = `${siteURL}/favicon.svg`,
+  ogImage = defaultOGImage,
+  ogImageAlt = defaultsByType[pageType].ogImageAlt,
+  ogImageWidth = defaultOGImageWidth,
+  ogImageHeight = defaultOGImageHeight,
   canonicalURL = new URL(Astro.url.pathname, siteURL).toString(),
   faqs,
 } = Astro.props;
@@ -51,7 +64,7 @@ const schemaOrganization = {
   "@type": "Organization",
   name: "Alta Maquina",
   url: siteURL,
-  logo: `${siteURL}/favicon.svg`,
+  logo: `${siteURL}/web-app-manifest-512x512.png`,
   image: ogImage,
   description: "Desarrollo web profesional y servicio técnico de PC en Argentina.",
   sameAs: [
@@ -241,7 +254,9 @@ if (schemaFAQ) allSchemas.push(schemaFAQ);
     <meta name="keywords" content={keywords} />
     <meta name="generator" content={Astro.generator} />
     <meta name="author" content="Alta Maquina" />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="theme-color" content="#0F172A" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -249,15 +264,20 @@ if (schemaFAQ) allSchemas.push(schemaFAQ);
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content={ogImageWidth} />
+    <meta property="og:image:height" content={ogImageHeight} />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:site_name" content="Alta Maquina" />
     <meta property="og:locale" content="es_AR" />
 
-    <!-- Twitter -->
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content={canonicalURL} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
 
     <title>{title}</title>
 

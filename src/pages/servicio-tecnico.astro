@@ -7,11 +7,12 @@ import ServiciosPC from '../components/pc/ServiciosPC.astro';
 import PreciosPC from '../components/pc/PreciosPC.astro';
 import CTAPC from '../components/pc/CTAPC.astro';
 import FAQAccordion from '../components/ui/FAQAccordion.astro';
+import WhatsAppWidget from '../components/ui/WhatsAppWidget.astro';
 import { faqPC } from '../data/faq-pc';
 ---
 
 <Layout
-  title="Alta Maquina | Servicio Técnico PC en Partido de la Costa"
+  title="Alta Maquina | Servicio Técnico PC en Partido de la Costa — Limpieza, Diagnóstico, Armado"
   pageType="pc"
   faqs={faqPC}
 >
@@ -31,4 +32,6 @@ import { faqPC } from '../data/faq-pc';
   </main>
   
   <Footer />
+  
+  <WhatsAppWidget />
 </Layout>

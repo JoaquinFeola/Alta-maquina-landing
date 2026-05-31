@@ -13,7 +13,7 @@ interface Props {
 const { title, highlight, subtitle, faqs } = Astro.props;
 ---
 
-<section id="preguntas-frecuentes" class="relative py-20 lg:py-32 bg-white dark:bg-dark-bg">
+<section id="preguntas-frecuentes" class="relative py-20 lg:py-32 bg-white dark:bg-slate-950">
   <Container>
     <SectionTitle
       title={title}
@@ -23,27 +23,29 @@ const { title, highlight, subtitle, faqs } = Astro.props;
 
     <div class="max-w-3xl mx-auto space-y-3">
       {faqs.map((faq, index) => (
-        <div class="faq-item border border-gray-200 dark:border-dark-border rounded-xl overflow-hidden transition-colors duration-200 hover:border-gray-300 dark:hover:border-dark-border">
+        <div class="faq-item border border-gray-200 dark:border-slate-800 rounded-2xl overflow-hidden transition-all duration-300 hover:border-gray-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900/40">
           <button
             type="button"
-            class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left"
+            class="faq-toggle w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer"
             aria-expanded="false"
             aria-controls={`faq-answer-${index}`}
           >
-            <h3 class="text-base sm:text-lg font-semibold text-gray-900 dark:text-dark-text pr-4">
+            <h3 class="text-base sm:text-lg font-bold text-gray-900 dark:text-white pr-4">
               {faq.pregunta}
             </h3>
-            <span class="faq-chevron flex-shrink-0 w-5 h-5 text-gray-400 dark:text-gray-500 transition-transform duration-300">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            <span class="faq-chevron flex-shrink-0 w-5 h-5 text-gray-400 dark:text-slate-500 transition-transform duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full"><path d="m6 9 6 6 6-6"/></svg>
             </span>
           </button>
           <div
             id={`faq-answer-${index}`}
-            class="faq-answer hidden px-6 pb-5"
+            class="faq-answer grid grid-rows-[0fr] transition-all duration-300 ease-in-out overflow-hidden"
           >
-            <p class="text-sm sm:text-base text-gray-600 dark:text-dark-text-secondary leading-relaxed">
-              {faq.respuesta}
-            </p>
+            <div class="min-h-0">
+              <p class="text-sm sm:text-base text-gray-600 dark:text-slate-350 leading-relaxed px-6 pb-5">
+                {faq.respuesta}
+              </p>
+            </div>
           </div>
         </div>
       ))}
@@ -52,35 +54,51 @@ const { title, highlight, subtitle, faqs } = Astro.props;
 </section>
 
 <script>
-  const faqToggles = document.querySelectorAll('.faq-toggle');
+  function initFAQAccordions() {
+    const faqToggles = document.querySelectorAll('.faq-toggle');
 
-  faqToggles.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const item = btn.closest('.faq-item');
-      const answer = item?.querySelector('.faq-answer');
-      const chevron = item?.querySelector('.faq-chevron');
-      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    faqToggles.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const answer = item?.querySelector('.faq-answer');
+        const chevron = item?.querySelector('.faq-chevron');
+        const isOpen = btn.getAttribute('aria-expanded') === 'true';
 
-      // Close all others
-      document.querySelectorAll('.faq-item').forEach((otherItem) => {
-        const otherBtn = otherItem.querySelector('.faq-toggle');
-        const otherAnswer = otherItem.querySelector('.faq-answer');
-        const otherChevron = otherItem.querySelector('.faq-chevron');
-        otherBtn?.setAttribute('aria-expanded', 'false');
-        otherAnswer?.classList.add('hidden');
-        otherChevron?.classList.remove('rotate-180');
-        otherItem?.classList.remove('border-primary/30', 'dark:border-accent/30');
-        otherItem?.classList.add('border-gray-200', 'dark:border-dark-border');
+        // Close all others in this accordion
+        const parent = btn.closest('div.space-y-3');
+        const siblingItems = parent ? parent.querySelectorAll('.faq-item') : document.querySelectorAll('.faq-item');
+        
+        siblingItems.forEach((otherItem) => {
+          const otherBtn = otherItem.querySelector('.faq-toggle');
+          const otherAnswer = otherItem.querySelector('.faq-answer');
+          const otherChevron = otherItem.querySelector('.faq-chevron');
+          
+          otherBtn?.setAttribute('aria-expanded', 'false');
+          if (otherAnswer) {
+            otherAnswer.classList.remove('grid-rows-[1fr]');
+            otherAnswer.classList.add('grid-rows-[0fr]');
+          }
+          otherChevron?.classList.remove('rotate-180');
+          otherItem?.classList.remove('border-blue-500/30', 'dark:border-blue-400/30');
+          otherItem?.classList.add('border-gray-200', 'dark:border-slate-800');
+        });
+
+        // Toggle current
+        if (!isOpen) {
+          btn.setAttribute('aria-expanded', 'true');
+          if (answer) {
+            answer.classList.remove('grid-rows-[0fr]');
+            answer.classList.add('grid-rows-[1fr]');
+          }
+          chevron?.classList.add('rotate-180');
+          item?.classList.remove('border-gray-200', 'dark:border-slate-800');
+          item?.classList.add('border-blue-500/30', 'dark:border-blue-400/30');
+        }
       });
-
-      // Toggle current
-      if (!isOpen) {
-        btn.setAttribute('aria-expanded', 'true');
-        answer?.classList.remove('hidden');
-        chevron?.classList.add('rotate-180');
-        item?.classList.remove('border-gray-200', 'dark:border-dark-border');
-        item?.classList.add('border-primary/30', 'dark:border-accent/30');
-      }
     });
-  });
+  }
+
+  // Initialize FAQ logic
+  initFAQAccordions();
+  document.addEventListener('astro:page-load', initFAQAccordions);
 </script>

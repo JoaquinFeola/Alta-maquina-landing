@@ -9,48 +9,66 @@ const iconMap: Record<string, any> = {
   'IconSearch': Icons.IconSearch,
   'IconTool': Icons.IconTool,
 };
+
+const { IconCheck, IconArrowRight } = Icons;
 ---
 
-<section id="servicios" class="relative py-20 lg:py-32 bg-gray-50 dark:bg-dark-bg">
-  <Container>
+<section id="servicios" class="relative py-20 lg:py-32 bg-slate-50 dark:bg-slate-900/40 overflow-hidden">
+  <!-- Glowing Background Orb -->
+  <div class="absolute bottom-[-10%] right-[-10%] w-[35vw] h-[35vw] rounded-full bg-cyan-500/5 dark:bg-cyan-500/5 blur-3xl animate-float-slow"></div>
+
+  <Container class="relative z-10">
     <SectionTitle
-      title="Nuestros servicios"
+      title="Nuestros servicios técnicos"
       highlight="servicios"
-      subtitle="Servicio técnico profesional para tu computadora"
+      subtitle="Ofrecemos mantenimiento físico, diagnóstico y armado de computadoras con la mayor transparencia y rapidez."
     />
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto items-stretch">
       {serviciosPC.map((servicio) => {
         const IconComponent = iconMap[servicio.icono];
         return (
-          <div class="group relative bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-dark-border rounded-2xl p-6 sm:p-8 transition-all duration-300 hover:border-emerald-500/40 dark:hover:border-emerald-400/40 hover:-translate-y-1 hover:shadow-lg">
-            {/* Icon */}
-            <div class="flex items-center justify-center w-14 h-14 rounded-xl bg-emerald-500/10 text-emerald-600 dark:bg-emerald-400/15 dark:text-emerald-400 mb-5 transition-transform duration-300 group-hover:scale-110">
-              {IconComponent && <IconComponent className="w-7 h-7" />}
+          <div class="group relative flex flex-col justify-between glass-card rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-blue-500/30 dark:hover:border-blue-400/30 overflow-hidden glow-card">
+            <div>
+              <!-- Icon Container -->
+              <div class="flex items-center justify-center w-14 h-14 rounded-2xl bg-blue-600/10 dark:bg-blue-400/10 text-blue-600 dark:text-blue-400 mb-6 transition-all duration-300 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white shadow-inner">
+                {IconComponent && <IconComponent className="w-7 h-7" />}
+              </div>
+
+              <!-- Title -->
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                {servicio.titulo}
+              </h3>
+
+              <!-- Description -->
+              <p class="text-sm text-gray-600 dark:text-dark-text-secondary leading-relaxed mb-6">
+                {servicio.descripcion}
+              </p>
             </div>
 
-            {/* Title */}
-            <h3 class="text-lg sm:text-xl font-semibold text-gray-900 dark:text-dark-text mb-3">
-              {servicio.titulo}
-            </h3>
+            <!-- Price and Details at bottom -->
+            <div class="mt-auto">
+              {servicio.precio && (
+                <div class="pt-4 border-t border-gray-100 dark:border-slate-800/80 mb-6 flex flex-col justify-start">
+                  <span class="text-xs font-bold text-gray-400 dark:text-slate-500 uppercase tracking-widest mb-1">Precio</span>
+                  <span class="text-xl font-extrabold text-blue-600 dark:text-blue-400">{servicio.precio}</span>
+                  {servicio.nota && (
+                    <p class="text-[11px] text-gray-450 dark:text-slate-500 mt-1 italic">{servicio.nota}</p>
+                  )}
+                </div>
+              )}
+              
+              <a
+                href="#contacto"
+                class="w-full py-2.5 px-4 font-semibold text-xs rounded-xl flex items-center justify-center gap-1.5 bg-slate-100 dark:bg-slate-800 text-gray-800 dark:text-slate-200 group-hover:bg-blue-600 group-hover:text-white dark:group-hover:bg-blue-600 dark:group-hover:text-white transition-all duration-300"
+              >
+                Solicitar turno
+                <IconArrowRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
 
-            {/* Description */}
-            <p class="text-sm text-gray-500 dark:text-dark-text-secondary leading-relaxed mb-4">
-              {servicio.descripcion}
-            </p>
-
-            {/* Price */}
-            {servicio.precio && (
-              <div class="pt-4 border-t border-gray-100 dark:border-dark-border">
-                <span class="text-lg font-bold text-emerald-600 dark:text-emerald-400">{servicio.precio}</span>
-                {servicio.nota && (
-                  <p class="text-xs text-gray-400 dark:text-gray-500 mt-1 italic">{servicio.nota}</p>
-                )}
-              </div>
-            )}
-
-            {/* Bottom accent */}
-            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-emerald-500 to-blue-500 transition-all duration-300 group-hover:w-3/4 rounded-full"></div>
+            <!-- Decorative bottom line -->
+            <div class="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-blue-500 via-indigo-500 to-cyan-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
           </div>
         );
       })}

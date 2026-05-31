@@ -3,70 +3,96 @@ import Container from '../Container.astro';
 import SectionTitle from '../ui/SectionTitle.astro';
 import * as Icons from '@tabler/icons-react';
 import { ubicacion } from '../../data/servicios-pc';
+
+const { IconReceipt, IconMapPin, IconClock, IconMap } = Icons;
 ---
 
-<section id="precios" class="relative py-20 lg:py-32 bg-white dark:bg-dark-bg">
-  <Container>
+<section id="precios" class="relative py-20 lg:py-32 bg-white dark:bg-slate-950 overflow-hidden">
+  <!-- Glowing Background Orbs -->
+  <div class="absolute top-[20%] left-[-10%] w-[30vw] h-[30vw] rounded-full bg-blue-500/5 dark:bg-blue-500/5 blur-3xl animate-float-slow"></div>
+
+  <Container class="relative z-10">
     <SectionTitle
       title="Precios y ubicación"
       highlight="ubicación"
-      subtitle="Servicio técnico en Partido de la Costa, Buenos Aires"
+      subtitle="Servicio técnico presencial en San Bernardo y todo el Partido de la Costa, Buenos Aires."
     />
 
-    <div class="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
-      {/* Pricing table */}
-      <div class="bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-dark-border rounded-2xl p-6 sm:p-8">
-        <h3 class="text-xl font-bold text-gray-900 dark:text-dark-text mb-6 flex items-center gap-3">
-          <Icons.IconReceipt className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-          Lista de precios
-        </h3>
-        <div class="space-y-4">
-          <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-dark-bg rounded-xl">
-            <div>
-              <span class="text-gray-900 dark:text-dark-text font-medium text-sm">Limpieza física completa</span>
-              <p class="text-xs text-gray-400 dark:text-gray-500 mt-0.5">Limpieza profunda de tu equipo</p>
+    <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+      <!-- Pricing Table -->
+      <div class="glass-card rounded-3xl p-6 sm:p-8 shadow-lg border border-gray-200/60 dark:border-white/10 flex flex-col justify-between">
+        <div>
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+            <IconReceipt className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            Lista de precios
+          </h3>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between p-4 bg-slate-50/50 dark:bg-slate-950/40 border border-gray-150/50 dark:border-slate-800/50 rounded-2xl transition-all hover:bg-blue-50/20 dark:hover:bg-blue-950/10">
+              <div>
+                <span class="text-gray-900 dark:text-white font-bold text-sm">Limpieza física completa</span>
+                <p class="text-[11px] text-gray-500 dark:text-slate-400 mt-0.5">Limpieza profunda, cambio de pasta térmica</p>
+              </div>
+              <span class="text-blue-600 dark:text-blue-400 font-extrabold text-base">$14.000</span>
             </div>
-            <span class="text-emerald-600 dark:text-emerald-400 font-bold">$14.000</span>
-          </div>
-          <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-dark-bg rounded-xl">
-            <div>
-              <span class="text-gray-900 dark:text-dark-text font-medium text-sm">Diagnóstico y revisión</span>
-              <p class="text-xs text-gray-400 dark:text-gray-500 mt-0.5">Se descuenta si tomás el servicio</p>
+            <div class="flex items-center justify-between p-4 bg-slate-50/50 dark:bg-slate-950/40 border border-gray-150/50 dark:border-slate-800/50 rounded-2xl transition-all hover:bg-blue-50/20 dark:hover:bg-blue-950/10">
+              <div>
+                <span class="text-gray-900 dark:text-white font-bold text-sm">Diagnóstico y revisión</span>
+                <p class="text-[11px] text-gray-500 dark:text-slate-400 mt-0.5">Se descuenta si realizás el servicio técnico</p>
+              </div>
+              <span class="text-blue-600 dark:text-blue-400 font-extrabold text-base">$5.000</span>
             </div>
-            <span class="text-emerald-600 dark:text-emerald-400 font-bold">$5.000</span>
-          </div>
-          <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-dark-bg rounded-xl">
-            <div>
-              <span class="text-gray-900 dark:text-dark-text font-medium text-sm">Armado de PC</span>
-              <p class="text-xs text-gray-400 dark:text-gray-500 mt-0.5">Solo si tenés los componentes</p>
+            <div class="flex items-center justify-between p-4 bg-slate-50/50 dark:bg-slate-950/40 border border-gray-150/50 dark:border-slate-800/50 rounded-2xl transition-all hover:bg-blue-50/20 dark:hover:bg-blue-950/10">
+              <div>
+                <span class="text-gray-900 dark:text-white font-bold text-sm">Armado de PC</span>
+                <p class="text-[11px] text-gray-500 dark:text-slate-400 mt-0.5">Asesoramiento, armado y testeo de estabilidad</p>
+              </div>
+              <span class="text-blue-650 dark:text-blue-400 font-extrabold text-sm bg-blue-50 dark:bg-blue-950/50 px-3 py-1 rounded-lg">Cotización</span>
             </div>
-            <span class="text-emerald-600 dark:text-emerald-400 font-bold text-sm">Cotización</span>
           </div>
         </div>
+
+        <p class="text-xs text-gray-400 dark:text-slate-500 mt-6 pt-4 border-t border-gray-100 dark:border-slate-800/80">
+          * Los precios no incluyen repuestos en caso de requerir cambios de componentes.
+        </p>
       </div>
 
-      {/* Location */}
-      <div class="bg-gradient-to-br from-emerald-50 to-blue-50 dark:from-emerald-900/10 dark:to-blue-900/10 border border-emerald-200/50 dark:border-emerald-500/20 rounded-2xl p-6 sm:p-8">
-        <h3 class="text-xl font-bold text-gray-900 dark:text-dark-text mb-6 flex items-center gap-3">
-          <Icons.IconMapPin className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
-          ¿Dónde estamos?
-        </h3>
-        <div class="space-y-4">
-          <div class="flex items-start gap-3">
-            <Icons.IconMapPin className="w-5 h-5 text-emerald-600 dark:text-emerald-400 mt-0.5 flex-shrink-0" />
-            <div>
-              <p class="text-gray-900 dark:text-dark-text font-medium">{ubicacion.zona}</p>
-              <p class="text-sm text-gray-500 dark:text-dark-text-secondary">{ubicacion.localidad}, {ubicacion.provincia}</p>
-              <p class="text-sm text-gray-400 dark:text-gray-500">{ubicacion.pais}</p>
+      <!-- Location / Coordinates -->
+      <div class="bg-gradient-to-br from-blue-50/50 to-indigo-50/30 dark:from-slate-900/60 dark:to-indigo-950/30 border border-blue-100 dark:border-white/5 rounded-3xl p-6 sm:p-8 shadow-lg flex flex-col justify-between">
+        <div>
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+            <IconMapPin className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            ¿Dónde estamos?
+          </h3>
+          
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-blue-600/10 dark:bg-blue-400/10 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0">
+                <IconMap className="w-5 h-5" />
+              </div>
+              <div>
+                <p class="text-gray-900 dark:text-white font-bold text-sm">{ubicacion.zona}</p>
+                <p class="text-xs text-gray-600 dark:text-slate-350 mt-0.5">{ubicacion.localidad}, {ubicacion.provincia}</p>
+                <p class="text-[11px] text-gray-400 dark:text-slate-500 mt-0.5">Atención presencial y retiro coordinado</p>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-blue-600/10 dark:bg-blue-400/10 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0">
+                <IconClock className="w-5 h-5" />
+              </div>
+              <div>
+                <p class="text-gray-900 dark:text-white font-bold text-sm">Atención coordinada</p>
+                <p class="text-xs text-gray-600 dark:text-slate-350 mt-0.5">Escribinos para coordinar el retiro o la visita de diagnóstico.</p>
+                <p class="text-[11px] text-gray-400 dark:text-slate-500 mt-0.5">San Bernardo del Tuyú y localidades vecinas</p>
+              </div>
             </div>
           </div>
-          <div class="flex items-start gap-3">
-            <Icons.IconClock className="w-5 h-5 text-emerald-600 dark:text-emerald-400 mt-0.5 flex-shrink-0" />
-            <div>
-              <p class="text-gray-900 dark:text-dark-text font-medium">Atención coordinada</p>
-              <p class="text-sm text-gray-500 dark:text-dark-text-secondary">Contactanos para coordinar el servicio</p>
-            </div>
-          </div>
+        </div>
+
+        <div class="mt-8 pt-6 border-t border-gray-200/50 dark:border-white/5">
+          <p class="text-xs text-gray-500 dark:text-slate-400 leading-relaxed">
+            Área de cobertura: San Bernardo, Santa Teresita, Mar del Tuyú, Las Toninas, Costa del Este, Aguas Verdes y zona.
+          </p>
         </div>
       </div>
     </div>

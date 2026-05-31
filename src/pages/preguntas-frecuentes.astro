@@ -1,0 +1,240 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Container from '../components/Container.astro';
+import { faqWeb } from '../data/faq-web';
+import { faqPC } from '../data/faq-pc';
+import * as Icons from '@tabler/icons-react';
+
+const { IconMessageCircle, IconArrowRight } = Icons;
+---
+
+<Layout
+  title="Preguntas Frecuentes | Alta Máquina — Respuestas a tus dudas"
+  description="Respuestas detalladas sobre nuestros servicios de desarrollo web y servicio técnico de computadoras en Partido de la Costa."
+  pageType="faq"
+>
+  <Header />
+
+  <main class="flex-1 pt-24 pb-20">
+    <!-- Hero / Title -->
+    <section class="relative py-12 lg:py-20 overflow-hidden bg-slate-50 dark:bg-slate-900/20 mb-12">
+      <!-- Decorative background glow -->
+      <div class="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-3xl"></div>
+
+      <Container class="relative z-10 text-center space-y-4">
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+          Preguntas frecuentes
+        </h1>
+        <p class="text-lg text-gray-600 dark:text-slate-350 max-w-2xl mx-auto leading-relaxed">
+          Encontrá de forma rápida y sencilla respuestas a las dudas más comunes sobre el desarrollo de tu sitio web o el soporte de tu PC.
+        </p>
+      </Container>
+    </section>
+
+    <!-- FAQ Sections -->
+    <Container class="max-w-4xl">
+      <!-- Tabs for Web vs PC -->
+      <div class="flex justify-center mb-10">
+        <div class="inline-flex p-1.5 rounded-2xl bg-gray-150/80 dark:bg-slate-900/60 border border-gray-200/50 dark:border-white/5 backdrop-blur-md">
+          <button class="faq-tab-btn active px-6 py-2.5 rounded-xl text-sm font-semibold transition-all cursor-pointer" data-tab="web">
+            Desarrollo Web
+          </button>
+          <button class="faq-tab-btn px-6 py-2.5 rounded-xl text-sm font-semibold transition-all cursor-pointer" data-tab="pc">
+            Servicio Técnico PC
+          </button>
+        </div>
+      </div>
+
+      <!-- Web FAQs -->
+      <div class="faq-tab-content active space-y-4" id="faq-sec-web">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-100 dark:border-slate-800/80 pb-2 flex items-center gap-2">
+          <Icons.IconWorld className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+          Preguntas sobre Desarrollo Web
+        </h2>
+        {faqWeb.map((faq, index) => (
+          <div class="faq-card border border-gray-200/60 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900/40 overflow-hidden transition-all hover:border-blue-500/20 dark:hover:border-blue-400/20 shadow-sm">
+            <button
+              type="button"
+              class="faq-btn w-full flex items-center justify-between px-6 py-5 text-left transition-colors hover:bg-slate-50/50 dark:hover:bg-slate-800/20 cursor-pointer"
+              aria-expanded="false"
+              aria-controls={`faq-web-answer-${index}`}
+            >
+              <span class="text-base sm:text-lg font-bold text-gray-900 dark:text-white pr-4">{faq.pregunta}</span>
+              <span class="faq-icon flex-shrink-0 w-5 h-5 text-gray-400 dark:text-slate-500 transition-transform duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-full h-full"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+              </span>
+            </button>
+            <div
+              id={`faq-web-answer-${index}`}
+              class="faq-answer-pane grid grid-rows-[0fr] transition-all duration-300 ease-in-out overflow-hidden"
+            >
+              <div class="min-h-0">
+                <p class="text-sm sm:text-base text-gray-600 dark:text-slate-350 leading-relaxed px-6 pb-5 border-t border-gray-55 dark:border-slate-800/60 pt-3">
+                  {faq.respuesta}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- PC FAQs -->
+      <div class="faq-tab-content hidden space-y-4" id="faq-sec-pc">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-100 dark:border-slate-800/80 pb-2 flex items-center gap-2">
+          <Icons.IconDeviceDesktop className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+          Preguntas sobre Servicio Técnico PC
+        </h2>
+        {faqPC.map((faq, index) => (
+          <div class="faq-card border border-gray-200/60 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900/40 overflow-hidden transition-all hover:border-blue-500/20 dark:hover:border-blue-400/20 shadow-sm">
+            <button
+              type="button"
+              class="faq-btn w-full flex items-center justify-between px-6 py-5 text-left transition-colors hover:bg-slate-50/50 dark:hover:bg-slate-800/20 cursor-pointer"
+              aria-expanded="false"
+              aria-controls={`faq-pc-answer-${index}`}
+            >
+              <span class="text-base sm:text-lg font-bold text-gray-900 dark:text-white pr-4">{faq.pregunta}</span>
+              <span class="faq-icon flex-shrink-0 w-5 h-5 text-gray-400 dark:text-slate-500 transition-transform duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-full h-full"><path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+              </span>
+            </button>
+            <div
+              id={`faq-pc-answer-${index}`}
+              class="faq-answer-pane grid grid-rows-[0fr] transition-all duration-300 ease-in-out overflow-hidden"
+            >
+              <div class="min-h-0">
+                <p class="text-sm sm:text-base text-gray-600 dark:text-slate-350 leading-relaxed px-6 pb-5 border-t border-gray-55 dark:border-slate-800/60 pt-3">
+                  {faq.respuesta}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Still have questions? conversion card -->
+      <div class="mt-16 bg-gradient-to-br from-blue-600 to-indigo-700 text-white rounded-3xl p-8 text-center space-y-6 shadow-xl">
+        <div class="flex items-center justify-center w-12 h-12 rounded-2xl bg-white/10 mx-auto text-blue-200 shadow-inner">
+          <IconMessageCircle className="w-6 h-6" />
+        </div>
+        <div class="space-y-2">
+          <h3 class="text-2xl font-bold">¿Todavía tenés alguna duda?</h3>
+          <p class="text-blue-100 text-sm max-w-md mx-auto">
+            Escribinos y te asesoramos personalmente en el día sobre el desarrollo de tu sitio o el estado de tu equipo.
+          </p>
+        </div>
+        <div>
+          <a
+            href="/#contacto"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-700 hover:bg-blue-50 font-bold text-sm rounded-2xl transition-all shadow-lg hover:scale-105"
+          >
+            Enviar consulta
+            <IconArrowRight className="w-4 h-4" />
+          </a>
+        </div>
+      </div>
+    </Container>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  function initFAQButtons() {
+    const faqButtons = document.querySelectorAll('.faq-btn');
+
+    faqButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.faq-card');
+        const answer = card?.querySelector('.faq-answer-pane');
+        const icon = card?.querySelector('.faq-icon');
+        const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+        // Close all others in this active list
+        const parentList = btn.closest('.faq-tab-content');
+        const listCards = parentList ? parentList.querySelectorAll('.faq-card') : document.querySelectorAll('.faq-card');
+
+        listCards.forEach((otherCard) => {
+          const otherBtn = otherCard.querySelector('.faq-btn');
+          const otherAnswer = otherCard.querySelector('.faq-answer-pane');
+          const otherIcon = otherCard.querySelector('.faq-icon');
+          
+          otherBtn?.setAttribute('aria-expanded', 'false');
+          if (otherAnswer) {
+            otherAnswer.classList.remove('grid-rows-[1fr]');
+            otherAnswer.classList.add('grid-rows-[0fr]');
+          }
+          otherIcon?.classList.remove('rotate-180');
+          otherCard?.classList.remove('border-blue-500/30', 'dark:border-blue-400/30');
+          otherCard?.classList.add('border-gray-200/60', 'dark:border-slate-800');
+        });
+
+        // Toggle current
+        if (!isOpen) {
+          btn.setAttribute('aria-expanded', 'true');
+          if (answer) {
+            answer.classList.remove('grid-rows-[0fr]');
+            answer.classList.add('grid-rows-[1fr]');
+          }
+          icon?.classList.add('rotate-180');
+          card?.classList.remove('border-gray-200/60', 'dark:border-slate-800');
+          card?.classList.add('border-blue-500/30', 'dark:border-blue-400/30');
+        }
+      });
+    });
+  }
+
+  // Tab switcher logic
+  const tabBtns = document.querySelectorAll('.faq-tab-btn');
+  const tabContents = document.querySelectorAll('.faq-tab-content');
+
+  function setFAQTab(tabId: string) {
+    tabBtns.forEach((btn) => {
+      const isActive = btn.getAttribute('data-tab') === tabId;
+      btn.classList.toggle('bg-blue-600', isActive);
+      btn.classList.toggle('text-white', isActive);
+      btn.classList.toggle('shadow-md', isActive);
+      btn.classList.toggle('bg-transparent', !isActive);
+      btn.classList.toggle('text-gray-650', !isActive);
+      btn.classList.toggle('dark:text-slate-400', !isActive);
+    });
+
+    tabContents.forEach((content) => {
+      const el = content as HTMLElement;
+      el.classList.toggle('hidden', el.id !== `faq-sec-${tabId}`);
+      el.classList.toggle('active', el.id === `faq-sec-${tabId}`);
+    });
+  }
+
+  tabBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const tabId = btn.getAttribute('data-tab');
+      if (tabId) setFAQTab(tabId);
+    });
+  });
+
+  // Initialize
+  initFAQButtons();
+  setFAQTab('web');
+
+  document.addEventListener('astro:page-load', () => {
+    initFAQButtons();
+    setFAQTab('web');
+  });
+</script>
+
+<style>
+  .faq-tab-content.active {
+    display: block;
+    animation: fadeIn 250ms ease-out;
+  }
+  .faq-tab-content.hidden {
+    display: none;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>

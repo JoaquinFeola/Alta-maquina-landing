@@ -13,94 +13,154 @@ const planOptions = [
   { value: "Web Personalizada - Cotización", label: "Web Personalizada - Cotización" },
   { value: "Otro / Consulta general", label: "Otro / Consulta general" },
 ];
+
+const { IconSend, IconCheck, IconAlertCircle, IconFileText, IconSparkles, IconUserCheck } = Icons;
 ---
 
-<div id="contact-form" class="mt-8 bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-dark-border rounded-2xl p-6 sm:p-8">
-  <h3 class="text-xl font-bold text-gray-900 dark:text-dark-text mb-6 text-center">
-    Consultanos sin compromiso
-  </h3>
+<div id="contact-wrapper" class="bg-white dark:bg-slate-900/40 border border-gray-200/60 dark:border-white/10 rounded-3xl overflow-hidden shadow-2xl">
+  <div class="grid grid-cols-1 lg:grid-cols-12">
+    <!-- Left Column: Benefits & Trust (Conversion Driver) -->
+    <div class="lg:col-span-5 bg-gradient-to-br from-blue-600 to-indigo-700 text-white p-8 sm:p-10 flex flex-col justify-between">
+      <div class="space-y-8">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-widest text-blue-200">¿Hablamos?</span>
+          <h3 class="text-3xl font-extrabold tracking-tight mt-1 text-white">Comenzá tu proyecto digital</h3>
+        </div>
 
-  <form id="consulta-form" class="space-y-4">
-    <div>
-      <label for="nombre" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nombre *</label>
-      <input
-        type="text"
-        id="nombre"
-        name="nombre"
-        required
-        placeholder="Tu nombre"
-        class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-bg text-gray-900 dark:text-dark-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-accent/50 transition-colors"
-      />
+        <p class="text-blue-100 text-sm leading-relaxed">
+          Completá el formulario o escribinos. Analizamos tu modelo de negocio y te preparamos una propuesta sin costo ni compromiso.
+        </p>
+
+        <!-- Benefits checklist -->
+        <ul class="space-y-4 pt-4">
+          <li class="flex items-start gap-3">
+            <div class="w-6 h-6 rounded-lg bg-white/10 flex items-center justify-center text-blue-200 flex-shrink-0 mt-0.5">
+              <IconSparkles className="w-4 h-4" />
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-white">Presupuesto sin cargo en 24h</h4>
+              <p class="text-xs text-blue-100/80">Te cotizamos según tus necesidades reales.</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-6 h-6 rounded-lg bg-white/10 flex items-center justify-center text-blue-200 flex-shrink-0 mt-0.5">
+              <IconUserCheck className="w-4 h-4" />
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-white">Soporte directo 1 a 1</h4>
+              <p class="text-xs text-blue-100/80">Tratás directamente con el desarrollador del sitio.</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <div class="w-6 h-6 rounded-lg bg-white/10 flex items-center justify-center text-blue-200 flex-shrink-0 mt-0.5">
+              <IconFileText className="w-4 h-4" />
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-white">Optimización SEO y Velocidad</h4>
+              <p class="text-xs text-blue-100/80">Sitios rápidos preparados para aparecer en Google.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Footer contact details -->
+      <div class="pt-8 border-t border-white/10 text-xs text-blue-200 space-y-1">
+        <p>Alta Máquina — Joaquín Feola</p>
+        <p>Email: <a href="mailto:altamaquinassb@gmail.com" class="underline text-white font-medium">altamaquinassb@gmail.com</a></p>
+      </div>
     </div>
 
-    <div>
-      <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email *</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        required
-        placeholder="tu@email.com"
-        class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-bg text-gray-900 dark:text-dark-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-accent/50 transition-colors"
-      />
-    </div>
+    <!-- Right Column: Interactive Form -->
+    <div class="lg:col-span-7 p-8 sm:p-10 bg-white dark:bg-slate-900/60 flex flex-col justify-center">
+      <form id="consulta-form" class="space-y-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="nombre" class="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-slate-400 mb-1.5">Nombre *</label>
+            <input
+              type="text"
+              id="nombre"
+              name="nombre"
+              required
+              placeholder="Ej: Juan Pérez"
+              class="w-full px-4 py-3.5 rounded-xl border border-gray-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/40 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-blue-400/50 focus:border-blue-500 transition-all text-sm font-medium"
+            />
+          </div>
 
-    <div>
-      <CustomSelect
-        id="plan"
-        name="plan"
-        label="¿Qué tipo de web te interesa?"
-        options={planOptions}
-        placeholder="Seleccionar un plan"
-      />
-    </div>
+          <div>
+            <label for="email" class="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-slate-400 mb-1.5">Email *</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="Ej: tu@email.com"
+              class="w-full px-4 py-3.5 rounded-xl border border-gray-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/40 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-blue-400/50 focus:border-blue-500 transition-all text-sm font-medium"
+            />
+          </div>
+        </div>
 
-    <div>
-      <label for="mensaje" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Mensaje (opcional)</label>
-      <textarea
-        id="mensaje"
-        name="mensaje"
-        rows="3"
-        placeholder="Contanos más sobre tu proyecto..."
-        class="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-bg text-gray-900 dark:text-dark-text placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-accent/50 transition-colors resize-none"
-      ></textarea>
-    </div>
+        <div>
+          <CustomSelect
+            id="plan"
+            name="plan"
+            label="¿Qué servicio o plan te interesa?"
+            options={planOptions}
+            placeholder="Seleccionar plan o servicio"
+          />
+        </div>
 
-    <button
-      type="submit"
-      id="submit-btn"
-      class="w-full py-3 px-6 bg-primary dark:bg-accent text-white font-medium rounded-xl hover:bg-primary-hover dark:hover:bg-accent-hover transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-    >
-      <Icons.IconSend className="w-5 h-5" id="send-icon" />
-      <span id="btn-text">Enviar consulta</span>
-      <span id="loading-spinner" class="hidden">
-        <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-        </svg>
-      </span>
-    </button>
-  </form>
+        <div>
+          <label for="mensaje" class="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-slate-400 mb-1.5">Contanos tu idea (opcional)</label>
+          <textarea
+            id="mensaje"
+            name="mensaje"
+            rows="4"
+            placeholder="Contanos brevemente de qué trata tu negocio o qué funcionalidad necesitás..."
+            class="w-full px-4 py-3.5 rounded-xl border border-gray-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/40 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-blue-400/50 focus:border-blue-500 transition-all text-sm font-medium resize-none"
+          ></textarea>
+        </div>
 
-  <!-- Success message -->
-  <div id="success-msg" class="hidden text-center py-8">
-    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/20 mx-auto mb-4">
-      <Icons.IconCheck className="w-8 h-8 text-green-600 dark:text-green-400" />
-    </div>
-    <h4 class="text-lg font-semibold text-gray-900 dark:text-dark-text mb-2">¡Consulta enviada!</h4>
-    <p class="text-sm text-gray-500 dark:text-dark-text-secondary">Te contactamos a la brevedad.</p>
-  </div>
+        <button
+          type="submit"
+          id="submit-btn"
+          class="w-full py-4 px-6 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm rounded-xl transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-500/10 hover:shadow-blue-500/20 hover:scale-[1.01]"
+        >
+          <IconSend className="w-4 h-4" id="send-icon" />
+          <span id="btn-text">Enviar consulta</span>
+          <span id="loading-spinner" class="hidden">
+            <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          </span>
+        </button>
+      </form>
 
-  <!-- Error message -->
-  <div id="error-msg" class="hidden text-center py-6">
-    <div class="flex items-center justify-center w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/20 mx-auto mb-4">
-      <Icons.IconAlertCircle className="w-8 h-8 text-red-600 dark:text-red-400" />
+      <!-- Success message -->
+      <div id="success-msg" class="hidden text-center py-8 space-y-4">
+        <div class="flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/20 mx-auto border border-green-200/50 dark:border-green-800/30">
+          <IconCheck className="w-8 h-8 text-green-600 dark:text-green-400" />
+        </div>
+        <div class="space-y-1">
+          <h4 class="text-xl font-bold text-gray-900 dark:text-white">¡Consulta enviada con éxito!</h4>
+          <p class="text-sm text-gray-500 dark:text-slate-400">Joaquín se pondrá en contacto con vos a la brevedad.</p>
+        </div>
+      </div>
+
+      <!-- Error message -->
+      <div id="error-msg" class="hidden text-center py-6 space-y-4">
+        <div class="flex items-center justify-center w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/20 mx-auto border border-red-200/50 dark:border-red-800/30">
+          <IconAlertCircle className="w-8 h-8 text-red-600 dark:text-red-400" />
+        </div>
+        <div class="space-y-1">
+          <h4 class="text-xl font-bold text-gray-900 dark:text-white">Ocurrió un inconveniente</h4>
+          <p class="text-sm text-gray-500 dark:text-slate-400">Revisá tu conexión o intentá de nuevo más tarde.</p>
+        </div>
+        <button id="retry-btn" type="button" class="px-5 py-2 border border-blue-600/50 text-blue-600 hover:bg-blue-600 hover:text-white rounded-xl text-xs font-semibold transition-all">
+          Reintentar formulario
+        </button>
+      </div>
     </div>
-    <h4 class="text-lg font-semibold text-gray-900 dark:text-dark-text mb-2">Ocurrió un error</h4>
-    <p class="text-sm text-gray-500 dark:text-dark-text-secondary">Revisá los datos e intentá de nuevo.</p>
-    <button id="retry-btn" class="mt-4 text-sm text-primary dark:text-accent hover:underline">
-      Reintentar
-    </button>
   </div>
 </div>
 
@@ -115,7 +175,7 @@ const planOptions = [
   const retryBtn = document.getElementById('retry-btn');
 
   function setLoading(loading: boolean) {
-    submitBtn.disabled = loading;
+    if (submitBtn) submitBtn.disabled = loading;
     if (loading) {
       sendIcon?.classList.add('hidden');
       btnText?.classList.add('hidden');

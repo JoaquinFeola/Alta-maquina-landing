@@ -4,33 +4,46 @@ import SectionTitle from '../ui/SectionTitle.astro';
 import SocialLinks from '../ui/SocialLinks.astro';
 import * as Icons from '@tabler/icons-react';
 import { nombreContacto } from '../../data/social';
+
+const { IconUser } = Icons;
 ---
 
-<section id="contacto" class="relative py-20 lg:py-32 bg-gray-50 dark:bg-dark-bg">
-  <Container>
+<section id="contacto" class="relative py-20 lg:py-32 bg-slate-50 dark:bg-slate-900/40 overflow-hidden">
+  <!-- Glowing Background Orb -->
+  <div class="absolute top-[30%] right-[-10%] w-[30vw] h-[30vw] rounded-full bg-blue-500/5 dark:bg-blue-500/5 blur-3xl animate-float-slow"></div>
+
+  <Container class="relative z-10">
     <SectionTitle
       title="¿Necesitás servicio técnico?"
       highlight="servicio técnico"
-      subtitle="Contactanos y coordinamos la revisión de tu equipo"
+      subtitle="Coordinemos la revisión de tu equipo de forma rápida y sencilla."
     />
 
     <div class="max-w-xl mx-auto">
-      <div class="relative bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-dark-border rounded-2xl p-8 sm:p-12">
-        <div class="flex flex-col items-center text-center">
-          {/* Avatar */}
-          <div class="flex items-center justify-center w-20 h-20 rounded-full bg-emerald-500/10 dark:bg-emerald-400/20 border border-emerald-500/20 dark:border-emerald-400/30 mb-6">
-            <Icons.IconUser className="w-10 h-10 text-emerald-600 dark:text-emerald-400" />
+      <div class="relative glass-card border border-gray-200/60 dark:border-white/10 rounded-3xl p-8 sm:p-12 shadow-2xl overflow-hidden glow-card">
+        <!-- Inner content -->
+        <div class="flex flex-col items-center text-center relative z-10">
+          <!-- Avatar Icon Container -->
+          <div class="flex items-center justify-center w-20 h-20 rounded-full bg-blue-600/10 dark:bg-blue-400/20 border border-blue-600/20 dark:border-blue-400/30 mb-6 shadow-inner">
+            <IconUser className="w-10 h-10 text-blue-600 dark:text-blue-400" />
           </div>
 
-          {/* Name */}
-          <h3 class="text-2xl font-bold text-gray-900 dark:text-dark-text mb-2">
+          <!-- Contact Name -->
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-1">
             {nombreContacto}
           </h3>
-          <p class="text-sm text-gray-500 dark:text-dark-text-secondary mb-8">
-            Servicio técnico de PC
+          <p class="text-sm text-gray-500 dark:text-slate-400 mb-8 font-medium">
+            Servicio Técnico Especializado de PC
           </p>
 
-          {/* Social links */}
+          <!-- Divider -->
+          <div class="w-full h-px bg-gray-100 dark:bg-slate-800/80 mb-8"></div>
+
+          <p class="text-sm text-gray-650 dark:text-slate-300 mb-8 leading-relaxed max-w-sm">
+            Escribinos por redes sociales o envianos un correo para coordinar día y horario para retirar tu equipo.
+          </p>
+
+          <!-- Social links grid -->
           <div class="w-full max-w-md">
             <SocialLinks showName={true} size="md" layout="grid" />
           </div>

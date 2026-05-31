@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import Container from './Container.astro';
 import * as Icons from '@tabler/icons-react';
-import AltaMaquinaImagotipo from "../assets/images/logo-altamaquina-fondo.webp"
+import AltaMaquinaImagotipo from "../assets/images/favicon-96x96.png"
 const currentYear = new Date().getFullYear();
 
 const redes = [
@@ -14,6 +14,9 @@ const redes = [
 const links = [
   { nombre: 'Desarrollo Web', href: '/' },
   { nombre: 'Servicio Técnico PC', href: '/servicio-tecnico' },
+  { nombre: 'Preguntas Frecuentes', href: '/preguntas-frecuentes' },
+  { nombre: 'Políticas de Privacidad', href: '/privacidad' },
+  { nombre: 'Términos y Condiciones', href: '/terminos-y-condiciones' },
 ];
 ---
 
@@ -24,7 +27,7 @@ const links = [
       <div>
         <a href="/" class="flex items-center hover:opacity-80 transition-opacity mb-4">
           <Image src={AltaMaquinaImagotipo} alt="Alta Maquina" class="w-8 h-8 rounded-full" />
-          <span class="ml-2 text-lg font-bold text-gray-900 dark:text-dark-text">Alta Maquina</span>
+          <span class="ml-2 text-lg font-bold font-display text-gray-900 dark:text-dark-text">Alta Maquina</span>
         </a>
         <p class="text-sm text-gray-600 dark:text-dark-text-secondary leading-relaxed">
           Desarrollo web y servicio técnico de PC en Partido de la Costa.

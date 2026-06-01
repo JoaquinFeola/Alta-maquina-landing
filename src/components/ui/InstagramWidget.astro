@@ -1,0 +1,276 @@
+---
+import * as Icons from '@tabler/icons-react';
+import { nombreContacto } from '../../data/social';
+import AltaMaquinaImagotipo from "../../assets/images/Logo-alta-maquina-sin-fondo.webp";
+import { Image } from "astro:assets";
+
+const { IconBrandInstagram, IconX } = Icons;
+
+interface Props {
+  instagramUrl?: string;
+}
+
+const {
+  instagramUrl = "https://www.instagram.com/altamaquina.software/"
+} = Astro.props;
+---
+
+<div class="fixed bottom-6 right-6 z-50 flex flex-col items-end font-sans">
+  <!-- Chat Window -->
+  <div
+    id="instagram-chat-window"
+    class="mb-4 w-[330px] rounded-2xl overflow-hidden shadow-2xl border border-gray-100 dark:border-white/10 bg-white dark:bg-slate-900 transition-all duration-300 translate-y-4 opacity-0 pointer-events-none scale-95 origin-bottom-right"
+  >
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-purple-600 to-pink-500 text-white p-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="relative">
+          <Image
+            src={AltaMaquinaImagotipo}
+            alt={nombreContacto}
+            class="w-10 h-10 rounded-full bg-white p-0.5 border border-white/20"
+          />
+          <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-pink-400 rounded-full border-2 border-white dark:border-slate-900"></span>
+        </div>
+        <div>
+          <h4 class="font-semibold text-sm leading-tight">{nombreContacto}</h4>
+          <span class="text-xs text-white/80">Alta Máquina en Instagram</span>
+        </div>
+      </div>
+      <button
+        type="button"
+        id="close-instagram-chat"
+        class="text-white/80 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors"
+        aria-label="Cerrar chat"
+      >
+        <IconX className="w-5 h-5" />
+      </button>
+    </div>
+
+    <!-- Message Body -->
+    <div id="msg-body" class="p-4 bg-gray-50 dark:bg-slate-950/40 min-h-[140px] flex flex-col justify-end space-y-3">
+      <!-- Message 1 (hidden initially) -->
+      <div id="msg-1" class="hidden bg-white dark:bg-slate-800 p-3 rounded-2xl rounded-tl-none shadow-sm max-w-[85%] border border-gray-100 dark:border-white/5 opacity-0 translate-y-3">
+        <p class="text-xs text-gray-400 dark:text-slate-400 mb-1 font-medium">{nombreContacto}</p>
+        <p class="text-sm text-gray-800 dark:text-slate-100">
+          ¡Hola! 👋 ¿Cómo estás? Seguinos en Instagram para ver nuestro trabajo
+        </p>
+        <span class="block text-[10px] text-right text-gray-400 dark:text-slate-500 mt-1">Justo ahora</span>
+      </div>
+
+      <!-- Message 2 (hidden initially) -->
+      <div id="msg-2" class="hidden bg-white dark:bg-slate-800 p-3 rounded-2xl rounded-tl-none shadow-sm max-w-[85%] border border-gray-100 dark:border-white/5 opacity-0 translate-y-3">
+        <p class="text-sm text-gray-800 dark:text-slate-100">
+          ¿Buscás una página web o necesitás reparar tu PC? Escribinos por DM 💬
+        </p>
+        <span class="block text-[10px] text-right text-gray-400 dark:text-slate-500 mt-1">Justo ahora</span>
+      </div>
+
+      <!-- Typing indicator (moves dynamically via JS) -->
+      <div id="typing-indicator" class="hidden bg-white dark:bg-slate-800 p-3 rounded-2xl rounded-tl-none shadow-sm max-w-[55%] border border-gray-100 dark:border-white/5">
+        <div class="flex items-center gap-1.5 py-0.5">
+          <span class="typing-dot w-2 h-2 bg-gray-400 dark:bg-slate-500 rounded-full"></span>
+          <span class="typing-dot w-2 h-2 bg-gray-400 dark:bg-slate-500 rounded-full"></span>
+          <span class="typing-dot w-2 h-2 bg-gray-400 dark:bg-slate-500 rounded-full"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Action -->
+    <div class="p-3 bg-white dark:bg-slate-900 border-t border-gray-100 dark:border-white/5 flex gap-2">
+      <a
+        href={instagramUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="w-full py-2.5 px-4 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white font-medium text-sm rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-purple-500/10 hover:shadow-purple-500/20"
+      >
+        <IconBrandInstagram className="w-5 h-5" />
+        Escribinos por Instagram
+      </a>
+    </div>
+  </div>
+
+  <!-- Trigger Button -->
+  <button
+    type="button"
+    id="instagram-trigger"
+    class="flex items-center justify-center p-3 sm:p-4 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white rounded-full shadow-2xl transition-all duration-300 hover:scale-105 group relative overflow-hidden"
+    aria-label="Abrir Instagram de Alta Máquina"
+  >
+    <!-- Ripple/Pulse effect -->
+    <span class="absolute inset-0 bg-white/20 rounded-full scale-0 group-hover:scale-100 transition-transform duration-500 origin-center"></span>
+    
+    <span class="relative flex h-6 w-6 flex-shrink-0">
+      <!-- Glow ping -->
+      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-40"></span>
+      <IconBrandInstagram className="w-6 h-6 relative" />
+    </span>
+    
+    <span class="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-500 ease-in-out font-medium text-sm whitespace-nowrap hidden sm:inline-block group-hover:ml-2">
+      Seguinos
+    </span>
+  </button>
+</div>
+
+<script>
+  const trigger = document.getElementById('instagram-trigger');
+  const chatWindow = document.getElementById('instagram-chat-window');
+  const closeBtn = document.getElementById('close-instagram-chat');
+  const typingIndicator = document.getElementById('typing-indicator');
+  const msgBody = document.getElementById('msg-body');
+  const msg1 = document.getElementById('msg-1');
+  const msg2 = document.getElementById('msg-2');
+  let animationTimeouts: ReturnType<typeof setTimeout>[] = [];
+
+  function playPopSound() {
+    try {
+      const ctx = new AudioContext();
+      const oscillator = ctx.createOscillator();
+      const gain = ctx.createGain();
+      oscillator.type = 'sine';
+      oscillator.frequency.setValueAtTime(880, ctx.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 0.12);
+      gain.gain.setValueAtTime(0.15, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
+      oscillator.connect(gain);
+      gain.connect(ctx.destination);
+      oscillator.start(ctx.currentTime);
+      oscillator.stop(ctx.currentTime + 0.2);
+    } catch { /* silently fail */ }
+  }
+
+  function playSendSound() {
+    try {
+      const ctx = new AudioContext();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(600, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(900, ctx.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.12, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(ctx.currentTime);
+      osc.stop(ctx.currentTime + 0.15);
+    } catch { /* silently fail */ }
+  }
+
+  function showTyping(beforeEl: HTMLElement | null) {
+    if (!typingIndicator || !msgBody) return;
+    // Move typing indicator right before the target element (or at the end)
+    if (beforeEl) {
+      msgBody.insertBefore(typingIndicator, beforeEl);
+    } else {
+      msgBody.appendChild(typingIndicator);
+    }
+    typingIndicator.classList.remove('hidden');
+  }
+
+  function hideTyping() {
+    typingIndicator?.classList.add('hidden');
+  }
+
+  function showMsg(el: HTMLElement | null) {
+    if (!el) return;
+    el.classList.remove('hidden');
+    // Trigger reflow so the transition actually runs
+    void el.offsetHeight;
+    el.classList.remove('opacity-0', 'translate-y-3');
+    el.classList.add('msg-visible');
+    playSendSound();
+  }
+
+  function resetMessages() {
+    animationTimeouts.forEach(clearTimeout);
+    animationTimeouts = [];
+    hideTyping();
+    [msg1, msg2].forEach((el) => {
+      if (!el) return;
+      el.classList.add('hidden', 'opacity-0', 'translate-y-3');
+      el.classList.remove('msg-visible');
+    });
+  }
+
+  function animateMessages() {
+    resetMessages();
+
+    // Step 1: Show typing indicator before msg-1
+    animationTimeouts.push(setTimeout(() => {
+      showTyping(msg1);
+    }, 100));
+
+    // Step 2: Hide typing, show message 1
+    animationTimeouts.push(setTimeout(() => {
+      hideTyping();
+      showMsg(msg1);
+    }, 500));
+
+    // Step 3: Show typing indicator before msg-2
+    animationTimeouts.push(setTimeout(() => {
+      showTyping(msg2);
+    }, 900));
+
+    // Step 4: Hide typing, show message 2
+    animationTimeouts.push(setTimeout(() => {
+      hideTyping();
+      showMsg(msg2);
+    }, 1400));
+  }
+
+  function toggleChat() {
+    if (!chatWindow) return;
+    const isOpen = !chatWindow.classList.contains('opacity-0');
+    if (isOpen) {
+      chatWindow.classList.add('opacity-0', 'pointer-events-none', 'scale-95', 'translate-y-4');
+      chatWindow.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100', 'translate-y-0');
+      resetMessages();
+    } else {
+      chatWindow.classList.remove('opacity-0', 'pointer-events-none', 'scale-95', 'translate-y-4');
+      chatWindow.classList.add('opacity-100', 'pointer-events-auto', 'scale-100', 'translate-y-0');
+      playPopSound();
+      animateMessages();
+    }
+  }
+
+  trigger?.addEventListener('click', (e) => { e.stopPropagation(); toggleChat(); });
+  closeBtn?.addEventListener('click', (e) => { e.stopPropagation(); toggleChat(); });
+
+  document.addEventListener('click', (e) => {
+    if (chatWindow && !chatWindow.contains(e.target as Node) && !trigger?.contains(e.target as Node)) {
+      chatWindow.classList.add('opacity-0', 'pointer-events-none', 'scale-95', 'translate-y-4');
+      chatWindow.classList.remove('opacity-100', 'pointer-events-auto', 'scale-100', 'translate-y-0');
+      resetMessages();
+    }
+  });
+</script>
+
+<style>
+  /* Typing dots bounce */
+  .typing-dot {
+    animation: typing-bounce 1.4s infinite ease-in-out both;
+  }
+  .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+  .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+  .typing-dot:nth-child(3) { animation-delay: 0s; }
+
+  @keyframes typing-bounce {
+    0%, 80%, 100% {
+      transform: scale(0.6);
+      opacity: 0.4;
+    }
+    40% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  /* Message slide-in */
+  .msg-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+  #msg-1, #msg-2 {
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+</style>

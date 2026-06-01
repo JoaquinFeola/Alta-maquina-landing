@@ -14,7 +14,7 @@ export function getOrganizationSchema(siteURL: string, ogImage: string) {
     "description": "Desarrollo web profesional y servicio técnico de PC en Argentina.",
     "sameAs": [
       "https://www.facebook.com/altamaquina.sb/",
-      "https://www.instagram.com/altamaquinasb/",
+      "https://www.instagram.com/altamaquina.software/",
     ],
     "contactPoint": {
       "@type": "ContactPoint",
@@ -143,7 +143,7 @@ export function getServiceSchema(siteURL: string, ogImage: string, pageType: "we
       },
       "sameAs": [
         "https://www.facebook.com/altamaquina.sb/",
-        "https://www.instagram.com/altamaquinasb/",
+        "https://www.instagram.com/altamaquina.software/",
       ],
       "serviceType": ["Limpieza de PC", "Diagnóstico", "Armado de PC"],
       "areaServed": [

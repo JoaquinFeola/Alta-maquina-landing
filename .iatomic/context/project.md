@@ -75,7 +75,7 @@ src/
 
 ## Redes Sociales
 - Facebook: https://www.facebook.com/altamaquina.sb/
-- Instagram: https://www.instagram.com/altamaquinasb/
+- Instagram: https://www.instagram.com/altamaquina.software/
 - Gmail: altamaquinassb@gmail.com
 
 ## SEO Implementado

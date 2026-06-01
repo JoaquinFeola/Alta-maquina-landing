@@ -1,14 +1,13 @@
 export interface Plan {
   id: string;
   nombre: string;
-  precio: number;
+  precio: string;
   descripcion: string;
   icono: string; // icon name string, to be resolved in component
   popular?: boolean;
   incluye: string[];
   noIncluye?: string[];
   nota?: string;
-  discountPercentage?: number;
   ejemplos?: string[];
 }
 
@@ -16,10 +15,9 @@ export const planesWeb: Plan[] = [
   {
     id: 'landing-basica',
     nombre: 'Landing Page Básica',
-    precio: 80_000,
+    precio: '$80.000',
     descripcion: 'Página web profesional ideal para pequeños negocios',
     icono: 'IconPackage',
-    discountPercentage: 30,
     incluye: [
       'Página web profesional',
       'Adaptada para celulares',
@@ -42,7 +40,7 @@ export const planesWeb: Plan[] = [
   {
     id: 'web-institucional',
     nombre: 'Web Institucional',
-    precio: 250_000,
+    precio: 'Desde $250.000',
     descripcion: 'Ideal para empresas, estudios y negocios más grandes',
     icono: 'IconWorld',
     popular: true,
@@ -69,7 +67,7 @@ export const planesWeb: Plan[] = [
   {
     id: 'turnos-online',
     nombre: 'Plan Turnos Online',
-    precio: 450_000,
+    precio: 'Desde $450.000',
     descripcion: 'Ideal para profesionales y negocios con citas',
     icono: 'IconCalendar',
     popular: true,
@@ -91,7 +89,7 @@ export const planesWeb: Plan[] = [
   {
     id: 'catalogo-online',
     nombre: 'Plan Catálogo Online',
-    precio: 350_000,
+    precio: 'Desde $350.000',
     descripcion: 'Ideal para emprendimientos y tiendas pequeñas',
     icono: 'IconShoppingCart',
     incluye: [
@@ -113,7 +111,7 @@ export const planesWeb: Plan[] = [
   {
     id: 'tienda-online',
     nombre: 'Plan Tienda Online',
-    precio: 750_000,
+    precio: 'Desde $700.000',
     descripcion: 'Ecommerce completo para vender online',
     icono: 'IconShoppingCart',
     popular: true,
@@ -138,7 +136,7 @@ export const planesWeb: Plan[] = [
   {
     id: 'web-personalizada',
     nombre: 'Web Personalizada',
-    precio: 0,
+    precio: 'Cotización personalizada',
     descripcion: 'Sistemas especiales, plataformas e ideas personalizadas',
     icono: 'IconBolt',
     incluye: [

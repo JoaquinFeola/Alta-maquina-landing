@@ -16,7 +16,7 @@ export const socialLinks: SocialLink[] = [
   },
   {
     nombre: 'Instagram',
-    url: 'https://www.instagram.com/altamaquinasb/',
+    url: 'https://www.instagram.com/altamaquina.software/',
     icono: 'IconBrandInstagram',
     color: 'bg-gradient-to-br from-purple-600 to-pink-500',
     colorHover: 'hover:from-purple-700 hover:to-pink-600',

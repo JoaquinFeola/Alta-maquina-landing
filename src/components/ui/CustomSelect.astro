@@ -29,7 +29,7 @@ const { IconChevronDown, IconCheck } = Icons;
 
 <div class={`custom-select-wrapper ${className}`}>
   {label && (
-    <label for={id} class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+    <label for={id} class="block text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-slate-450 mb-1.5">
       {label}
     </label>
   )}
@@ -37,7 +37,7 @@ const { IconChevronDown, IconCheck } = Icons;
   <div class="relative">
     <!-- Hidden native select for form submission -->
     <select id={id} name={name} class="native-select sr-only" tabindex="-1" aria-hidden="true">
-      <option value=""> {placeholder}</option>
+      <option value="">{placeholder}</option>
       {options.map(opt => (
         <option value={opt.value}>{opt.label}</option>
       ))}
@@ -47,18 +47,18 @@ const { IconChevronDown, IconCheck } = Icons;
     <button
       type="button"
       id={`${id}-trigger`}
-      class="custom-select-trigger w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-bg text-left text-gray-900 dark:text-dark-text flex items-center justify-between gap-2 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 dark:focus:ring-accent/50"
+      class="custom-select-trigger w-full px-4 py-3.5 rounded-xl border border-gray-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/40 text-left text-gray-900 dark:text-white flex items-center justify-between gap-2 transition-all focus:outline-none focus:ring-2 focus:ring-blue-500/50 dark:focus:ring-blue-400/50 focus:border-blue-500 text-sm font-medium"
     >
-      <span class="selected-text text-gray-400 dark:text-gray-500 truncate">
+      <span class="selected-text text-gray-400 dark:text-slate-500 truncate">
         {placeholder}
       </span>
-      <IconChevronDown className="w-5 h-5 text-gray-400 dark:text-gray-500 transition-transform duration-200 chevron-icon flex-shrink-0" />
+      <IconChevronDown className="w-5 h-5 text-gray-450 dark:text-slate-500 transition-transform duration-200 chevron-icon flex-shrink-0" />
     </button>
 
     <!-- Custom dropdown -->
     <div
       id={`${id}-dropdown`}
-      class="custom-select-dropdown absolute z-50 mt-2 w-full bg-white dark:bg-dark-bg-secondary border border-gray-200 dark:border-dark-border rounded-xl shadow-lg overflow-hidden hidden"
+      class="custom-select-dropdown absolute z-50 mt-2 w-full bg-white dark:bg-slate-900 border border-gray-200 dark:border-white/10 rounded-2xl shadow-2xl overflow-hidden hidden"
     >
       <div class="max-h-60 overflow-y-auto py-1">
         {options.map((opt, index) => (
@@ -66,136 +66,126 @@ const { IconChevronDown, IconCheck } = Icons;
             type="button"
             data-value={opt.value}
             data-label={opt.label}
-            class={`custom-select-option w-full px-4 py-3 text-left text-gray-900 dark:text-dark-text hover:bg-gray-50 dark:hover:bg-white/5 transition-colors flex items-center justify-between gap-2 group ${index === 0 ? 'rounded-t-xl' : ''} ${index === options.length - 1 ? 'rounded-b-xl' : ''}`}
+            class={`custom-select-option w-full px-4 py-3 text-left text-gray-900 dark:text-white hover:bg-slate-50 dark:hover:bg-white/5 transition-colors flex items-center justify-between gap-2 group text-sm font-medium ${index === 0 ? 'rounded-t-2xl' : ''} ${index === options.length - 1 ? 'rounded-b-2xl' : ''}`}
           >
             <span class="truncate">{opt.label}</span>
-            <IconCheck className="w-4 h-4 text-primary dark:text-accent opacity-0 group-hover:opacity-100 check-icon transition-opacity" />
+            <IconCheck className="w-4 h-4 text-blue-600 dark:text-blue-400 opacity-0 check-icon transition-opacity" />
           </button>
         ))}
       </div>
     </div>
-
   </div>
 </div>
 
-<script is:inline>
-  (function() {
-    // Wait for DOM to be ready
-    function initCustomSelects() {
-      document.querySelectorAll('.custom-select-wrapper').forEach((wrapper) => {
-        const trigger = wrapper.querySelector('.custom-select-trigger');
-        const dropdown = wrapper.querySelector('.custom-select-dropdown');
-        const selectedText = wrapper.querySelector('.selected-text');
-        const chevron = trigger ? (trigger.querySelector('.chevron-icon') || trigger.querySelector('svg')) : null;
-        const nativeSelect = wrapper.querySelector('.native-select');
+<script>
+  function initCustomSelects() {
+    document.querySelectorAll('.custom-select-wrapper').forEach((wrapper) => {
+      const trigger = wrapper.querySelector('.custom-select-trigger') as HTMLButtonElement | null;
+      const dropdown = wrapper.querySelector('.custom-select-dropdown') as HTMLDivElement | null;
+      const selectedText = wrapper.querySelector('.selected-text');
+      const chevron = trigger ? (trigger.querySelector('.chevron-icon') || trigger.querySelector('svg')) as HTMLElement | null : null;
+      const nativeSelect = wrapper.querySelector('.native-select') as HTMLSelectElement | null;
 
-        if (!trigger || !dropdown) {
-          console.warn('CustomSelect: Missing trigger or dropdown');
-          return;
-        }
+      if (!trigger || !dropdown) return;
 
-        let isOpen = false;
+      let isOpen = false;
 
-        function openDropdown() {
-          if (!dropdown || !trigger) return;
-          isOpen = true;
-          dropdown.classList.remove('hidden');
-          if (chevron) chevron.style.transform = 'rotate(180deg)';
-          trigger.classList.add('ring-2', 'ring-primary/50', 'dark:ring-accent/50');
-          trigger.setAttribute('aria-expanded', 'true');
-        }
+      function openDropdown() {
+        if (!dropdown || !trigger) return;
+        isOpen = true;
+        dropdown.classList.remove('hidden');
+        if (chevron) chevron.style.transform = 'rotate(180deg)';
+        trigger.classList.add('ring-2', 'ring-blue-500/50', 'dark:ring-blue-400/50', 'border-blue-500');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
 
-        function closeDropdown() {
-          if (!dropdown || !trigger) return;
-          isOpen = false;
-          dropdown.classList.add('hidden');
-          if (chevron) chevron.style.transform = 'rotate(0deg)';
-          trigger.classList.remove('ring-2', 'ring-primary/50', 'dark:ring-accent/50');
-          trigger.setAttribute('aria-expanded', 'false');
-        }
+      function closeDropdown() {
+        if (!dropdown || !trigger) return;
+        isOpen = false;
+        dropdown.classList.add('hidden');
+        if (chevron) chevron.style.transform = 'rotate(0deg)';
+        trigger.classList.remove('ring-2', 'ring-blue-500/50', 'dark:ring-blue-400/50', 'border-blue-500');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
 
-        function selectOption(option, value, label) {
-          if (!selectedText || !nativeSelect || !dropdown || !trigger) return;
+      function selectOption(value: string, label: string) {
+        if (!selectedText || !nativeSelect || !dropdown || !trigger) return;
 
-          nativeSelect.value = value;
-          selectedText.textContent = label;
-          selectedText.classList.remove('text-gray-400', 'dark:text-gray-500');
-          selectedText.classList.add('text-gray-900', 'dark:text-dark-text');
+        nativeSelect.value = value;
+        // Dispatch event so forms can listen to changes
+        nativeSelect.dispatchEvent(new Event('change', { bubbles: true }));
+        
+        selectedText.textContent = label;
+        selectedText.classList.remove('text-gray-400', 'dark:text-slate-500');
+        selectedText.classList.add('text-gray-900', 'dark:text-white');
 
-          dropdown.querySelectorAll('.custom-select-option').forEach(opt => {
-            const check = opt.querySelector('.check-icon') || opt.querySelector('svg');
-            if (opt.getAttribute('data-value') === value) {
-              opt.classList.add('bg-gray-50', 'dark:bg-white/5');
-              if (check) {
-                check.classList.add('opacity-100');
-                check.classList.remove('opacity-0');
-              }
-            } else {
-              opt.classList.remove('bg-gray-50', 'dark:bg-white/5');
-              if (check) {
-                check.classList.remove('opacity-100');
-                check.classList.add('opacity-0');
-              }
-            }
-          });
-
-          closeDropdown();
-        }
-
-        trigger.addEventListener('click', (e) => {
-          e.stopPropagation();
-          if (isOpen) {
-            closeDropdown();
+        dropdown.querySelectorAll('.custom-select-option').forEach(opt => {
+          const check = opt.querySelector('.check-icon') || opt.querySelector('svg');
+          const optValue = opt.getAttribute('data-value');
+          if (optValue === value) {
+            opt.classList.add('bg-slate-55', 'dark:bg-white/5');
+            check?.classList.remove('opacity-0');
+            check?.classList.add('opacity-100');
           } else {
-            openDropdown();
+            opt.classList.remove('bg-slate-55', 'dark:bg-white/5');
+            check?.classList.remove('opacity-100');
+            check?.classList.add('opacity-0');
           }
         });
 
-        dropdown.querySelectorAll('.custom-select-option').forEach(option => {
-          option.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const value = option.getAttribute('data-value');
-            const label = option.getAttribute('data-label');
-            if (value && label) {
-              selectOption(option, value, label);
-            }
-          });
-        });
+        closeDropdown();
+      }
 
-        document.addEventListener('keydown', (e) => {
-          if (e.key === 'Escape' && isOpen) {
-            closeDropdown();
-          }
-        });
-
-        document.addEventListener('click', (e) => {
-          if (isOpen && !trigger.contains(e.target) && !dropdown.contains(e.target)) {
-            closeDropdown();
-          }
-        });
-
-        // Sync initial state
-        if (nativeSelect && nativeSelect.value) {
-          const selectedOption = dropdown.querySelector(`[data-value="${nativeSelect.value}"]`);
-          if (selectedOption) {
-            const label = selectedOption.getAttribute('data-label');
-            if (label && selectedText) {
-              selectedText.textContent = label;
-              selectedText.classList.remove('text-gray-400', 'dark:text-gray-500');
-              selectedText.classList.add('text-gray-900', 'dark:text-dark-text');
-            }
-          }
+      trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (isOpen) {
+          closeDropdown();
+        } else {
+          openDropdown();
         }
       });
-    }
 
-    // Run on DOMContentLoaded to ensure elements are available
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initCustomSelects);
-    } else {
-      initCustomSelects();
-    }
-  })();
+      dropdown.querySelectorAll('.custom-select-option').forEach(option => {
+        option.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const value = option.getAttribute('data-value');
+          const label = option.getAttribute('data-label');
+          if (value && label) {
+            selectOption(value, label);
+          }
+        });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isOpen) {
+          closeDropdown();
+        }
+      });
+
+      document.addEventListener('click', (e) => {
+        if (isOpen && !trigger.contains(e.target as Node) && !dropdown.contains(e.target as Node)) {
+          closeDropdown();
+        }
+      });
+
+      // Sync initial state if value exists
+      if (nativeSelect && nativeSelect.value) {
+        const selectedOption = dropdown.querySelector(`[data-value="${nativeSelect.value}"]`);
+        if (selectedOption) {
+          const label = selectedOption.getAttribute('data-label');
+          if (label && selectedText) {
+            selectedText.textContent = label;
+            selectedText.classList.remove('text-gray-450', 'dark:text-slate-500');
+            selectedText.classList.add('text-gray-900', 'dark:text-white');
+          }
+        }
+      }
+    });
+  }
+
+  // Initialize
+  initCustomSelects();
+  document.addEventListener('astro:page-load', initCustomSelects);
 </script>
 
 <style>

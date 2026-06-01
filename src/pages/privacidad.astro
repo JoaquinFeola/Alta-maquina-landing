@@ -1,0 +1,84 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Container from '../components/Container.astro';
+---
+
+<Layout
+  title="Política de Privacidad | Alta Máquina"
+  description="Políticas de privacidad y tratamiento de datos personales de los usuarios del sitio web Alta Máquina."
+  pageType="legal"
+  pageTitle="Política de Privacidad"
+  pagePath="/privacidad"
+>
+  <Header />
+
+  <main class="flex-1 pt-24 pb-20">
+    <Container class="max-w-3xl">
+      <!-- Title -->
+      <div class="border-b border-gray-200 dark:border-slate-800 pb-6 mb-8">
+        <span class="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400">Legal</span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white mt-1">
+          Política de Privacidad
+        </h1>
+        <p class="text-xs text-gray-400 dark:text-slate-500 mt-2">
+          Última actualización: 30 de Mayo de 2026
+        </p>
+      </div>
+
+      <!-- Legal Content -->
+      <div class="space-y-6 text-sm sm:text-base text-gray-700 dark:text-slate-350 leading-relaxed font-sans">
+        <p>
+          En <strong>Alta Máquina</strong>, valoramos y respetamos su privacidad. Esta Política de Privacidad explica cómo recopilamos, utilizamos, almacenamos y protegemos la información personal que usted nos facilita al visitar nuestro sitio web o completar nuestros formularios de contacto.
+        </p>
+
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white pt-4">1. Información que recopilamos</h2>
+        <p>
+          Recopilamos únicamente los datos necesarios para brindar y gestionar de manera efectiva nuestras consultas y cotizaciones. Esta información incluye:
+        </p>
+        <ul class="list-disc pl-5 space-y-2">
+          <li><strong>Datos de contacto básicos:</strong> Nombre, dirección de correo electrónico y número de teléfono (en caso de contacto vía WhatsApp).</li>
+          <li><strong>Detalles del proyecto o servicio:</strong> Plan de desarrollo web seleccionado, especificaciones técnicas de la PC y cualquier mensaje o descripción que elija incluir de forma voluntaria en los formularios.</li>
+          <li><strong>Información técnica de navegación:</strong> Datos anónimos recopilados de forma automática (dirección IP, tipo de navegador y páginas visitadas) para análisis estadístico mediante cookies básicas.</li>
+        </ul>
+
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white pt-4">2. Uso de la Información</h2>
+        <p>
+          La información recopilada se utiliza exclusivamente para:
+        </p>
+        <ul class="list-disc pl-5 space-y-2">
+          <li>Responder a las consultas y solicitudes enviadas a través del formulario de contacto.</li>
+          <li>Enviar presupuestos personalizados y propuestas comerciales.</li>
+          <li>Coordinar los turnos técnicos para reparación, armado o retiro de hardware de PC.</li>
+          <li>Mejorar la usabilidad de nuestro sitio web y analizar el tráfico de navegación.</li>
+        </ul>
+        <p>
+          No vendemos, alquilamos ni compartimos sus datos personales con terceras empresas para fines comerciales o publicitarios ajenos a nuestro servicio.
+        </p>
+
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white pt-4">3. Seguridad y Almacenamiento</h2>
+        <p>
+          Implementamos medidas de seguridad técnicas para proteger su información. Toda la comunicación entre su navegador y nuestro sitio web se realiza de forma cifrada mediante protocolos de seguridad **SSL (Secure Socket Layer)**. Las consultas del formulario son enviadas a través del proveedor seguro de correo electrónico **Resend** y se almacenan únicamente con fines operativos.
+        </p>
+
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white pt-4">4. Enlaces a Terceros</h2>
+        <p>
+          Nuestro sitio web puede contener enlaces a sitios web de terceros (como las redes sociales Facebook e Instagram o el enlace al caso de éxito Wanderlust). No tenemos control sobre el contenido ni las políticas de privacidad de esos sitios externos y no asumimos responsabilidad por el trato de su información en ellos.
+        </p>
+
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white pt-4">5. Derechos del Usuario</h2>
+        <p>
+          Usted tiene derecho a solicitar el acceso, rectificación o eliminación de sus datos personales de nuestros registros en cualquier momento. Para ejercer este derecho, puede enviarnos un correo electrónico a <a href="mailto:altamaquinassb@gmail.com" class="underline text-blue-650 dark:text-blue-400 font-semibold">altamaquinassb@gmail.com</a> con el asunto "Derechos de Datos Personales".
+        </p>
+
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white pt-4">6. Modificaciones de la Política</h2>
+        <p>
+          Alta Máquina se reserva el derecho de actualizar esta Política de Privacidad en cualquier momento. Cualquier cambio será publicado de forma inmediata en esta misma página con la correspondiente fecha de última actualización.
+        </p>
+      </div>
+    </Container>
+  </main>
+
+  <Footer />
+</Layout>

@@ -7,13 +7,16 @@ const currentYear = new Date().getFullYear();
 
 const redes = [
   { nombre: 'Facebook', url: 'https://www.facebook.com/altamaquina.sb/', Icon: Icons.IconBrandFacebook },
-  { nombre: 'Instagram', url: 'https://www.instagram.com/altamaquinasb/', Icon: Icons.IconBrandInstagram },
+  { nombre: 'Instagram', url: 'https://www.instagram.com/altamaquina.software/', Icon: Icons.IconBrandInstagram },
   { nombre: 'Gmail', url: 'mailto:altamaquinassb@gmail.com?subject=Consulta desde la web', Icon: Icons.IconMail },
 ];
 
 const links = [
   { nombre: 'Desarrollo Web', href: '/' },
   { nombre: 'Servicio Técnico PC', href: '/servicio-tecnico' },
+  { nombre: 'Preguntas Frecuentes', href: '/preguntas-frecuentes' },
+  { nombre: 'Políticas de Privacidad', href: '/privacidad' },
+  { nombre: 'Términos y Condiciones', href: '/terminos-y-condiciones' },
 ];
 ---
 
@@ -24,7 +27,7 @@ const links = [
       <div>
         <a href="/" class="flex items-center hover:opacity-80 transition-opacity mb-4">
           <Image src={AltaMaquinaImagotipo} alt="Alta Maquina" class="w-8 h-8 rounded-full" />
-          <span class="ml-2 text-lg font-bold text-gray-900 dark:text-dark-text">Alta Maquina</span>
+          <span class="ml-2 text-lg font-bold font-display text-gray-900 dark:text-dark-text">Alta Maquina</span>
         </a>
         <p class="text-sm text-gray-600 dark:text-dark-text-secondary leading-relaxed">
           Desarrollo web y servicio técnico de PC en Partido de la Costa.

@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { getAllSchemas } from "../utils/schema";
 
 // Preload critical font — get the hashed URL from Vite
 import interLatinFontUrl from "../fonts/Inter-Latin.woff2?url";
@@ -10,20 +11,14 @@ interface Props {
   description?: string;
   keywords?: string;
   ogImage?: string;
-  ogImageAlt?: string;
-  ogImageWidth?: number;
-  ogImageHeight?: number;
   canonicalURL?: string;
-  pageType?: "web" | "pc";
+  pageType?: "web" | "pc" | "legal" | "faq";
   faqs?: Array<{ pregunta: string; respuesta: string }>;
+  pageTitle?: string; // used for legal breadcrumbs
+  pagePath?: string;  // used for legal breadcrumbs
 }
 
 const siteURL = "https://altamaquina.com";
-
-// OG image defaults — MUST be PNG/JPG (SVG is NOT supported by social media crawlers)
-const defaultOGImage = `${siteURL}/og-image.png`;
-const defaultOGImageWidth = 1200;
-const defaultOGImageHeight = 630;
 
 // Default SEO content by page type
 const defaultsByType = {
@@ -32,15 +27,23 @@ const defaultsByType = {
       "Alta Maquina — Desarrollo web profesional en Argentina. Landing pages, tiendas online, sistemas de turnos y páginas a medida. Presupuestos desde $80.000.",
     keywords:
       "desarrollo web Argentina, creación de páginas web, landing page profesional, tienda online Argentina, e-commerce, sistema de turnos online, web a medida, diseño web profesional, alta maquina, desarrollo web para negocios, páginas web responsive, posicionamiento web",
-    ogImageAlt: "Alta Maquina — Desarrollo Web Profesional en Argentina",
   },
   pc: {
     description:
       "Alta Maquina — Servicio técnico de PC en Partido de la Costa. Limpieza física desde $14.000, diagnóstico $5.000 y armado de computadoras. Atención en San Bernardo, Santa Teresita y zona.",
     keywords:
       "servicio técnico PC Partido de la Costa, limpieza de PC San Bernardo, diagnóstico computadora, armado de PC, mantenimiento computadoras, limpieza gabinete, cambio pasta térmica, servicio técnico Santa Teresita, Mar del Tuyú, alta maquina",
-    ogImageAlt: "Alta Maquina — Servicio Técnico PC en Partido de la Costa",
   },
+  legal: {
+    description:
+      "Políticas de privacidad y términos y condiciones del servicio de Alta Máquina.",
+    keywords: "política de privacidad, términos de uso, condiciones, alta maquina",
+  },
+  faq: {
+    description:
+      "Preguntas frecuentes sobre nuestros servicios de desarrollo web y servicio técnico de computadoras en Partido de la Costa.",
+    keywords: "faq, preguntas frecuentes, desarrollo web faq, servicio tecnico pc faq, alta maquina",
+  }
 };
 
 const {
@@ -48,187 +51,14 @@ const {
   pageType = "web",
   description = defaultsByType[pageType].description,
   keywords = defaultsByType[pageType].keywords,
-  ogImage = defaultOGImage,
-  ogImageAlt = defaultsByType[pageType].ogImageAlt,
-  ogImageWidth = defaultOGImageWidth,
-  ogImageHeight = defaultOGImageHeight,
+  ogImage = `${siteURL}/favicon.svg`,
   canonicalURL = new URL(Astro.url.pathname, siteURL).toString(),
   faqs,
+  pageTitle,
+  pagePath,
 } = Astro.props;
 
-// ── Schema.org JSON-LD ──
-
-// 1. Organization — appears on every page
-const schemaOrganization = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Alta Maquina",
-  url: siteURL,
-  logo: `${siteURL}/web-app-manifest-512x512.png`,
-  image: ogImage,
-  description: "Desarrollo web profesional y servicio técnico de PC en Argentina.",
-  sameAs: [
-    "https://www.facebook.com/altamaquina.sb/",
-    "https://www.instagram.com/altamaquinasb/",
-  ],
-  contactPoint: {
-    "@type": "ContactPoint",
-    contactType: "customer service",
-    email: "altamaquinassb@gmail.com",
-    availableLanguage: ["Spanish"],
-  },
-};
-
-// 2. BreadcrumbList
-const breadcrumbs = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement:
-    pageType === "pc"
-      ? [
-          { "@type": "ListItem", position: 1, name: "Inicio", item: siteURL },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Servicio Técnico PC",
-            item: `${siteURL}/servicio-tecnico`,
-          },
-        ]
-      : [{ "@type": "ListItem", position: 1, name: "Inicio", item: siteURL }],
-};
-
-// 3. Page-specific schema
-const schemaByType = {
-  web: {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    name: "Alta Maquina — Desarrollo Web",
-    url: siteURL,
-    image: ogImage,
-    description,
-    priceRange: "$$",
-    areaServed: {
-      "@type": "Country",
-      name: "Argentina",
-    },
-    serviceType: [
-      "Desarrollo web",
-      "Diseño web",
-      "Tiendas online",
-      "Sistemas de turnos",
-      "Landing pages",
-      "Catálogos online",
-    ],
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Planes de desarrollo web",
-      itemListElement: [
-        {
-          "@type": "Offer",
-          itemOffered: { "@type": "Service", name: "Landing Page Básica" },
-          price: "80000",
-          priceCurrency: "ARS",
-        },
-        {
-          "@type": "Offer",
-          itemOffered: { "@type": "Service", name: "Web Institucional" },
-          price: "250000",
-          priceCurrency: "ARS",
-        },
-        {
-          "@type": "Offer",
-          itemOffered: { "@type": "Service", name: "Plan Turnos Online" },
-          price: "450000",
-          priceCurrency: "ARS",
-        },
-        {
-          "@type": "Offer",
-          itemOffered: { "@type": "Service", name: "Plan Catálogo Online" },
-          price: "350000",
-          priceCurrency: "ARS",
-        },
-        {
-          "@type": "Offer",
-          itemOffered: { "@type": "Service", name: "Plan Tienda Online" },
-          price: "700000",
-          priceCurrency: "ARS",
-        },
-      ],
-    },
-  },
-  pc: {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "Alta Maquina — Servicio Técnico PC",
-    url: siteURL,
-    image: ogImage,
-    description,
-    priceRange: "$",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "San Bernardo del Tuyú",
-      addressRegion: "Buenos Aires",
-      addressCountry: "AR",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: -36.6897,
-      longitude: -56.6915,
-    },
-    sameAs: [
-      "https://www.facebook.com/altamaquina.sb/",
-      "https://www.instagram.com/altamaquinasb/",
-    ],
-    serviceType: ["Limpieza de PC", "Diagnóstico", "Armado de PC"],
-    areaServed: [
-      "San Bernardo del Tuyú",
-      "Santa Teresita",
-      "Mar del Tuyú",
-      "Las Toninas",
-      "Costa del Este",
-      "Aguas Verdes",
-    ],
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Servicios técnicos",
-      itemListElement: [
-        {
-          "@type": "Offer",
-          itemOffered: { "@type": "Service", name: "Limpieza física completa" },
-          price: "14000",
-          priceCurrency: "ARS",
-        },
-        {
-          "@type": "Offer",
-          itemOffered: { "@type": "Service", name: "Diagnóstico y revisión" },
-          price: "5000",
-          priceCurrency: "ARS",
-        },
-      ],
-    },
-  },
-};
-
-// 4. FAQPage schema (if FAQs provided)
-let schemaFAQ = null;
-if (faqs && faqs.length > 0) {
-  schemaFAQ = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.pregunta,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.respuesta,
-      },
-    })),
-  };
-}
-
-// Combine all schemas for this page
-const allSchemas = [schemaOrganization, breadcrumbs, schemaByType[pageType]];
-if (schemaFAQ) allSchemas.push(schemaFAQ);
+const allSchemas = getAllSchemas(siteURL, ogImage, pageType, description, faqs, pageTitle, pagePath);
 ---
 
 <!doctype html>
@@ -236,6 +66,11 @@ if (schemaFAQ) allSchemas.push(schemaFAQ);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google Fonts Preconnect and Outfit font loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
     <!-- Preload critical fonts — eliminates font discovery delay -->
     <link rel="preload" href={interLatinFontUrl} as="font" type="font/woff2" crossorigin />
@@ -254,9 +89,7 @@ if (schemaFAQ) allSchemas.push(schemaFAQ);
     <meta name="keywords" content={keywords} />
     <meta name="generator" content={Astro.generator} />
     <meta name="author" content="Alta Maquina" />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <meta name="theme-color" content="#0F172A" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -264,20 +97,15 @@ if (schemaFAQ) allSchemas.push(schemaFAQ);
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content={ogImageWidth} />
-    <meta property="og:image:height" content={ogImageHeight} />
-    <meta property="og:image:alt" content={ogImageAlt} />
-    <meta property="og:image:type" content="image/png" />
     <meta property="og:site_name" content="Alta Maquina" />
     <meta property="og:locale" content="es_AR" />
 
-    <!-- Twitter / X -->
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content={canonicalURL} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:image:alt" content={ogImageAlt} />
 
     <title>{title}</title>
 
@@ -312,6 +140,11 @@ if (schemaFAQ) allSchemas.push(schemaFAQ);
       html:not(.dark) {
         background-color: #ffffff;
         color: #111827;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+        letter-spacing: -0.02em;
       }
 
       .fade-in-section {

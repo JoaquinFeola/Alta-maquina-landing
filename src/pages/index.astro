@@ -8,11 +8,12 @@ import PlanesWeb from '../components/web/PlanesWeb.astro';
 import Proceso from '../components/web/Proceso.astro';
 import CTA from '../components/web/CTA.astro';
 import FAQAccordion from '../components/ui/FAQAccordion.astro';
+import InstagramWidget from '../components/ui/InstagramWidget.astro';
 import { faqWeb } from '../data/faq-web';
 ---
 
 <Layout
-  title="Alta Maquina | Desarrollo Web Profesional en Argentina"
+  title="Alta Maquina | Desarrollo Web Profesional en Argentina — Landing Pages, Tiendas Online, Sistemas de Turnos"
   pageType="web"
   faqs={faqWeb}
 >
@@ -33,4 +34,6 @@ import { faqWeb } from '../data/faq-web';
   </main>
   
   <Footer />
+  
+  <InstagramWidget />
 </Layout>

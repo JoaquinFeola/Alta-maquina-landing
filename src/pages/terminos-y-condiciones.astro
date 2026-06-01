@@ -1,0 +1,86 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Container from '../components/Container.astro';
+---
+
+<Layout
+  title="Términos y Condiciones | Alta Máquina"
+  description="Términos de servicio y condiciones de contratación para el desarrollo web y soporte técnico de PC de Alta Máquina."
+  pageType="legal"
+  pageTitle="Términos y Condiciones"
+  pagePath="/terminos-y-condiciones"
+>
+  <Header />
+
+  <main class="flex-1 pt-24 pb-20">
+    <Container class="max-w-3xl">
+      <!-- Title -->
+      <div class="border-b border-gray-200 dark:border-slate-800 pb-6 mb-8">
+        <span class="text-xs font-bold uppercase tracking-widest text-blue-600 dark:text-blue-400">Legal</span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white mt-1">
+          Términos y Condiciones de Uso
+        </h1>
+        <p class="text-xs text-gray-400 dark:text-slate-500 mt-2">
+          Última actualización: 30 de Mayo de 2026
+        </p>
+      </div>
+
+      <!-- Legal Content -->
+      <div class="space-y-6 text-sm sm:text-base text-gray-700 dark:text-slate-350 leading-relaxed font-sans">
+        <p>
+          Bienvenido a <strong>Alta Máquina</strong>. Al acceder a este sitio web o contratar nuestros servicios de desarrollo web y servicio técnico de computadoras, usted acepta regirse por los presentes Términos y Condiciones. Le sugerimos leerlos detalladamente antes de proceder.
+        </p>
+
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white pt-4">1. Generalidades y Contratación</h2>
+        <p>
+          Alta Máquina ofrece servicios profesionales independientes de desarrollo de software, diseño web, consultoría en TI y soporte técnico físico y de software para computadoras (PC). Los presupuestos y cotizaciones tendrán una validez establecida al momento del envío y están sujetos a variaciones de precios debido a las fluctuaciones del mercado.
+        </p>
+
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white pt-4">2. Desarrollo Web (Servicio Online)</h2>
+        <ul class="list-disc pl-5 space-y-2">
+          <li>
+            <strong>Requerimientos de Información:</strong> Para comenzar cualquier desarrollo, el cliente se compromete a proveer los textos, imágenes, credenciales y cualquier material necesario en los plazos pactados. Las demoras en la entrega de material por parte del cliente extenderán proporcionalmente el plazo de entrega final.
+          </li>
+          <li>
+            <strong>Medios de Pago:</strong> Los desarrollos se inician generalmente abonando una seña del 50% del valor cotizado, liquidando el saldo restante del 50% al momento de la entrega o publicación del sitio web en línea.
+          </li>
+          <li>
+            <strong>Servicio de Hosting y Dominio:</strong> El registro del dominio web y la contratación del hosting se realizarán a nombre del cliente. Alta Máquina no se hace responsable por caídas del servicio técnico de terceros (proveedores de hosting, registradors de dominio, APIs externas).
+          </li>
+        </ul>
+
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white pt-4">3. Servicio Técnico de PC (Servicio Físico)</h2>
+        <ul class="list-disc pl-5 space-y-2">
+          <li>
+            <strong>Diagnóstico preliminar:</strong> El diagnóstico tiene un valor fijo que se descuenta del precio total del trabajo si el cliente decide realizar el servicio de limpieza, reparación o armado sugerido.
+          </li>
+          <li>
+            <strong>Respaldo de Información (Backup):</strong> El cliente es responsable de realizar una copia de seguridad de sus archivos antes de entregar el equipo. Alta Máquina no se responsabiliza por la pérdida de datos que pudiese ocurrir durante procesos de formateo, cambio de almacenamiento o fallas de hardware imprevistas.
+          </li>
+          <li>
+            <strong>Retiro de Equipos:</strong> Una vez finalizado el trabajo y notificado el cliente, este dispone de un plazo de 30 días corridos para retirar su equipo y abonar el saldo del servicio técnico. Transcurrido este lapso, el equipo se considerará abandonado.
+          </li>
+        </ul>
+
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white pt-4">4. Propiedad Intelectual y Licencias</h2>
+        <p>
+          Una vez abonado el total del servicio de desarrollo web, el cliente adquiere los derechos de propiedad y explotación sobre el diseño visual y el código a medida provisto para su sitio web. Alta Máquina conserva el derecho de incluir capturas del sitio web y menciones del proyecto en su portafolio comercial o materiales publicitarios.
+        </p>
+
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white pt-4">5. Limitación de Responsabilidad</h2>
+        <p>
+          En ningún caso Alta Máquina será responsable por daños indirectos, lucros cesantes, pérdida de datos o de ventas que pudiesen surgir del uso del sitio web desarrollado, de la interrupción temporal del hosting, o de fallas posteriores en el hardware de computadoras reparadas por uso indebido.
+        </p>
+
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white pt-4">6. Modificaciones de los Términos</h2>
+        <p>
+          Nos reservamos el derecho de modificar estos términos de servicio en cualquier momento sin previo aviso. Le recomendamos revisar este documento de forma regular para mantenerse informado sobre cualquier actualización.
+        </p>
+      </div>
+    </Container>
+  </main>
+
+  <Footer />
+</Layout>

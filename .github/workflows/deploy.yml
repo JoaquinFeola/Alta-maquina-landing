@@ -1,0 +1,79 @@
+# =============================================================
+# Alta Máquina — Deploy a Cloudflare
+# =============================================================
+# Se ejecuta automáticamente con cada push a main.
+# Optimizado con caché de dependencias y build de Astro.
+# =============================================================
+
+name: Deploy to Cloudflare
+
+# ── TRIGGER: ¿Cuándo se ejecuta? ──────────────────────────────
+on:
+  push:
+    branches: [main]
+
+# ── PERMISOS: Solo lo que necesita ────────────────────────────
+permissions:
+  contents: read
+
+# ── VARIABLES DE ENTORNO globales del workflow ────────────────
+env:
+  NODE_VERSION: "22"
+
+# ── JOBS ──────────────────────────────────────────────────────
+jobs:
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      # ── 1. CHECKOUT: Clona tu código en el runner ──────────
+      #    fetch-depth: 1 = solo el último commit (no toda la historia)
+      #    → Ahorra tiempo y espacio en cada ejecución.
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      # ── 2. SETUP NODE.js ────────────────────────────────────
+      #    Instala Node.js con caché automática del npm cache.
+      #    cache: 'npm' cachea ~/.npm basándose en el lockfile.
+      #    → Si el lockfile no cambió, restaura los paquetes
+      #      sin re-descargarlos de internet.
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      # ── 3. INSTALAR DEPENDENCIAS ────────────────────────────
+      #    npm ci = "clean install".
+      #    - Borra node_modules existentes.
+      #    - Instala EXACTAMENTE lo que dice el lockfile.
+      #    - Falla si el lockfile no está sincronizado con package.json.
+      #    → Más seguro y determinista que `npm install`.
+      - name: Install dependencies
+        run: npm ci
+
+      # ── 4. BUILD ────────────────────────────────────────────
+      #    Genera el sitio estático en ./dist.
+      #    Usamos NODE_ENV=production para que Astro optimice todo:
+      #    - Minifica JS/CSS
+      #    - Elimina código muerto
+      #    - Optimiza imágenes
+      - name: Build site
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      # ── 5. DEPLOY A CLOUDFLARE ──────────────────────────────
+      #    Wrangler sube el contenido de ./dist a Cloudflare.
+      #    CLOUDFLARE_API_TOKEN se guarda como "secret" en
+      #    GitHub → Settings → Secrets and variables → Actions.
+      #    Nunca se expone en los logs.
+      - name: Deploy to Cloudflare
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: deploy --config dist/server/wrangler.json
